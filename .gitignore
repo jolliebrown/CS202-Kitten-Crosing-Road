@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+CS202-Kiteen-Crossing-Road/CS202-Kiteen-Crossing-Road.vcxproj
+
 # User-specific files
 *.rsuser
 *.suo
