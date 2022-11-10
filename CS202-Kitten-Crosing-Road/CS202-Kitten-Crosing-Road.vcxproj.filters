@@ -18,5 +18,27 @@
     <ClCompile Include="CS202-Kitten-Crosing-Road.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Media\user_b.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Media\user_d.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Media\user_t.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Media\user_v.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
