@@ -2,7 +2,7 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
-Game::Game() : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160))
+Game::Game() : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160)), mWorld(mWindow)
 {
 	tWorld.create(160, 20);
 	tWorld.setRepeated(true);
@@ -62,7 +62,7 @@ void Game::render()
 {
 	mWindow.clear();
 	mWindow.setView(mView);
-	mWindow.draw(world);
+	mWorld.draw();
 	// draw sth here
 	mWindow.display();
 }

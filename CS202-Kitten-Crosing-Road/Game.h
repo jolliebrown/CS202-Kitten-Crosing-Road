@@ -33,7 +33,7 @@ private:
 	std::size_t				mStatisticsNumFrames;
 
 	// backdround demo
-	//World mWorld;
+	World					mWorld;
 	Texture tWorld;
 	Sprite world;
 
