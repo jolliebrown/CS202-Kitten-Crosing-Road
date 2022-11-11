@@ -22,6 +22,7 @@ private:
 private:
 	vector<vector<Object>>			grassBackground;
 	vector<vector<Object>>			roadBackground;
+	vector<vector<Object>>			railBackground;
 	vector<int>&					mapIndex; //
 	const int						range = 32;
 	RenderWindow& window;

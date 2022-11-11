@@ -18,6 +18,7 @@ private:
 protected:
 	vector<Texture>			grass;
 	vector<Texture>			road;
+	vector<Texture>			rail;
 	vector<vector<Texture>> user;
 };
 
