@@ -147,9 +147,13 @@
   <ItemGroup>
     <ClCompile Include="CS202-Kitten-Crosing-Road.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Media\user_b.png" />
