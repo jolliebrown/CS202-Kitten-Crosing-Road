@@ -1,35 +1,35 @@
 #include "World.h"
 
-World::World(ifstream& fin, RenderWindow& window) : window(window)// chua xong
+World::World(RenderWindow& window, vector<int>& mapIndex) : window(window), mapIndex(mapIndex)
 {
-	int n;
-	fin >> n;
-	for (int i = 0; i < n; i++)
+	srand((unsigned)time(NULL));
+	for (unsigned int i = 0; i < mapIndex.size(); i++)
 	{
-		int k;
-		fin >> k;
-		mapIndex.push_back(k);
+		vector<Object> tmp;
+		cout << mapIndex[i];
+		if (mapIndex[i] == 0) // land 
+		{
+			generate(tmp, ListTextures::grass, 16, 16 * i);
+			grassBackground.push_back(tmp);
+		}
+		else if (mapIndex[i] == 1) // road
+		{
+			generate(tmp, ListTextures::road, 18, 16 * i - 1);
+			roadBackground.push_back(tmp);
+		}
 	}
-}
-
-World::World(RenderWindow& window) : window(window)
-{
-	generate(grassBackground, ListTextures::grass, 16, 0);
-	generate(roadBackground, ListTextures::road, 18, 15);
 }
 
 void World::draw()
 {
-	drawElement(grassBackground);
-	drawElement(roadBackground);
+	drawListElements(grassBackground);
+	drawListElements(roadBackground);
 }
 
 vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos)
 {
 	res.clear();
-	srand((unsigned)time(NULL));
 	int countTextures = texture.size();
-	cerr << countTextures;
 	for (int i = 0; i < range; i++)
 	{
 		int random = rand()% countTextures;
@@ -45,5 +45,13 @@ void World::drawElement(vector<Object>& target)
 	for (unsigned int i = 0; i < target.size(); i++)
 	{
 		target[i].draw();
+	}
+}
+
+void World::drawListElements(vector<vector<Object>>& target)
+{
+	for (unsigned int i = 0; i < target.size(); i++)
+	{
+		drawElement(target[i]);
 	}
 }

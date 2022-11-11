@@ -13,7 +13,7 @@ using namespace std;
 class Game
 {
 public:
-	Game();
+	Game(vector<int>& mapIndex);
 	void					run();
 
 
@@ -21,7 +21,6 @@ private:
 	void					processEvents();
 	void					update(Time elapsedTime);
 	void					render();
-
 	void					updateStatistics(Time elapsedTime);
 
 private:
@@ -33,10 +32,8 @@ private:
 	std::size_t				mStatisticsNumFrames;
 
 	// backdround demo
+	vector<int> mapIndex;
 	World					mWorld;
-	Texture tWorld;
-	Sprite world;
-
-	Texture tland;
-	Sprite land;
+	
+	// 1 for road, 0 for land
 };

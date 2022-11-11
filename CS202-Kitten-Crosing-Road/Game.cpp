@@ -2,12 +2,8 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
-Game::Game() : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160)), mWorld(mWindow)
+Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160)), mWorld(mWindow, mapIndex)
 {
-	tWorld.create(160, 20);
-	tWorld.setRepeated(true);
-	tWorld.loadFromFile("Media/Grass.png", IntRect(0, 0, 80, 20));
-	world.setTexture(tWorld);
 }
 
 void Game::run()

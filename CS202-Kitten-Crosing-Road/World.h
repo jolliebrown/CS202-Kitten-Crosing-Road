@@ -13,16 +13,16 @@ using namespace std;
 class World : public ListTextures
 {
 public:
-	World(ifstream& fin, RenderWindow& window);
-	explicit World(RenderWindow& window);
-	void					draw();
+	explicit World(RenderWindow& window, vector<int>& mapIndex);
+	void							draw();
 private: 
-	vector<Object>&			generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
-	void					drawElement(vector<Object>& target);
+	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
+	void							drawElement(vector<Object>& target);
+	void							drawListElements(vector<vector<Object>>& target);
 private:
-	vector<Object>			grassBackground;
-	vector<Object>			roadBackground;
-	vector<int>				mapIndex; //
-	const int				range = 32;
+	vector<vector<Object>>			grassBackground;
+	vector<vector<Object>>			roadBackground;
+	vector<int>&					mapIndex; //
+	const int						range = 32;
 	RenderWindow& window;
 };
