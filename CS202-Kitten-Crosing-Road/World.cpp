@@ -2,7 +2,6 @@
 
 World::World(RenderWindow& window, vector<int>& mapIndex) : window(window), mapIndex(mapIndex)
 {
-	srand((unsigned)time(NULL));
 	for (unsigned int i = 0; i < mapIndex.size(); i++)
 	{
 		vector<Object> tmp;
@@ -28,8 +27,8 @@ World::World(RenderWindow& window, vector<int>& mapIndex) : window(window), mapI
 void World::draw()
 {
 	drawListElements(grassBackground);
-	drawListElements(roadBackground);
 	drawListElements(railBackground);
+	drawListElements(roadBackground);
 }
 
 vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos)

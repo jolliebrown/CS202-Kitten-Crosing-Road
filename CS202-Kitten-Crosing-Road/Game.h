@@ -5,6 +5,7 @@
 
 
 #include "World.h"
+#include "Player.h"
 
 
 using namespace sf;
@@ -13,7 +14,7 @@ using namespace std;
 class Game
 {
 public:
-	Game(vector<int>& mapIndex);
+							Game(vector<int>& mapIndex);
 	void					run();
 
 
@@ -32,8 +33,9 @@ private:
 	std::size_t				mStatisticsNumFrames;
 
 	// backdround demo
-	vector<int> mapIndex;
+	vector<int>				mapIndex;
 	World					mWorld;
-	
+	Player					mPlayer;
+	CommandQueue			commands;
 	// 1 for road, 0 for land
 };

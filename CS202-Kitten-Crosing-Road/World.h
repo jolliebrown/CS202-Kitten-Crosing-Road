@@ -13,7 +13,7 @@ using namespace std;
 class World : public ListTextures
 {
 public:
-	explicit World(RenderWindow& window, vector<int>& mapIndex);
+	explicit						World(RenderWindow& window, vector<int>& mapIndex);
 	void							draw();
 private: 
 	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
