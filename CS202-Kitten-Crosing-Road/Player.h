@@ -28,7 +28,7 @@ public:
 	Keyboard::Key		getAssignedKey(Action action) const;
 private:
 	static bool			isRealtimeAction(Action action, Vector2i& result);
-
+	void				test();
 private:
 	map<Keyboard::Key, Action>			mKeyBinding;
 	map<Action, Vector2i>				mAction;

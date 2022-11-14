@@ -2,8 +2,8 @@
 
 void Player::draw()
 {
-	Object::draw();
 	movePlayer();
+	Object::draw();
 }
 
 Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor)
@@ -19,53 +19,60 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 
 void Player::handleEvent(const sf::Event& event)
 {
-	if (event.type == sf::Event::KeyPressed)
+	if (event.type == sf::Event::KeyReleased)
 	{
 		Vector2i tmp;
 		// Check if pressed key appears in key binding, trigger command if so
 		map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
-		cout << event.key.code;
-		if (found != mKeyBinding.end() && !isRealtimeAction(found->second, tmp))
+		if (found != mKeyBinding.end() && isRealtimeAction(found->second, tmp))
 		{
-			cerr << "im here";
 			map<Action, Vector2i>::iterator itr = mAction.find(found->second);
 			if (itr != mAction.end())
 			{
 				itr->second += tmp;
-				cerr << "ok";
 			}
 			else
 			{
 				mAction[found->second] = tmp;
-				cerr << "ok no";
 			}
 		}
 	}
+
 }
 
 void Player::handleRealtimeInput()
 {
-	Vector2i tmp;
-	map<Action, Vector2i>::iterator itr;
-	for (auto found : mKeyBinding)
-	{
-		// If key is pressed, lookup action and trigger corresponding command
-		if (sf::Keyboard::isKeyPressed(found.first) && isRealtimeAction(found.second, tmp))
-		{
-			itr = mAction.find(found.second);
-			if (itr != mAction.end())
-				itr->second += tmp;
-			else
-				mAction.insert({ found.second, tmp });
-		}
-	}
+	//Vector2i tmp;
+	//map<Action, Vector2i>::iterator itr;
+	//for (auto found : mKeyBinding)
+	//{
+	//	// If key is pressed, lookup action and trigger corresponding command
+	//	if (sf::Keyboard::isKeyPressed(found.first) && isRealtimeAction(found.second, tmp))
+	//	{
+	//		itr = mAction.find(found.second);
+	//		if (itr != mAction.end())
+	//			itr->second += tmp;
+	//		else
+	//			mAction.insert({ found.second, tmp });
+	//	}
+	//}
 }
 
 void Player::movePlayer()
 {
-	for (auto found : mAction)
+	test();
+	if (!mAction.empty())
 	{
-		cout << found.second.x << " "<< found.second.y << endl;
+	cerr << asset.getPosition().x << endl;
+		int x = 0, y = 0;
+		for (auto found : mAction)
+		{
+			x += found.second.x;
+			y += found.second.y;
+		}
+		changePosition(x, y);
+		mAction.clear();
+	cerr << asset.getPosition().x;
 	}
 }
 
@@ -90,8 +97,17 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 	}
 }
 
+void Player::test()
+{
+	for (auto itr = mAction.begin(); itr != mAction.end(); )
+	{
+		cerr << itr->second.x << ',' << itr->second.y << endl;
+	}
+}
+
 void Player::changePosition(int x, int y)
 {
+	
 	asset.setPosition(asset.getPosition().x + x, asset.getPosition().y + y);
 }
 
