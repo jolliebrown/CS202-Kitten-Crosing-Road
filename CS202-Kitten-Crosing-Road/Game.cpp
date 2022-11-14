@@ -66,13 +66,13 @@ void Game::processEvents()
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
-		mPlayer.handleEvent(event, commands);
+		mPlayer.handleEvent(event);
 
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
 
-	mPlayer.handleRealtimeInput(commands);
+	mPlayer.handleRealtimeInput();
 }
 
 void Game::update(Time elapsedTime)

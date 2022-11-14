@@ -1,23 +1,15 @@
 #include "Player.h"
 
-class PlayerMover
+void Player::draw()
 {
-public:
-	PlayerMover(Vector2i move)
-		: change_coor(move)
-	{
-	}
-
-	void operator() (Player& mPlayer) const
-	{
-		mPlayer.changePosition(change_coor.x, change_coor.y);
-	}
-
-	Vector2i change_coor;
-};
+	Object::draw();
+	movePlayer();
+}
 
 Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor)
 {
+	draw_status = IntRect(0, 0, 16, 16);
+	Object::asset.setTextureRect(draw_status);
 	Object::unit = unit;
 	mKeyBinding[Keyboard::Left] = MoveLeft;
 	mKeyBinding[Keyboard::Right] = MoveRight;
@@ -25,47 +17,77 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 	mKeyBinding[Keyboard::Down] = MoveDown;
 }
 
-void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
+void Player::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::KeyPressed)
 	{
+		Vector2i tmp;
 		// Check if pressed key appears in key binding, trigger command if so
-		auto found = mKeyBinding.find(event.key.code);
-		if (found != mKeyBinding.end() && !isRealtimeAction(found->second))
-			commands.push(mActionBinding[found->second]);
+		map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
+		cout << event.key.code;
+		if (found != mKeyBinding.end() && !isRealtimeAction(found->second, tmp))
+		{
+			cerr << "im here";
+			map<Action, Vector2i>::iterator itr = mAction.find(found->second);
+			if (itr != mAction.end())
+			{
+				itr->second += tmp;
+				cerr << "ok";
+			}
+			else
+			{
+				mAction[found->second] = tmp;
+				cerr << "ok no";
+			}
+		}
 	}
 }
 
-void Player::handleRealtimeInput(CommandQueue& commands)
+void Player::handleRealtimeInput()
 {
-	for (auto pair : mKeyBinding)
+	Vector2i tmp;
+	map<Action, Vector2i>::iterator itr;
+	for (auto found : mKeyBinding)
 	{
 		// If key is pressed, lookup action and trigger corresponding command
-		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
-			commands.push(mActionBinding[pair.second]);
+		if (sf::Keyboard::isKeyPressed(found.first) && isRealtimeAction(found.second, tmp))
+		{
+			itr = mAction.find(found.second);
+			if (itr != mAction.end())
+				itr->second += tmp;
+			else
+				mAction.insert({ found.second, tmp });
+		}
 	}
 }
 
-bool Player::isRealtimeAction(Action action)
+void Player::movePlayer()
+{
+	for (auto found : mAction)
+	{
+		cout << found.second.x << " "<< found.second.y << endl;
+	}
+}
+
+bool Player::isRealtimeAction(Action action, Vector2i& result)
 {
 	switch (action)
 	{
 		case MoveLeft:
+			result = Vector2i(-1, 0);
+			return true;
 		case MoveRight:
+			result = Vector2i(1, 0);
+			return true;
 		case MoveDown:
+			result = Vector2i(0, 1);
+			return true;
 		case MoveUp:
+			result = Vector2i(0, -1);
 			return true;
 		default:
 			return false;
 	}
-}
-
-void Player::initializeActions()
-{
-	mActionBinding[MoveLeft].action = derivedAction(PlayerMover(Vector2i(-1, 0)));
-	mActionBinding[MoveRight].action = derivedAction(PlayerMover(Vector2i(+1, 0)));
-	mActionBinding[MoveUp].action = derivedAction(PlayerMover(Vector2i(0, -1)));
-	mActionBinding[MoveDown].action = derivedAction(PlayerMover(Vector2i(0, +1)));
 }
 
 void Player::changePosition(int x, int y)

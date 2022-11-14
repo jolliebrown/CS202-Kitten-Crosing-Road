@@ -36,6 +36,5 @@ private:
 	vector<int>				mapIndex;
 	World					mWorld;
 	Player					mPlayer;
-	CommandQueue			commands;
 	// 1 for road, 0 for land
 };

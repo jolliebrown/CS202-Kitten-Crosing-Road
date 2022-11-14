@@ -5,7 +5,6 @@ World::World(RenderWindow& window, vector<int>& mapIndex) : window(window), mapI
 	for (unsigned int i = 0; i < mapIndex.size(); i++)
 	{
 		vector<Object> tmp;
-		cout << mapIndex[i];
 		if (mapIndex[i] == 0) // land 
 		{
 			generate(tmp, ListTextures::grass, 16, 16 * i);

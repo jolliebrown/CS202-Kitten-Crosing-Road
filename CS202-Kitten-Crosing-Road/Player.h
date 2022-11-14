@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <map>
 
 #include "Object.h"
 #include "Command.h"
@@ -17,19 +18,19 @@ public:
 		MoveDown,
 		ActionCount
 	};
+	void				draw();
 						Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
-	void				handleEvent(const sf::Event& event, CommandQueue& commands);
-	void				handleRealtimeInput(CommandQueue& commands);
-
+	void				handleEvent(const sf::Event& event);
+	void				handleRealtimeInput();
+	void				movePlayer();
 	void				changePosition(int x, int y);
 	void				assignKey(Action action, sf::Keyboard::Key key);
 	Keyboard::Key		getAssignedKey(Action action) const;
 private:
-	void				initializeActions();
-	static bool			isRealtimeAction(Action action);
+	static bool			isRealtimeAction(Action action, Vector2i& result);
 
 private:
-	std::map<Keyboard::Key, Action>		mKeyBinding;
-	std::map<Action, Command>			mActionBinding;
+	map<Keyboard::Key, Action>			mKeyBinding;
+	map<Action, Vector2i>				mAction;
 	IntRect								draw_status;
 };
