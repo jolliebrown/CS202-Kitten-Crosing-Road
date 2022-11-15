@@ -18,6 +18,7 @@ public:
 							ListTextures();
 private: 
 	vector<Texture>&		load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int unit);
+	vector<Texture>&		onePicLoad(vector<Texture>& scr, string fileName);
 	vector<Texture>&		onePicLoad(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height);
 protected:
 	vector<Texture>			grass;

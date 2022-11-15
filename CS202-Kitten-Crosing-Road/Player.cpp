@@ -25,7 +25,6 @@ void Player::draw()
 	{
 		moveStatus = (moveStatus + 1) % (TimeMove);
 		curMove = moveStatus / (TimeMove / 2);
-		draw_status = IntRect(curMove * BaseUnit, 0, BaseUnit, BaseUnit);
 	}
 	else
 	{
@@ -37,7 +36,6 @@ void Player::draw()
 			{
 			changePosition(moveStep.x, moveStep.y);
 			isMoving = curMove;
-			draw_status = IntRect(curMove * BaseUnit, 0, BaseUnit, BaseUnit);
 			}
 		}
 		else
@@ -45,6 +43,7 @@ void Player::draw()
 			isMoving = 0;
 		}
 	}
+	draw_status = IntRect(curMove * BaseUnit, (int) faceLeft * BaseUnit, BaseUnit, BaseUnit);
 	Object::asset.setTextureRect(draw_status);
 	Object::draw();
 }
@@ -114,6 +113,14 @@ bool Player::movePlayer()
 		{
 			moveStep.x += found.second.x;
 			moveStep.y += found.second.y;
+		}
+		if (moveStep.x < 0)
+		{
+			faceLeft = true;
+		}
+		else if (moveStep.x > 0)
+		{
+			faceLeft = false;
 		}
 		isMoving = -1;
 		moveStatus = 360;

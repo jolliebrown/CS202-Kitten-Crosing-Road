@@ -36,6 +36,7 @@ private:
 	IntRect								draw_status;
 	int									moveStatus = 0;
 	int									isMoving = 0;
+	bool								faceLeft = false;
 	Vector2i							moveStep;
 };
 

@@ -6,8 +6,8 @@ ListTextures::ListTextures()
 	load(grass, "Media/Grass.png", 0, 0, 48, 32, BaseUnit);
 	load(road, "Media/Road.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
 	load(rail, "Media/Rail.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
-	onePicLoad(user, "Media/Binh.png", 0, 0, 112, BaseUnit);
 	onePicLoad(car, "Media/car.png", 0, 0, 20, 10);
+	onePicLoad(user, "Media/Binh.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : window(window), mAsset(texture), unit(unit)
@@ -59,6 +59,15 @@ vector<Texture>& ListTextures::load(vector<Texture>& scr, string fileName, int x
 			scr.push_back(tmp);
 		} 
 	}
+	// TODO: insert return statement here
+	return scr;
+}
+
+vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName)
+{
+	Texture tmp;
+	tmp.loadFromFile(fileName);
+	scr.push_back(tmp);
 	// TODO: insert return statement here
 	return scr;
 }
