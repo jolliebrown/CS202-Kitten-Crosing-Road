@@ -1,8 +1,8 @@
 #include "Game.h"
 
-const Time Game::TimePerFrame = sf::seconds(1.f / 5.f);
+const Time Game::TimePerFrame = sf::seconds(1.f / 30.f);
 
-Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 0, 16)
+Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, 16)
 {
 }
 
@@ -29,7 +29,6 @@ Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(1120, 800), "SFML Applicat
 //			processEvents();
 //			update(TimePerFrame);
 //		}
-//
 //		updateStatistics(elapsedTime);
 //		mWindow.clear();
 //		mWindow.setView(mView);
@@ -45,18 +44,23 @@ void Game::run()
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
 	int dx = 0, dy = 0;
+	int count = 0;
 	while (mWindow.isOpen())
 	{
+		count++;
 		Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
+			//cout << count << endl;
 			processEvents();
 			update(TimePerFrame);
+			timeSinceLastUpdate = Time::Zero;
 		}
 
-		updateStatistics(elapsedTime);
 		render();
+		updateStatistics(elapsedTime);
+		
 	}
 }
 
@@ -71,7 +75,7 @@ void Game::processEvents()
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
-
+	
 	mPlayer.handleRealtimeInput();
 }
 
@@ -88,6 +92,7 @@ void Game::render()
 	mWorld.draw();
 	mPlayer.draw();
 	mWindow.display();
+
 }
 
 void Game::updateStatistics(Time elapsedTime)

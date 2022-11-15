@@ -33,4 +33,8 @@ private:
 	map<Keyboard::Key, Action>			mKeyBinding;
 	map<Action, Vector2i>				mAction;
 	IntRect								draw_status;
+	int									moveStatus;
 };
+
+// draw_status = IntRect(x, 0, 16, 16)
+// Object::asset.setTextureRect(draw_status)
