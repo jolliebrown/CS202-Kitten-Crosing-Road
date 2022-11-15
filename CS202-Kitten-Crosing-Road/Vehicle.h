@@ -9,7 +9,8 @@ using namespace std;
 class Vehicle: public Object
 {
 public:
-	Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor);
+	Vehicle() = default;
+	Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 
 	void draw();
 	void move();
