@@ -33,7 +33,7 @@ void Vehicle::draw()
 void Vehicle::move()
 {
 	Object::asset.move(Vector2f(velo, 0));
-	if (Object::asset.getPosition().x > 300) {
-		Object::asset.setPosition(-10, Object::asset.getPosition().y);
+	if (Object::asset.getPosition().x > BaseUnit * 14) {
+		Object::asset.setPosition(-Object::asset.getGlobalBounds().width, Object::asset.getPosition().y);
 	}
 }
