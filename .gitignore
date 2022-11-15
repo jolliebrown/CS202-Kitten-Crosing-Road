@@ -11,6 +11,7 @@ CS202-Kiteen-Crossing-Road/CS202-Kiteen-Crossing-Road.vcxproj
 *.user
 *.userosscache
 *.sln.docstates
+*.dll
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

@@ -6,6 +6,7 @@
 
 #include "World.h"
 #include "Player.h"
+#include "Vehicle.h"
 
 
 using namespace sf;
@@ -36,5 +37,6 @@ private:
 	vector<int>				mapIndex;
 	World					mWorld;
 	Player					mPlayer;
+	Vehicle					mCar;
 	// 1 for road, 0 for land
 };

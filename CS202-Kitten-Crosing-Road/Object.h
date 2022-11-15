@@ -24,6 +24,7 @@ protected:
 	vector<Texture>			road;
 	vector<Texture>			rail;
 public:
+	vector<Texture>			car;
 	vector<Texture>			user;
 };
 

@@ -7,6 +7,7 @@ ListTextures::ListTextures()
 	load(road, "Media/Road.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
 	load(rail, "Media/Rail.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
 	onePicLoad(user, "Media/Binh.png", 0, 0, 112, BaseUnit);
+	onePicLoad(car, "Media/car.png", 0, 0, 20, 10);
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : window(window), mAsset(texture), unit(unit)
