@@ -3,10 +3,10 @@
 ListTextures::ListTextures()
 {
 	// load het asset vao day nha
-	load(grass, "Media/Grass.png", 0, 0, 48, 32, 16);
-	load(road, "Media/Road.png", 0, 0, 48, 18, 18);
-	load(rail, "Media/Rail.png", 0, 0, 48, 18, 18);
-	onePicLoad(user, "Media/Binh.png", 0, 0, 112, 16);
+	load(grass, "Media/Grass.png", 0, 0, 48, 32, BaseUnit);
+	load(road, "Media/Road.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
+	load(rail, "Media/Rail.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
+	onePicLoad(user, "Media/Binh.png", 0, 0, 112, BaseUnit);
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : window(window), mAsset(texture), unit(unit)

@@ -22,7 +22,7 @@ public:
 						Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 	void				handleEvent(const sf::Event& event);
 	void				handleRealtimeInput();
-	void				movePlayer();
+	bool				movePlayer();
 	void				changePosition(int x, int y);
 	void				assignKey(Action action, sf::Keyboard::Key key);
 	Keyboard::Key		getAssignedKey(Action action) const;
@@ -32,8 +32,11 @@ private:
 private:
 	map<Keyboard::Key, Action>			mKeyBinding;
 	map<Action, Vector2i>				mAction;
+	// movement
 	IntRect								draw_status;
-	int									moveStatus;
+	int									moveStatus = 0;
+	int									isMoving = 0;
+	Vector2i							moveStep;
 };
 
 // draw_status = IntRect(x, 0, 16, 16)

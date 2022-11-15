@@ -2,7 +2,7 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 30.f);
 
-Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(1120, 800), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, 224, 160)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, 16)
+Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit)
 {
 }
 
@@ -44,10 +44,8 @@ void Game::run()
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
 	int dx = 0, dy = 0;
-	int count = 0;
 	while (mWindow.isOpen())
 	{
-		count++;
 		Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 		while (timeSinceLastUpdate > TimePerFrame)
@@ -55,9 +53,8 @@ void Game::run()
 			//cout << count << endl;
 			processEvents();
 			update(TimePerFrame);
-			timeSinceLastUpdate = Time::Zero;
+			timeSinceLastUpdate -= TimePerFrame;
 		}
-
 		render();
 		updateStatistics(elapsedTime);
 		

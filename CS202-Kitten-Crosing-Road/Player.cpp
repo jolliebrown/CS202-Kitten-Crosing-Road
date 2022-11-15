@@ -1,19 +1,57 @@
 #include "Player.h"
 
+//void Player::draw()
+//{
+//		int timeMove = 100;
+//		bool curMove = 0;
+//		moveStatus = (moveStatus + 1) % timeMove;
+//	if (isMoving > 0 && isMoving < 9)
+//	{
+//		curMove = moveStatus / (timeMove / 2);
+//	}
+//	else
+//	{
+//		curMove = moveStatus / (timeMove / 6);
+//	}
+//	draw_status = IntRect(curMove * BaseUnit, 0, BaseUnit, BaseUnit);
+//	Object::asset.setTextureRect(draw_status);
+//	Object::draw();
+//}
+
 void Player::draw()
 {
-	int timeMove = 100;
-	bool curMove = 0;
-	curMove = moveStatus / (timeMove / 2);
-	moveStatus = (moveStatus + 1) % timeMove;
-	draw_status = IntRect(curMove * 16, 0, 16, 16);
+	int curMove = 0;
+	if (!isMoving)
+	{
+		moveStatus = (moveStatus + 1) % (TimeMove);
+		curMove = moveStatus / (TimeMove / 2);
+		draw_status = IntRect(curMove * BaseUnit, 0, BaseUnit, BaseUnit);
+	}
+	else
+	{
+		moveStatus = (moveStatus + 1) % (TimeMove);
+		curMove = moveStatus / (TimeMove / 9);
+		if (curMove < 9)
+		{
+			if (isMoving != curMove && curMove)
+			{
+			changePosition(moveStep.x, moveStep.y);
+			isMoving = curMove;
+			draw_status = IntRect(curMove * BaseUnit, 0, BaseUnit, BaseUnit);
+			}
+		}
+		else
+		{
+			isMoving = 0;
+		}
+	}
 	Object::asset.setTextureRect(draw_status);
 	Object::draw();
 }
 
 Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor)
 {
-	draw_status = IntRect(0, 0, 16, 16);
+	draw_status = IntRect(0, 0, BaseUnit, BaseUnit);
 	Object::asset.setTextureRect(draw_status);
 	Object::unit = unit;
 	mKeyBinding[Keyboard::Left] = MoveLeft;
@@ -66,22 +104,25 @@ void Player::handleRealtimeInput()
 	//}
 }
 
-void Player::movePlayer()
+bool Player::movePlayer()
 {
 	
 	if (!mAction.empty())
 	{
-		
-		int x = 0, y = 0;
+		moveStep = Vector2i(0, 0);
 		for (auto found : mAction)
 		{
-			x += found.second.x;
-			y += found.second.y;
+			moveStep.x += found.second.x;
+			moveStep.y += found.second.y;
 		}
-		changePosition(x, y);
+		isMoving = -1;
+		moveStatus = 360;
+		moveStep.x /= 8;
+		moveStep.y /= 8;
 		mAction.clear();
-
+		return true;
 	}
+	return false;
 }
 
 bool Player::isRealtimeAction(Action action, Vector2i& result)
@@ -89,16 +130,16 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 	switch (action)
 	{
 		case MoveLeft:
-			result = Vector2i(-16, 0);
+			result = Vector2i(-BaseUnit, 0);
 			return true;
 		case MoveRight:
-			result = Vector2i(16, 0);
+			result = Vector2i(BaseUnit, 0);
 			return true;
 		case MoveDown:
-			result = Vector2i(0, 16);
+			result = Vector2i(0, BaseUnit);
 			return true;
 		case MoveUp:
-			result = Vector2i(0, -16);
+			result = Vector2i(0, -BaseUnit);
 			return true;
 		default:
 			return false;

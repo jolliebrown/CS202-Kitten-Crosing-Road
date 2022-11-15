@@ -7,17 +7,17 @@ World::World(RenderWindow& window, vector<int>& mapIndex) : window(window), mapI
 		vector<Object> tmp;
 		if (mapIndex[i] == 0) // land 
 		{
-			generate(tmp, ListTextures::grass, 16, 16 * i);
+			generate(tmp, ListTextures::grass, BaseUnit, BaseUnit * i);
 			grassBackground.push_back(tmp);
 		}
 		else if (mapIndex[i] == 1) // road
 		{
-			generate(tmp, ListTextures::road, 18, 16 * i - 1);
+			generate(tmp, ListTextures::road, BaseUnit + 2 * BaseUnit / 16, BaseUnit * i - 1);
 			roadBackground.push_back(tmp);
 		}
 		else if (mapIndex[i] == 2)
 		{
-			generate(tmp, ListTextures::rail, 18, 16 * i - 1);
+			generate(tmp, ListTextures::rail, BaseUnit + 2 * BaseUnit / 16, BaseUnit * i - 1);
 			railBackground.push_back(tmp);
 		}
 	}

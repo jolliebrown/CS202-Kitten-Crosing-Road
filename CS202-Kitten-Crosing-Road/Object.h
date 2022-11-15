@@ -5,6 +5,9 @@
 #include <vector>
 #include <iostream>
 
+const int BaseUnit = 16;
+const int TimeMove = 361;
+
 using namespace sf;
 using namespace std;
 
