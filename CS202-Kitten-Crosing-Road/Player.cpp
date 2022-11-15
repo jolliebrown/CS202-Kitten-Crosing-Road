@@ -2,7 +2,12 @@
 
 void Player::draw()
 {
-	movePlayer();
+	int timeMove = 100;
+	bool curMove = 0;
+	curMove = moveStatus / (timeMove / 2);
+	moveStatus = (moveStatus + 1) % timeMove;
+	draw_status = IntRect(curMove * 16, 0, 16, 16);
+	Object::asset.setTextureRect(draw_status);
 	Object::draw();
 }
 
@@ -19,8 +24,10 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 
 void Player::handleEvent(const sf::Event& event)
 {
+	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
 	{
+	//	test();
 		Vector2i tmp;
 		// Check if pressed key appears in key binding, trigger command if so
 		map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
@@ -37,6 +44,7 @@ void Player::handleEvent(const sf::Event& event)
 			}
 		}
 	}
+	movePlayer();
 
 }
 
@@ -60,10 +68,10 @@ void Player::handleRealtimeInput()
 
 void Player::movePlayer()
 {
-	test();
+	
 	if (!mAction.empty())
 	{
-	cerr << asset.getPosition().x << endl;
+		
 		int x = 0, y = 0;
 		for (auto found : mAction)
 		{
@@ -72,7 +80,7 @@ void Player::movePlayer()
 		}
 		changePosition(x, y);
 		mAction.clear();
-	cerr << asset.getPosition().x;
+
 	}
 }
 
@@ -81,16 +89,16 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 	switch (action)
 	{
 		case MoveLeft:
-			result = Vector2i(-1, 0);
+			result = Vector2i(-16, 0);
 			return true;
 		case MoveRight:
-			result = Vector2i(1, 0);
+			result = Vector2i(16, 0);
 			return true;
 		case MoveDown:
-			result = Vector2i(0, 1);
+			result = Vector2i(0, 16);
 			return true;
 		case MoveUp:
-			result = Vector2i(0, -1);
+			result = Vector2i(0, -16);
 			return true;
 		default:
 			return false;
@@ -99,7 +107,8 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 
 void Player::test()
 {
-	for (auto itr = mAction.begin(); itr != mAction.end(); )
+	cerr << "my action: \n";
+	for (auto itr = mAction.begin(); itr != mAction.end(); ++itr)
 	{
 		cerr << itr->second.x << ',' << itr->second.y << endl;
 	}
@@ -114,7 +123,7 @@ void Player::changePosition(int x, int y)
 void Player::assignKey(Action action, Keyboard::Key key)
 {
 	// Remove all keys that already map to action
-	for (auto itr = mKeyBinding.begin(); itr != mKeyBinding.end(); )
+	for (auto itr = mKeyBinding.begin(); itr != mKeyBinding.end(); ++itr)
 	{
 		if (itr->second == action)
 			mKeyBinding.erase(itr++);

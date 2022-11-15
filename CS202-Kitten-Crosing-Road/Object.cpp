@@ -6,7 +6,6 @@ ListTextures::ListTextures()
 	load(grass, "Media/Grass.png", 0, 0, 48, 32, 16);
 	load(road, "Media/Road.png", 0, 0, 48, 18, 18);
 	load(rail, "Media/Rail.png", 0, 0, 48, 18, 18);
-
 	onePicLoad(user, "Media/Binh.png", 0, 0, 112, 16);
 }
 
