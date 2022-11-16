@@ -19,4 +19,5 @@ private:
 	float velo; // velocity of vehicle
 	float acce; // acceleration of vehicle
 	Time startMoveTime;
+	Clock clock;
 };
