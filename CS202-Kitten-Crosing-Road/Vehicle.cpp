@@ -17,16 +17,18 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	Object::asset.setPosition(coord);
 }
 
-void Vehicle::draw()
+void Vehicle::draw(int state, float x_coord)
 {
 	Object::draw();
-	move();
+	move(state, x_coord);
 }
 
-void Vehicle::move()
+void Vehicle::move(int state, float x_coord)
 {
 	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return;
 	Object::asset.move(Vector2f(velo, 0));
+	if (velo < 0.1) velo += acce;
+	checkLight(state, x_coord);
 	if (Object::asset.getPosition().x > BaseUnit * 14) {
 		Object::asset.setPosition(-Object::asset.getGlobalBounds().width, coord.y);
 		clock.restart();
@@ -34,4 +36,12 @@ void Vehicle::move()
 		velo += acce;
 		velo = min(velo, (float) 2);
 	}
+}
+
+void Vehicle::checkLight(int state, float x_coord)
+{
+	if (state == 0) return;
+	float x_car = Object::asset.getGlobalBounds().width + Object::asset.getPosition().x;
+	if (state == 1 && x_car > x_coord) return;
+	velo = min(velo, x_coord - x_car);
 }

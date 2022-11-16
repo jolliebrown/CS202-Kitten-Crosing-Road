@@ -13,8 +13,9 @@ public:
 						Vehicle() = default;
 						Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 
-	void				draw();
-	void				move();
+	void				draw(int state, float x_coord);
+	void				move(int state, float x_coord);
+	void				checkLight(int state, float x_coord);
 private:
 	Vector2f			coord; // coordinate of vehicle
 	float				velo; // velocity of vehicle
