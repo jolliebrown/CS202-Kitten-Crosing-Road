@@ -27,6 +27,7 @@ protected:
 public:
 	vector<Texture>			car;
 	vector<Texture>			user;
+	vector<Texture>			light;
 };
 
 

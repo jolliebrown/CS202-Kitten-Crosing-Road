@@ -32,5 +32,6 @@ void Vehicle::move()
 		clock.restart();
 		startMoveTime = milliseconds(Rand(1000, 8000));
 		velo += acce;
+		velo = min(velo, (float) 2);
 	}
 }

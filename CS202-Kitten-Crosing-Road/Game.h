@@ -7,6 +7,7 @@
 #include "World.h"
 #include "Player.h"
 #include "Vehicle.h"
+#include "Light.h"
 
 
 using namespace sf;
@@ -38,5 +39,6 @@ private:
 	World					mWorld;
 	Player					mPlayer;
 	vector<Vehicle>			mCar;
+	Light					mLight;
 	// 1 for road, 0 for land
 };
