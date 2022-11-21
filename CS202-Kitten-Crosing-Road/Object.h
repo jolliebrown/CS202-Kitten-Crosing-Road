@@ -40,6 +40,7 @@ public:
 							Object(const Object& scr);
 	//Object&					operator=(const Object& scr);
 	void					draw();
+	bool					isCollided(const Object& scr);
 private:
 	RenderWindow&			window;
 	Texture&				mAsset;
@@ -48,3 +49,4 @@ protected:
 	Sprite					asset;
 	FloatRect				bound;
 };
+

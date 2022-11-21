@@ -37,7 +37,7 @@ private:
 	// backdround demo
 	vector<int>				mapIndex;
 	World					mWorld;
-	Player					mPlayer;
+	Player					mPlayer, secPlayer;
 	vector<Vehicle>			mCar;
 	Light					mLight;
 	// 1 for road, 0 for land
