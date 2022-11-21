@@ -242,3 +242,7 @@ bool collision(Player& mPlayer, Vehicle& mCar) {
 	return false;
 }
 */
+
+bool Player::passGame() {
+	return asset.getPosition().y >= 150;
+}
