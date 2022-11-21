@@ -22,13 +22,3 @@ void Light::draw()
 		Object::asset.setTexture(listLight[state]);
 	}
 }
-
-int Light::getState()
-{
-	return state;
-}
-
-float Light::getPos()
-{
-	return Object::asset.getPosition().x;
-}
