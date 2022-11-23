@@ -192,3 +192,25 @@ Keyboard::Key Player::getAssignedKey(Action action) const
 	}
 	return  Keyboard::Unknown;
 }
+
+bool Player::collision(int carX, int carY) {
+	int curX = asset.getPosition().x, curY = asset.getPosition().y;
+	if (abs(curX - carX) <= 16 || abs(curY - carY) <= 16) {
+		isDead = true;
+		setIdPlayer(-1);
+		return true;
+	}
+	return false;
+}
+/*
+bool collision(Player& mPlayer, Vehicle& mCar) {
+	int curX = mPlayer.asset.getPosition().x, curY = mPlayer.asset.getPosition().y;
+	int carX = mCar.asset.getPosition().x, carY = mCar.asset.getPosition().y;
+	if (abs(curX - carX) <= 16 || abs(curY - carY) <= 16) {
+		mPlayer.isDead = true;
+		mPlayer.setIdPlayer(-1);
+		return true;
+	}
+	return false;
+}
+*/

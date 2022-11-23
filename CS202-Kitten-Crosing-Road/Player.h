@@ -23,6 +23,8 @@ public:
 	void				handleEvent(const sf::Event& event);
 	void				handleRealtimeInput();
 	bool				movePlayer();
+	bool				collision(int carX, int carY);
+	//friend bool			collision(Player& mPlayer, Vehicle& mCar);
 	void				changePosition(int x, int y);
 	void				assignKey(Action action, sf::Keyboard::Key key);
 	Keyboard::Key		getAssignedKey(Action action) const;
