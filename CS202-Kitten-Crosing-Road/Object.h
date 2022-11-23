@@ -15,11 +15,11 @@ using namespace std;
 class ListTextures
 {
 public:
-							ListTextures();
-private: 
-	vector<Texture>&		load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int unit);
-	vector<Texture>&		onePicLoad(vector<Texture>& scr, string fileName);
-	vector<Texture>&		onePicLoad(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height);
+	ListTextures();
+private:
+	vector<Texture>& load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int unit);
+	vector<Texture>& onePicLoad(vector<Texture>& scr, string fileName);
+	vector<Texture>& onePicLoad(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height);
 protected:
 	vector<Texture>			grass;
 	vector<Texture>			road;
@@ -37,12 +37,13 @@ class Object
 public:
 	Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 	Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor);
-							Object(const Object& scr);
+	Object(const Object& scr);
 	//Object&					operator=(const Object& scr);
 	void					draw();
+	bool					isCollided(const Object& scr);
 private:
-	RenderWindow&			window;
-	Texture&				mAsset;
+	RenderWindow& window;
+	Texture& mAsset;
 protected:
 	int						unit;
 	Sprite					asset;

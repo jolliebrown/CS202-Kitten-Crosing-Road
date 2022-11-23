@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Vehicle.h"
 //void Player::draw()
 //{
 //		int timeMove = 100;
@@ -21,6 +21,12 @@
 void Player::draw()
 {
 	int curMove = 0;
+	if (isDead) {
+		draw_status = IntRect(8 * BaseUnit, 0 * BaseUnit, BaseUnit, BaseUnit);
+		Object::asset.setTextureRect(draw_status);
+		Object::draw();
+		return;
+	}
 	if (!isMoving)
 	{
 		moveStatus = (moveStatus + 1) % (TimeMove);
@@ -34,8 +40,8 @@ void Player::draw()
 		{
 			if (isMoving != curMove && curMove)
 			{
-			changePosition(moveStep.x, moveStep.y);
-			isMoving = curMove;
+				changePosition(moveStep.x, moveStep.y);
+				isMoving = curMove;
 			}
 		}
 		else
@@ -43,7 +49,7 @@ void Player::draw()
 			isMoving = 0;
 		}
 	}
-	draw_status = IntRect(curMove * BaseUnit, (int) faceLeft * BaseUnit, BaseUnit, BaseUnit);
+	draw_status = IntRect(curMove * BaseUnit, (int)faceLeft * BaseUnit, BaseUnit, BaseUnit);
 	Object::asset.setTextureRect(draw_status);
 	Object::draw();
 }
@@ -59,12 +65,35 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 	mKeyBinding[Keyboard::Down] = MoveDown;
 }
 
+void Player::setIdPlayer(int id) {
+	idPlayer = id;
+	isDead = false;
+	if (idPlayer == -1) {
+		mKeyBinding.clear();
+		isDead = true;
+	}
+	else if (idPlayer == 0) {
+		mKeyBinding.clear();
+		mKeyBinding[Keyboard::Left] = MoveLeft;
+		mKeyBinding[Keyboard::Right] = MoveRight;
+		mKeyBinding[Keyboard::Up] = MoveUp;
+		mKeyBinding[Keyboard::Down] = MoveDown;
+	}
+	else if (idPlayer == 1) {
+		mKeyBinding.clear();
+		mKeyBinding[Keyboard::A] = MoveLeft;
+		mKeyBinding[Keyboard::D] = MoveRight;
+		mKeyBinding[Keyboard::W] = MoveUp;
+		mKeyBinding[Keyboard::S] = MoveDown;
+	}
+}
+
 void Player::handleEvent(const sf::Event& event)
 {
 	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
 	{
-	//	test();
+		//	test();
 		Vector2i tmp;
 		// Check if pressed key appears in key binding, trigger command if so
 		map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
@@ -105,7 +134,7 @@ void Player::handleRealtimeInput()
 
 bool Player::movePlayer()
 {
-	
+
 	if (!mAction.empty())
 	{
 		moveStep = Vector2i(0, 0);
@@ -136,20 +165,20 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 {
 	switch (action)
 	{
-		case MoveLeft:
-			result = Vector2i(-BaseUnit, 0);
-			return true;
-		case MoveRight:
-			result = Vector2i(BaseUnit, 0);
-			return true;
-		case MoveDown:
-			result = Vector2i(0, BaseUnit);
-			return true;
-		case MoveUp:
-			result = Vector2i(0, -BaseUnit);
-			return true;
-		default:
-			return false;
+	case MoveLeft:
+		result = Vector2i(-BaseUnit, 0);
+		return true;
+	case MoveRight:
+		result = Vector2i(BaseUnit, 0);
+		return true;
+	case MoveDown:
+		result = Vector2i(0, BaseUnit);
+		return true;
+	case MoveUp:
+		result = Vector2i(0, -BaseUnit);
+		return true;
+	default:
+		return false;
 	}
 }
 
@@ -164,7 +193,6 @@ void Player::test()
 
 void Player::changePosition(int x, int y)
 {
-	
 	asset.setPosition(asset.getPosition().x + x, asset.getPosition().y + y);
 }
 

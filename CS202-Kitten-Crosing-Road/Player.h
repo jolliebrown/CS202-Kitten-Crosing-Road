@@ -5,11 +5,14 @@
 
 #include "Object.h"
 #include "Command.h"
+#include "Vehicle.h"
 
 class Command;
 class Player : public Object
 {
 public:
+	int idPlayer = 0;
+	void				setIdPlayer(int id);
 	enum Action
 	{
 		MoveLeft,
@@ -19,7 +22,7 @@ public:
 		ActionCount
 	};
 	void				draw();
-						Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
+	Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 	void				handleEvent(const sf::Event& event);
 	void				handleRealtimeInput();
 	bool				movePlayer();
@@ -32,6 +35,7 @@ private:
 	static bool			isRealtimeAction(Action action, Vector2i& result);
 	void				test();
 private:
+
 	map<Keyboard::Key, Action>			mKeyBinding;
 	map<Action, Vector2i>				mAction;
 	// movement
@@ -39,6 +43,7 @@ private:
 	int									moveStatus = 0;
 	int									isMoving = 0;
 	bool								faceLeft = false;
+	bool								isDead = false;
 	Vector2i							moveStep;
 };
 
