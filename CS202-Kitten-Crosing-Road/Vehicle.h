@@ -16,11 +16,8 @@ public:
 	void				draw(int state, float x_coord);
 	void				move(int state, float x_coord);
 	void				checkLight(int state, float x_coord);
-=======
-
 	void				draw();
 	void				move();
->>>>>>> parent of 21df7b4 (control car with light)
 private:
 	Vector2f			coord; // coordinate of vehicle
 	float				velo; // velocity of vehicle

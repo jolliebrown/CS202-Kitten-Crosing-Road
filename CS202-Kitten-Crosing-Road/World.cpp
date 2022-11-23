@@ -26,8 +26,8 @@ World::World(RenderWindow& window, vector<int>& mapIndex) : window(window), mapI
 void World::draw()
 {
 	drawListElements(grassBackground);
-	drawListElements(railBackground);
 	drawListElements(roadBackground);
+	drawListElements(railBackground);
 }
 
 vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos)
