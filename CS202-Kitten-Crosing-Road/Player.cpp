@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Vehicle.h"
+
 //void Player::draw()
 //{
 //		int timeMove = 100;
@@ -21,12 +21,6 @@
 void Player::draw()
 {
 	int curMove = 0;
-	if (isDead) {
-		draw_status = IntRect(8 * BaseUnit, 0 * BaseUnit, BaseUnit, BaseUnit);
-		Object::asset.setTextureRect(draw_status);
-		Object::draw();
-		return;
-	}
 	if (!isMoving)
 	{
 		moveStatus = (moveStatus + 1) % (TimeMove);
@@ -63,29 +57,6 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 	mKeyBinding[Keyboard::Right] = MoveRight;
 	mKeyBinding[Keyboard::Up] = MoveUp;
 	mKeyBinding[Keyboard::Down] = MoveDown;
-}
-
-void Player::setIdPlayer(int id) {
-	idPlayer = id;
-	isDead = false;
-	if (idPlayer == -1) {
-		mKeyBinding.clear();
-		isDead = true;
-	}
-	else if (idPlayer == 0) {
-		mKeyBinding.clear();
-		mKeyBinding[Keyboard::Left] = MoveLeft;
-		mKeyBinding[Keyboard::Right] = MoveRight;
-		mKeyBinding[Keyboard::Up] = MoveUp;
-		mKeyBinding[Keyboard::Down] = MoveDown;
-	}
-	else if (idPlayer == 1) {
-		mKeyBinding.clear();
-		mKeyBinding[Keyboard::A] = MoveLeft;
-		mKeyBinding[Keyboard::D] = MoveRight;
-		mKeyBinding[Keyboard::W] = MoveUp;
-		mKeyBinding[Keyboard::S] = MoveDown;
-	}
 }
 
 void Player::handleEvent(const sf::Event& event)
@@ -193,6 +164,7 @@ void Player::test()
 
 void Player::changePosition(int x, int y)
 {
+	
 	asset.setPosition(asset.getPosition().x + x, asset.getPosition().y + y);
 }
 
@@ -219,30 +191,4 @@ Keyboard::Key Player::getAssignedKey(Action action) const
 			return pair.first;
 	}
 	return  Keyboard::Unknown;
-}
-
-bool Player::collision(int carX, int carY) {
-	int curX = asset.getPosition().x, curY = asset.getPosition().y;
-	if (abs(curX - carX) <= 16 || abs(curY - carY) <= 16) {
-		isDead = true;
-		setIdPlayer(-1);
-		return true;
-	}
-	return false;
-}
-/*
-bool collision(Player& mPlayer, Vehicle& mCar) {
-	int curX = mPlayer.asset.getPosition().x, curY = mPlayer.asset.getPosition().y;
-	int carX = mCar.asset.getPosition().x, carY = mCar.asset.getPosition().y;
-	if (abs(curX - carX) <= 16 || abs(curY - carY) <= 16) {
-		mPlayer.isDead = true;
-		mPlayer.setIdPlayer(-1);
-		return true;
-	}
-	return false;
-}
-*/
-
-bool Player::passGame() {
-	return asset.getPosition().y >= 150;
 }

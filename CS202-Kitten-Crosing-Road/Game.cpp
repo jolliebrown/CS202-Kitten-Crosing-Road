@@ -2,12 +2,7 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 30.f);
 
-<<<<<<< HEAD
-Game::Game(vector<int>& mapIndex): mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), 
-		"SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), secPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), mLight(0, mWindow, mWorld.light, BaseUnit * 10, BaseUnit * 4, BaseUnit + 2 * BaseUnit / 16)
-=======
-Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), mLight(0, mWindow, mWorld.light, BaseUnit * 7, BaseUnit * 4, BaseUnit + 2 * BaseUnit / 16)
->>>>>>> parent of 21df7b4 (control car with light)
+Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), mLight(0, mWindow, mWorld.light, BaseUnit * 10, BaseUnit * 4, BaseUnit + 2 * BaseUnit / 16)
 {
 	mCar.clear();
 	for (int i = 0; i < mapIndex.size(); ++i) {
@@ -65,9 +60,6 @@ Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 
 
 void Game::run()
 {
-	secPlayer.changePosition(10, 10);
-	secPlayer.setIdPlayer(1);
-
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
 	int dx = 0, dy = 0;
@@ -95,17 +87,12 @@ void Game::processEvents()
 	while (mWindow.pollEvent(event))
 	{
 		mPlayer.handleEvent(event);
-		secPlayer.handleEvent(event);
 
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
 	
 	mPlayer.handleRealtimeInput();
-	secPlayer.handleRealtimeInput();
-	if (mPlayer.passGame()) {
-
-	}
 }
 
 void Game::update(Time elapsedTime)
@@ -120,26 +107,7 @@ void Game::render()
 	// draw sth here
 	mWorld.draw();
 	mPlayer.draw();
-<<<<<<< HEAD
-	secPlayer.draw();
 	for (auto& car : mCar) car.draw(mLight.getState(), mLight.getPos());
-	for (auto car : mCar) {
-		//collision(mPlayer, car);
-		//collision(secPlayer, car);
-		if (mPlayer.isCollided(car)) {
-			mPlayer.setIdPlayer(-1);
-		}
-		if (secPlayer.isCollided(car)) {
-			secPlayer.setIdPlayer(-1);
-		}
-		if (mPlayer.isCollided(secPlayer)) {
-			mPlayer.setIdPlayer(0);
-			secPlayer.setIdPlayer(1);
-		}
-	}
-=======
-	for (auto& car : mCar) car.draw();
->>>>>>> parent of 21df7b4 (control car with light)
 	mLight.draw();
 	mWindow.display();
 }
