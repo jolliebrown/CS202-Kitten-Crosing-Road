@@ -38,7 +38,7 @@ private:
 	vector<int>				mapIndex;
 	World					mWorld;
 	Player					mPlayer;
-	vector<Vehicle>			mCar;
+	vector<Vehicle*>			mCar;
 	Light					mLight;
 	// 1 for road, 0 for land
 };
