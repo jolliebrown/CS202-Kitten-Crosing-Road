@@ -7,7 +7,7 @@ int Rand(int l, int r)
 }
 
 // Constructor
-Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit): Object(window, texture, x_coor, y_coor, unit)
+Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor, unit)
 {
 	limVelo = 0.2;
 	initVelo = 0.1;
@@ -15,7 +15,7 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	acce = 0.0001;
 	clock.restart();
 	startMoveTime = milliseconds(Rand(1000, 8000));
-	coord = Vector2f(x_coor, (float) (y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
 	Object::asset.setPosition(coord);
 }
 

@@ -18,6 +18,19 @@ Game::Game(vector<int>& mapIndex) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 
 		}
 	}
 }
+//
+//Game::Game(const Game& other) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50),
+//	"SFML Application", Style::Close), mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), mWorld(mWindow, other.mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), secPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), mLight(0, mWindow, mWorld.light, BaseUnit * 10, BaseUnit * 4, BaseUnit + 2 * BaseUnit / 16)
+//{
+//	mCar.clear();
+//	for (int i = 0; i < mapIndex.size(); ++i) {
+//		if (mapIndex[i] == 1) {
+//			mCar.push_back(Vehicle(mWindow, mWorld.car[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16));
+//		}
+//	}
+//}
+//
+
 
 //void Game::run()
 //{

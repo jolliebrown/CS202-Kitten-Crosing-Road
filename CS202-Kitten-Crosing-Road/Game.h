@@ -17,6 +17,8 @@ class Game
 {
 public:
 							Game(vector<int>& mapIndex);
+						//	Game(const Game& other);
+							//Game& operator = (const Game& other);
 	void					run();
 
 
