@@ -7,7 +7,8 @@ int Rand(int l, int r)
 }
 
 // Constructor
-Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor, unit)
+Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
+	Object(window, texture, x_coor, y_coor, unit)
 {
 	limVelo = 0.2;
 	initVelo = 0.1;
@@ -19,7 +20,8 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	Object::asset.setPosition(coord);
 }
 
-Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor, unit)
+Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
+	Object(window, texture, x_coor, y_coor, unit)
 {
 	this->limVelo = limVelo;
 	this->initVelo = initVelo;

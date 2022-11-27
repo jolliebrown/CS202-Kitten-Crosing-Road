@@ -48,7 +48,8 @@ void Player::draw()
 	Object::draw();
 }
 
-Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Object(window, texture, x_coor, y_coor)
+Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
+	Object(window, texture, x_coor, y_coor)
 {
 	draw_status = IntRect(0, 0, BaseUnit, BaseUnit);
 	Object::asset.setTextureRect(draw_status);

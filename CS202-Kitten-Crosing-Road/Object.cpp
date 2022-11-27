@@ -14,14 +14,20 @@ ListTextures::ListTextures()
 	onePicLoad(light, "Media/Tlight_r.png");
 }
 
-Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : window(window), mAsset(texture), unit(unit)
+Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
+	window(window), 
+	mAsset(texture), 
+	unit(unit)
 {
 	asset.setTexture(mAsset);
 	asset.setPosition((float)x_coor, (float)y_coor);
 	bound = asset.getGlobalBounds();
 }
 
-Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) : window(window), mAsset(texture), unit(unit)
+Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) : 
+	window(window), 
+	mAsset(texture), 
+	unit(unit)
 {
 	unit = 0;
 	asset.setTexture(mAsset);
@@ -29,7 +35,10 @@ Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) :
 	bound = asset.getGlobalBounds();
 }
 
-Object::Object(const Object& scr) : window(scr.window), unit(scr.unit), mAsset(scr.mAsset)
+Object::Object(const Object& scr) : 
+	window(scr.window), 
+	unit(scr.unit), 
+	mAsset(scr.mAsset)
 {
 	asset.setTexture(mAsset);
 	float x_coor = scr.asset.getPosition().x;
