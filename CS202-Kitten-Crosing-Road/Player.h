@@ -4,9 +4,7 @@
 #include <map>
 
 #include "Object.h"
-#include "Command.h"
 
-class Command;
 class Player : public Object
 {
 public:

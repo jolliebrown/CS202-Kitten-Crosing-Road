@@ -40,6 +40,8 @@ public:
 							Object(const Object& scr);
 	//Object&					operator=(const Object& scr);
 	void					draw();
+	bool isCollided(const Object& src);
+
 private:
 	RenderWindow&			window;
 	Texture&				mAsset;

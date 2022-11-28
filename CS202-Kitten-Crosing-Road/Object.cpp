@@ -93,3 +93,12 @@ vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName,
 	// TODO: insert return statement here
 	return scr;
 }
+
+bool Object::isCollided(const Object& src) {
+	int curX = asset.getPosition().x, curY = asset.getPosition().y;
+	int carX = src.asset.getPosition().x, carY = src.asset.getPosition().y;
+	if (abs(curX - carX) <= 13 && abs(curY - carY) <= 13) {
+		return true;
+	}
+	return false;
+}

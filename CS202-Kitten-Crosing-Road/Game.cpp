@@ -120,6 +120,9 @@ void Game::render()
 	mWorld.draw();
 	mPlayer.draw();
 	for (auto& car : mCar) car->draw(mLight.getState(), mLight.getPos());
+	for (auto car : mCar) if (mPlayer.isCollided(*car)) {
+		exit(1);
+	}
 	mLight.draw();
 	mWindow.display();
 }
