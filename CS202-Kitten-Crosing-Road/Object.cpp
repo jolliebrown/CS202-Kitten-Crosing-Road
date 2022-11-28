@@ -95,6 +95,10 @@ vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName,
 }
 
 bool Object::isCollided(const Object& src) {
+	if (bound.intersects(src.bound)) return true;
+	else return false;
+	//if (bound.contains(src.asset.getPosition())) return true;
+	//else return false;
 	int curX = asset.getPosition().x, curY = asset.getPosition().y;
 	int carX = src.asset.getPosition().x, carY = src.asset.getPosition().y;
 	if (abs(curX - carX) <= 13 && abs(curY - carY) <= 13) {
