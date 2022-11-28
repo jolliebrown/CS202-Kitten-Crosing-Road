@@ -21,6 +21,9 @@ public:
 	void				handleEvent(const sf::Event& event);
 	void				handleRealtimeInput();
 	bool				movePlayer();
+	pair <float, float> getPosition() {
+		return { asset.getPosition().x, asset.getPosition().y };
+	}
 	void				changePosition(int x, int y);
 	void				assignKey(Action action, sf::Keyboard::Key key);
 	Keyboard::Key		getAssignedKey(Action action) const;
