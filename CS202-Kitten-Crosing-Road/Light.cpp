@@ -1,5 +1,15 @@
 #include "Light.h"
 
+Light::Light(RenderWindow& window, vector<Texture>& texture, int x_coord, int y_coord, int unit) : Object(window, texture[0], x_coord, y_coord, unit)
+{
+	this->state = 0;
+	count[0] = milliseconds(3000);
+	count[1] = milliseconds(4000);
+	count[2] = milliseconds(7000);
+	clock.restart();
+	listLight = texture;
+}
+
 Light::Light(int state, RenderWindow& window, vector<Texture>& texture, int x_coord, int y_coord, int unit) : Object(window, texture[0], x_coord, y_coord, unit)
 {
 	this->state = state;

@@ -61,7 +61,7 @@ void Vehicle::move(int state, float x_coord)
 void Vehicle::checkLight(int state, float x_coord)
 {
 	float x_car = Object::asset.getGlobalBounds().width + Object::asset.getPosition().x;
-	if (state == 0 || state == 1 && x_car > x_coord) {
+	if (state == 0 || x_car > x_coord) {
 		accelerate();
 		return;
 	}

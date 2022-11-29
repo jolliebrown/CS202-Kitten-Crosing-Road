@@ -104,7 +104,7 @@ bool Object::isCollided(const Object& src) {
 	return false;
 }
 
-FloatRect Object::getBound()
+FloatRect Object::getBound() const
 {
 	return asset.getGlobalBounds();
 }

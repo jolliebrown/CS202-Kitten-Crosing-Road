@@ -14,7 +14,7 @@ public:
 						Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 						Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 
-	void				draw(int state, float x_coord);
+	void				draw(int state = 0, float x_coord = 0);
 	void				move(int state, float x_coord);
 	void				accelerate();
 	virtual void		checkLight(int state, float x_coord);

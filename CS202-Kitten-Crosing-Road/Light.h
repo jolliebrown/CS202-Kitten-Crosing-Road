@@ -9,6 +9,7 @@ using namespace std;
 class Light: public Object
 {
 public:
+						Light(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 						Light(int state, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 
 	void				draw();

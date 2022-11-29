@@ -88,14 +88,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.5.1-vc15\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\SFML-2.5.1-vc15\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;opengl32.lib;gdi32.lib;freetype.lib;sfml-system-d.lib;sfml-network-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-graphics-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.5.1-vc15\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <EnableModules>true</EnableModules>
     </ClCompile>
@@ -116,7 +116,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\SFML-2.5.1-vc15\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;opengl32.lib;gdi32.lib;freetype.lib;sfml-system.lib;sfml-network.lib;sfml-audio.lib;sfml-window.lib;sfml-graphics.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,13 +128,13 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <EnableModules>true</EnableModules>
-      <AdditionalIncludeDirectories>C:\SFML-2.5.1-vc15\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;opengl32.lib;gdi32.lib;freetype.lib;sfml-system-d.lib;sfml-network-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-graphics-d.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\SFML-2.5.1-vc15\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,7 +147,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <EnableModules>true</EnableModules>
-      <AdditionalIncludeDirectories>C:\SFML-2.5.1-vc15\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,10 +155,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;opengl32.lib;gdi32.lib;freetype.lib;sfml-system.lib;sfml-network.lib;sfml-audio.lib;sfml-window.lib;sfml-graphics.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\SFML-2.5.1-vc15\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Admin\Downloads\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Lane.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="CS202-Kitten-Crosing-Road.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Lane.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Light.h" />

@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Vehicle.h"
 #include "Light.h"
+#include "Lane.h"
 #include "System.h"
 
 
@@ -41,7 +42,6 @@ private:
 	vector<int>				mapIndex;
 	World					mWorld;
 	Player					mPlayer;
-	vector<Vehicle*>		mCar;
-	Light					mLight;
+	vector<Road>			mLane;
 	// 1 for road, 0 for land
 };

@@ -5,20 +5,13 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.f);
 Game::Game(vector<int>& mapIndex) : 
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), 
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), 
-	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit), 
-	mLight(0, mWindow, mWorld.light, BaseUnit * 10, BaseUnit * 4, BaseUnit + 2 * BaseUnit / 16)
+	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 8, BaseUnit)
 {
-	mCar.clear();
 	for (int i = 0; i < mapIndex.size(); ++i) {
 		if (mapIndex[i] == 1) {
-			Vehicle* Tem;
-			if (i % 2 == 1) {
-				Tem = new Vehicle(mWindow, mWorld.car[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16);
-			}
-			else {
-				Tem = new Ambulance(mWindow, mWorld.car[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16);
-			}
-			mCar.push_back(Tem);
+			Road temLane(mWindow, i % 2, mWorld.car[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16);
+			if (i == 5 || i == 9) temLane.addLight(mWindow, mWorld.light, BaseUnit * 10, BaseUnit * (i - 1), BaseUnit + 2 * BaseUnit / 16);
+			mLane.push_back(temLane);
 		}
 	}
 }
@@ -89,7 +82,6 @@ void Game::run()
 		updateStatistics(elapsedTime);
 		
 	}
-	for (auto& car : mCar) delete car;
 }
 
 void Game::processEvents()
@@ -120,11 +112,10 @@ void Game::render()
 	// draw sth here
 	mWorld.draw();
 	mPlayer.draw();
-	for (auto& car : mCar) car->draw(mLight.getState(), mLight.getPos());
-	for (auto car : mCar) if (mPlayer.isCollided(*car)) {
+	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
 		exit(1);
 	}
-	mLight.draw();
+	for (auto& lane : mLane) lane.draw();
 	mWindow.display();
 }
 
