@@ -14,14 +14,14 @@ ListTextures::ListTextures()
 	onePicLoad(light, "Media/Tlight_r.png");
 	
 	Texture temTrainTexture;
-	temTrainTexture.create(90 + 73 * 5, 15);
+	temTrainTexture.create(90 + 68 * 5, 15);
 	Image temTrainImage;
 	for (int i = 0; i < 5; ++i) {
 		temTrainImage.loadFromFile("Media/Train1.png");
-		temTrainTexture.update(temTrainImage, 73 * i, 0);
+		temTrainTexture.update(temTrainImage, 68 * i, 0);
 	}
 	temTrainImage.loadFromFile("Media/Train0.png");
-	temTrainTexture.update(temTrainImage, 73 * 5, 0);
+	temTrainTexture.update(temTrainImage, 68 * 5, 0);
 	train.push_back(temTrainTexture);
 }
 
