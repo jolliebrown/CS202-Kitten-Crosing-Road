@@ -41,12 +41,13 @@ public:
 	//Object&					operator=(const Object& scr);
 	void					draw();
 	bool isCollided(const Object& src);
-
+	FloatRect				getBound();
+	const FloatRect			getBound() const;
 private:
 	RenderWindow&			window;
 	Texture&				mAsset;
 protected:
 	int						unit;
 	Sprite					asset;
-	FloatRect				bound;
+	
 };

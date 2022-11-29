@@ -21,7 +21,6 @@ Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 {
 	asset.setTexture(mAsset);
 	asset.setPosition((float)x_coor, (float)y_coor);
-	bound = asset.getGlobalBounds();
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) : 
@@ -32,7 +31,6 @@ Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) :
 	unit = 0;
 	asset.setTexture(mAsset);
 	asset.setPosition((float)x_coor, (float)y_coor);
-	bound = asset.getGlobalBounds();
 }
 
 Object::Object(const Object& scr) : 
@@ -44,7 +42,6 @@ Object::Object(const Object& scr) :
 	float x_coor = scr.asset.getPosition().x;
 	float y_coor = scr.asset.getPosition().y;
 	asset.setPosition(x_coor, y_coor);
-	bound = asset.getGlobalBounds();
 }
 
 //Object& Object::operator=(const Object& scr)
@@ -95,7 +92,7 @@ vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName,
 }
 
 bool Object::isCollided(const Object& src) {
-	if (bound.intersects(src.bound)) return true;
+	if (getBound().intersects(src.getBound())) return true;
 	else return false;
 	//if (bound.contains(src.asset.getPosition())) return true;
 	//else return false;
@@ -105,4 +102,14 @@ bool Object::isCollided(const Object& src) {
 		return true;
 	}
 	return false;
+}
+
+FloatRect Object::getBound()
+{
+	return asset.getGlobalBounds();
+}
+
+const FloatRect Object::getBound() const
+{
+	return asset.getGlobalBounds();
 }
