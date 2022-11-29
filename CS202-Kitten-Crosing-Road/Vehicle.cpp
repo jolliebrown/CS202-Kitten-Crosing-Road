@@ -17,7 +17,7 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	clock.restart();
 	startMoveTime = milliseconds(Rand(1000, 8000));
 	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
-	Object::asset.setPosition(coord);
+	Object::asset.setPosition(-Object::asset.getGlobalBounds().width, coord.y);
 }
 
 Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
@@ -30,7 +30,7 @@ Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& t
 	clock.restart();
 	startMoveTime = milliseconds(Rand(1000, 8000));
 	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
-	Object::asset.setPosition(coord);
+	Object::asset.setPosition(-Object::asset.getGlobalBounds().width, coord.y);
 }
 
 void Vehicle::draw(int state, float x_coord)
@@ -66,19 +66,4 @@ void Vehicle::checkLight(int state, float x_coord)
 		return;
 	}
 	velo = min(velo, x_coord - x_car);
-}
-
-Ambulance::Ambulance(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Vehicle(0.2, 0.25, window, texture, x_coor, y_coor, unit)
-{
-
-}
-
-Ambulance::Ambulance(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, unit)
-{
-
-}
-
-void Ambulance::checkLight(int state, float x_coord)
-{
-	Vehicle::accelerate();
 }

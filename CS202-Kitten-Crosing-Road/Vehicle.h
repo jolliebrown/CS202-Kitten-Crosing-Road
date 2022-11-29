@@ -27,13 +27,3 @@ private:
 	Time				startMoveTime;
 	Clock				clock;
 };
-
-class Ambulance : public Vehicle
-{
-public:
-						Ambulance(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
-						Ambulance(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
-	void				checkLight(int state, float x_coord);
-private:
-
-};

@@ -13,6 +13,10 @@ Game::Game(vector<int>& mapIndex) :
 			if (i == 5 || i == 9) temLane.addLight(mWindow, mWorld.light, BaseUnit * 10, BaseUnit * (i - 1), BaseUnit + 2 * BaseUnit / 16);
 			mLane.push_back(temLane);
 		}
+		else if (mapIndex[i] == 2) {
+			Road temLane(mWindow, i % 2, mWorld.train[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16);
+			mLane.push_back(temLane);
+		}
 	}
 }
 //
@@ -112,9 +116,9 @@ void Game::render()
 	// draw sth here
 	mWorld.draw();
 	mPlayer.draw();
-	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
+	/*for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
 		exit(1);
-	}
+	}*/
 	for (auto& lane : mLane) lane.draw();
 	mWindow.display();
 }

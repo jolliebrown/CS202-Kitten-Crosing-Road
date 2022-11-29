@@ -7,17 +7,7 @@
 #include "Light.h"
 #include "Player.h"
 
-class Lane
-{
-public:
-	Lane()
-	{
-
-	}
-private:
-};
-
-class Road : public Lane
+class Road
 {
 public:
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit);
@@ -31,4 +21,14 @@ private:
 	int dir; // 0: left to right, 1: right to left
 	vector<Vehicle*>	listVehicle;
 	vector<Light>		listLight;
+};
+
+class RailWay
+{
+public:
+	RailWay()
+	{
+
+	}
+private:
 };
