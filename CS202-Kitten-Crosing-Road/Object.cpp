@@ -108,8 +108,3 @@ FloatRect Object::getBound()
 {
 	return asset.getGlobalBounds();
 }
-
-const FloatRect Object::getBound() const
-{
-	return asset.getGlobalBounds();
-}
