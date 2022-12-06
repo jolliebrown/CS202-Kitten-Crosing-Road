@@ -103,16 +103,25 @@ vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName,
 }
 
 bool Object::isCollided(const Object& src) {
-	if (getBound().intersects(src.getBound())) return true;
-	else return false;
-	//if (bound.contains(src.asset.getPosition())) return true;
+	//if (getBound().intersects(src.getBound())) return true;
 	//else return false;
+	float curX = asset.getPosition().x + 0.5, curY = asset.getPosition().y + 15.f;
+	
+	if (src.getBound().contains(curX, curY)) {
+		cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left+ src.getBound().width<< " " << src.getBound().top + src.getBound().height << endl;
+		cout << curX << " " << curY << endl;
+		return true;
+	}
+	else return false;
+
+	/*
 	int curX = asset.getPosition().x, curY = asset.getPosition().y;
 	int carX = src.asset.getPosition().x, carY = src.asset.getPosition().y;
-	if (abs(curX - carX) <= 13 && abs(curY - carY) <= 13) {
+	if (abs(curX - carX) <= 12 && abs(curY - carY) <= 12) {
 		return true;
 	}
 	return false;
+	*/
 }
 
 FloatRect Object::getBound() const

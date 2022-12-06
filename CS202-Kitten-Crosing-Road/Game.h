@@ -29,7 +29,7 @@ private:
 	void					update(Time elapsedTime);
 	void					render();
 	void					updateStatistics(Time elapsedTime);
-
+	void					viewScroll(View &mView, Player& mPlayer);
 private:
 	static const Time		TimePerFrame;
 	RenderWindow			mWindow;
@@ -43,5 +43,6 @@ private:
 	World					mWorld;
 	Player					mPlayer;
 	vector<Road>			mLane;
+	Vector2f				viewPosition;
 	// 1 for road, 0 for land
 };

@@ -8,6 +8,8 @@
 class Player : public Object
 {
 public:
+	int idPlayer = 0;
+	void				setIdPlayer(int id);
 	enum Action
 	{
 		MoveLeft,
@@ -38,6 +40,7 @@ private:
 	int									moveStatus = 0;
 	int									isMoving = 0;
 	bool								faceLeft = false;
+	bool								isDead = false;
 	Vector2i							moveStep;
 };
 
