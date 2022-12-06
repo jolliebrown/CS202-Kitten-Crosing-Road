@@ -21,6 +21,12 @@
 void Player::draw()
 {
 	int curMove = 0;
+	if (isDead) {
+		draw_status = IntRect(8 * BaseUnit, (int)faceLeft * BaseUnit, BaseUnit, BaseUnit);
+		Object::asset.setTextureRect(draw_status);
+		Object::draw();
+		return;
+	}
 	if (!isMoving)
 	{
 		moveStatus = (moveStatus + 1) % (TimeMove);
@@ -192,4 +198,26 @@ Keyboard::Key Player::getAssignedKey(Action action) const
 			return pair.first;
 	}
 	return  Keyboard::Unknown;
+}
+void Player::setIdPlayer(int id) {
+	idPlayer = id;
+	isDead = false;
+	if (idPlayer == -1) {
+		mKeyBinding.clear();
+		isDead = true;
+	}
+	else if (idPlayer == 0) {
+		mKeyBinding.clear();
+		mKeyBinding[Keyboard::Left] = MoveLeft;
+		mKeyBinding[Keyboard::Right] = MoveRight;
+		mKeyBinding[Keyboard::Up] = MoveUp;
+		mKeyBinding[Keyboard::Down] = MoveDown;
+	}
+	else if (idPlayer == 1) {
+		mKeyBinding.clear();
+		mKeyBinding[Keyboard::A] = MoveLeft;
+		mKeyBinding[Keyboard::D] = MoveRight;
+		mKeyBinding[Keyboard::W] = MoveUp;
+		mKeyBinding[Keyboard::S] = MoveDown;
+	}
 }
