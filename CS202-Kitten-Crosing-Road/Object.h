@@ -7,6 +7,7 @@
 
 const int BaseUnit = 16;
 const int TimeMove = 361;
+const int signMap = -1;
 
 using namespace sf;
 using namespace std;

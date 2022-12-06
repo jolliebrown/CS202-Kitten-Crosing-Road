@@ -5,16 +5,16 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 Game::Game(vector<int>& mapIndex) : 
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), 
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), 
-	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, BaseUnit * 10, BaseUnit)
+	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 0, BaseUnit)
 {
 	for (int i = 0; i < mapIndex.size(); ++i) {
 		if (mapIndex[i] == 1) {
-			Road temLane(mWindow, i % 2, mWorld.car[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16);
-			if (i == 5 || i == 9) temLane.addLight(mWindow, mWorld.light, BaseUnit * 10, BaseUnit * (i - 1), BaseUnit + 2 * BaseUnit / 16);
+			Road temLane(mWindow, i % 2, mWorld.car[0], 0, signMap * BaseUnit * i, BaseUnit + 2 * BaseUnit / 16);
+			if (i == 5 || i == 9) temLane.addLight(mWindow, mWorld.light, BaseUnit * 10, signMap * BaseUnit * i, BaseUnit + 2 * BaseUnit / 16);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Road temLane(mWindow, i % 2, mWorld.train[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16, 0.3, 0.5);
+			Road temLane(mWindow, i % 2, mWorld.train[0], 0, signMap * BaseUnit * i, BaseUnit + 2 * BaseUnit / 16, 0.3, 0.5);
 			mLane.push_back(temLane);
 		}
 	}
@@ -131,8 +131,8 @@ void Game::render()
 {
 	
 	mWindow.clear();
-	//viewScroll(mView, mPlayer);
-	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
+	viewScroll(mView, mPlayer);
+	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
 	mWindow.setView(mView);
 	// draw sth here
 	mWorld.draw();

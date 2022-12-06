@@ -140,7 +140,7 @@ bool Object::insideView() {
 		//return false;
 	if (curY > viewPosition.y + BaseUnit * 4.f)
 		return false;
-	if (curY < viewPosition.y - BaseUnit * 4.f)
+	if (curY < viewPosition.y - BaseUnit * 8.f)
 		return false;
 	return true;
 }

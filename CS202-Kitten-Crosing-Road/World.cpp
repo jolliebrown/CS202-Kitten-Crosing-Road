@@ -6,20 +6,21 @@ World::World(RenderWindow& window, vector<int>& mapIndex) :
 {
 	for (unsigned int i = 0; i < mapIndex.size(); i++)
 	{
+		int j = mapIndex.size() - 1 - i;
 		vector<Object> tmp;
 		if (mapIndex[i] == 0) // land 
 		{
-			generate(tmp, ListTextures::grass, BaseUnit, BaseUnit * i);
+			generate(tmp, ListTextures::grass,  BaseUnit, signMap * (BaseUnit * i));
 			grassBackground.push_back(tmp);
 		}
 		else if (mapIndex[i] == 1) // road
 		{
-			generate(tmp, ListTextures::road, BaseUnit + 2 * BaseUnit / 16, BaseUnit * i - 1);
+			generate(tmp, ListTextures::road,  (BaseUnit + 2 * BaseUnit / 16), signMap * (BaseUnit * i));
 			roadBackground.push_back(tmp);
 		}
 		else if (mapIndex[i] == 2)
 		{
-			generate(tmp, ListTextures::rail, BaseUnit + 2 * BaseUnit / 16, BaseUnit * i - 1);
+			generate(tmp, ListTextures::rail,  (BaseUnit + 2 * BaseUnit / 16), signMap * (BaseUnit * i));
 			railBackground.push_back(tmp);
 		}
 	}
