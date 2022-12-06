@@ -7,6 +7,13 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 	listVehicle.push_back(Tem);
 }
 
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo)
+{
+	this->dir = dir;
+	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, unit);
+	listVehicle.push_back(Tem);
+}
+
 void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
 	listLight.push_back(Light(window, texture, x_coor, y_coor, unit));

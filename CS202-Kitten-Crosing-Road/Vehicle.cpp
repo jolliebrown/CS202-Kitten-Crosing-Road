@@ -13,7 +13,7 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	limVelo = 0.2;
 	initVelo = 0.1;
 	velo = initVelo;
-	acce = 0.0001;
+	acce = 0.01;
 	clock.restart();
 	startMoveTime = milliseconds(Rand(1000, 8000));
 	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
@@ -26,7 +26,7 @@ Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& t
 	this->limVelo = limVelo;
 	this->initVelo = initVelo;
 	velo = initVelo;
-	acce = 0.0001;
+	acce = 0.01;
 	clock.restart();
 	startMoveTime = milliseconds(Rand(1000, 8000));
 	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
@@ -50,7 +50,7 @@ void Vehicle::move(int state, float x_coord)
 	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return;
 	Object::asset.move(Vector2f(velo, 0));
 	checkLight(state, x_coord);
-	if (Object::asset.getPosition().x > BaseUnit * 14) {
+	if (Object::asset.getPosition().x > BaseUnit * 28) {
 		Object::asset.setPosition(-Object::asset.getGlobalBounds().width, coord.y);
 		clock.restart();
 		startMoveTime = milliseconds(Rand(1000, 8000));

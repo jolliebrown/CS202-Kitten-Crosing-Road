@@ -14,7 +14,7 @@ Game::Game(vector<int>& mapIndex) :
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Road temLane(mWindow, i % 2, mWorld.train[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16);
+			Road temLane(mWindow, i % 2, mWorld.train[0], 0, BaseUnit * i - 1, BaseUnit + 2 * BaseUnit / 16, 0.3, 0.5);
 			mLane.push_back(temLane);
 		}
 	}
