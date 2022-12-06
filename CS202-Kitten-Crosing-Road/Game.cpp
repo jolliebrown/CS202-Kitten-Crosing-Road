@@ -68,11 +68,12 @@ Game::Game(vector<int>& mapIndex) :
 
 void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1) return;
+	viewPosition = mView.getCenter();
 	viewPosition.x = max(BaseUnit * 4.f, min(BaseUnit * 22.f, mPlayer.getPosition().first));
 	viewPosition.y -= 0.01f;
 	if (viewPosition.y > mPlayer.getPosition().second)
 		viewPosition.y = mPlayer.getPosition().second;
-	viewPosition.y = max(viewPosition.y, 0.f);
+	//viewPosition.y = max(viewPosition.y, 0.f);
 	viewPosition.y = min(viewPosition.y, BaseUnit * 10.f);
 	mView.setCenter(viewPosition);
 	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 14.f)
@@ -85,8 +86,9 @@ void Game::run()
 {
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
-	viewPosition.x = mPlayer.getPosition().first;
-	viewPosition.y = mPlayer.getPosition().second;
+	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
+	//viewPosition.x = mPlayer.getPosition().first;
+	//viewPosition.y = mPlayer.getPosition().second;
 	int dx = 0, dy = 0;
 	while (mWindow.isOpen())
 	{
@@ -129,15 +131,17 @@ void Game::render()
 {
 	
 	mWindow.clear();
-	viewScroll(mView, mPlayer);
+	//viewScroll(mView, mPlayer);
+	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
 	mWindow.setView(mView);
 	// draw sth here
 	mWorld.draw();
 	for (auto& lane : mLane) lane.draw();
+	
 	mPlayer.draw();
 	mWindow.display();
 	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
-		mPlayer.setIdPlayer(-1);
+	//	mPlayer.setIdPlayer(-1);
 	}
 }
 
@@ -156,3 +160,5 @@ void Game::updateStatistics(Time elapsedTime)
 		mStatisticsNumFrames = 0;
 	}
 }
+
+bool inCurrentView(Vector2f);

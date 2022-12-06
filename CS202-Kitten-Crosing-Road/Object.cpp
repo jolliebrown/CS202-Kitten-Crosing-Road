@@ -65,7 +65,8 @@ Object::Object(const Object& scr) :
 
 void Object::draw()
 {
-	window.draw(asset);
+	if (insideView())
+		window.draw(asset);
 }
 
 vector<Texture>& ListTextures::load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int unit)
@@ -127,4 +128,19 @@ bool Object::isCollided(const Object& src) {
 FloatRect Object::getBound() const
 {
 	return asset.getGlobalBounds();
+}
+
+bool Object::insideView() {
+	//FloatRect viewRect= window.getView().getViewport();
+	//if (getBound().intersects(viewRect)) return true;
+	//else return false;
+	Vector2f viewPosition = window.getView().getCenter();
+	float curX = asset.getPosition().x, curY = asset.getPosition().y - 20;
+	//if (curX < 0 || curX > BaseUnit * 14.f)
+		//return false;
+	if (curY > viewPosition.y + BaseUnit * 4.f)
+		return false;
+	if (curY < viewPosition.y - BaseUnit * 4.f)
+		return false;
+	return true;
 }

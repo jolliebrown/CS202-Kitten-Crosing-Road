@@ -44,6 +44,7 @@ public:
 	bool isCollided(const Object& src);
 	//FloatRect				getBound();
 	FloatRect			getBound() const;
+	bool insideView();
 private:
 	RenderWindow&			window;
 	Texture&				mAsset;

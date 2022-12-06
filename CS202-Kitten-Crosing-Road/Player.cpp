@@ -118,8 +118,8 @@ bool Player::movePlayer()
 		moveStep = Vector2i(0, 0);
 		for (auto found : mAction)
 		{
-			moveStep.x += found.second.x;
-			moveStep.y += found.second.y;
+			moveStep.x += found.second.x * 1.5;
+			moveStep.y += found.second.y * 1.5;
 		}
 		if (moveStep.x < 0)
 		{
