@@ -37,12 +37,39 @@ Menu::Menu(RenderWindow& mWindow) : window(mWindow)
 
 void Menu::handleEvent(Event& event, vector<Menu*>& mMenu)
 {
-	
+	bool checkMouse = false;
+	Vector2f mousePosition = window.mapPixelToCoords(Mouse::getPosition(window));
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		if (buttons[i].getBound().contains(mousePosition))
+		{
+			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left && i == 4)
+			{
+				Menu* instruction = new Instruction(window);
+				mMenu.push_back(instruction);
+				break;
+			}
+			Button button(window, asset[i + 6], BaseUnit * 32, BaseUnit * (20.5 + i));
+			buttons.push_back(button);
+			checkMouse = true;
+			break;
+		}
+	}
+	if (checkMouse)
+		window.setMouseCursor(*cursorTexture[1]);
+	else
+	{
+		window.setMouseCursor(*cursorTexture[0]);
+		while (buttons.size() > 5)
+			buttons.pop_back();
+	}
 }
 
 void Menu::draw()
 {
-	
+	window.draw(background[0]);
+	for (int i = 0; i < buttons.size(); ++i)
+		buttons[i].draw();
 }
 
 void Menu::loadCursor()
@@ -62,4 +89,19 @@ void Menu::loadCursor()
 void Menu::loadAsset()
 {
 
+}
+
+Instruction::Instruction(RenderWindow& mWindow) : Menu(mWindow)
+{
+
+}
+
+void Instruction::handleEvent(Event& event, vector<Menu*>& mMenu)
+{
+	
+}
+
+void Instruction::draw()
+{
+	
 }

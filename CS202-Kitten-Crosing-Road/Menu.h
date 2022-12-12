@@ -27,3 +27,11 @@ protected:
 	vector<Texture> asset;
 	vector<Sprite> background;
 };
+
+class Instruction : public Menu {
+public:
+	Instruction(RenderWindow& mWindow);
+
+	void handleEvent(Event& event, vector<Menu*>& mMenu) override;
+	void draw() override;
+};
