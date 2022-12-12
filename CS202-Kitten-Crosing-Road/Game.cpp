@@ -2,11 +2,13 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 
-Game::Game(vector<int>& mapIndex) : 
-	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), 
-	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), 
+Game::Game(vector<int>& mapIndex) :
+	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
+	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
 	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 0, BaseUnit)
 {
+	Menu* menu = new Menu(mWindow);
+	mMenu.push_back(menu);
 	for (int i = 0; i < mapIndex.size(); ++i) {
 		if (mapIndex[i] == 1) {
 			Road temLane(mWindow, i % 2, mWorld.car[0], 0, signMap * BaseUnit * i, BaseUnit + 2 * BaseUnit / 16);
@@ -86,7 +88,7 @@ void Game::run()
 {
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
-	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
+	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
 	//viewPosition.x = mPlayer.getPosition().first;
 	//viewPosition.y = mPlayer.getPosition().second;
 	int dx = 0, dy = 0;
@@ -113,13 +115,14 @@ void Game::processEvents()
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
-		mPlayer.handleEvent(event);
+		mMenu[mMenu.size() - 1]->handleEvent(event, mMenu);
+		//mPlayer.handleEvent(event);
 
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
 	
-	mPlayer.handleRealtimeInput();
+	//mPlayer.handleRealtimeInput();
 }
 
 void Game::update(Time elapsedTime)
@@ -131,18 +134,19 @@ void Game::render()
 {
 	
 	mWindow.clear();
-	viewScroll(mView, mPlayer);
+	/*viewScroll(mView, mPlayer);
 	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
 	mWindow.setView(mView);
 	// draw sth here
 	mWorld.draw();
 	for (auto& lane : mLane) lane.draw();
 	
-	mPlayer.draw();
+	mPlayer.draw();*/
+	mMenu[mMenu.size() - 1]->draw();
 	mWindow.display();
-	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
+	//for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
 	//	mPlayer.setIdPlayer(-1);
-	}
+	//}
 }
 
 void Game::updateStatistics(Time elapsedTime)
