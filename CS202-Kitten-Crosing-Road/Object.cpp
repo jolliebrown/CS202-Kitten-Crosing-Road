@@ -3,15 +3,22 @@
 ListTextures::ListTextures()
 {
 	// load het asset vao day nha
-	load(grass, "Media/Grass.png", 0, 0, 48, 32, BaseUnit);
-	load(road, "Media/Road.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
-	load(rail, "Media/Rail.png", 0, 0, 48, 18, BaseUnit + 2 * BaseUnit / 16);
 	onePicLoad(car, "Media/car.png", 0, 0, 20, 10);
 	onePicLoad(user, "Media/Binh.png");
 
 	onePicLoad(light, "Media/Tlight_g.png");
 	onePicLoad(light, "Media/Tlight_y.png");
 	onePicLoad(light, "Media/Tlight_r.png");
+
+	vector<Texture> tmp;
+	load(tmp, "Media/Grass.png", 0, 0, 48, 32, BaseUnit);
+	background.push_back(tmp);
+	tmp.clear();
+	onePicLoad(tmp, "Media/Road.png");
+	background.push_back(tmp);
+	tmp.clear();
+	onePicLoad(tmp, "Media/Rail.png");
+	background.push_back(tmp);
 	
 	Texture temTrainTexture;
 	temTrainTexture.create(90 + 68 * 5, 15);

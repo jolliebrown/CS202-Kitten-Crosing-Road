@@ -6,31 +6,19 @@ World::World(RenderWindow& window, vector<int>& mapIndex) :
 {
 	for (unsigned int i = 0; i < mapIndex.size(); i++)
 	{
-		int j = mapIndex.size() - 1 - i;
+		int j = mapIndex[i];
 		vector<Object> tmp;
-		if (mapIndex[i] == 0) // land 
-		{
-			generate(tmp, ListTextures::grass,  BaseUnit, signMap * (BaseUnit * i));
-			grassBackground.push_back(tmp);
-		}
-		else if (mapIndex[i] == 1) // road
-		{
-			generate(tmp, ListTextures::road,  (BaseUnit + 2 * BaseUnit / 16), signMap * (BaseUnit * i));
-			roadBackground.push_back(tmp);
-		}
-		else if (mapIndex[i] == 2)
-		{
-			generate(tmp, ListTextures::rail,  (BaseUnit + 2 * BaseUnit / 16), signMap * (BaseUnit * i));
-			railBackground.push_back(tmp);
-		}
+		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, signMap * BaseUnit * i);
+		mapBackground.push(tmp);
 	}
 }
 
 void World::draw()
 {
-	drawListElements(grassBackground);
-	drawListElements(roadBackground);
-	drawListElements(railBackground);
+	//drawListElements(grassBackground);
+	//drawListElements(roadBackground);
+	//drawListElements(railBackground);
+	drawListElements(mapBackground);
 }
 
 vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos)
@@ -60,5 +48,14 @@ void World::drawListElements(vector<vector<Object>>& target)
 	for (unsigned int i = 0; i < target.size(); i++)
 	{
 		drawElement(target[i]);
+	}
+}
+
+void World::drawListElements(queue<vector<Object>> target)
+{
+	while (!target.empty())
+	{
+		drawElement(target.front());
+		target.pop();
 	}
 }

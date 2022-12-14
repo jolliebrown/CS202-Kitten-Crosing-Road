@@ -12,6 +12,13 @@ const int signMap = -1;
 using namespace sf;
 using namespace std;
 
+enum class Environment
+{
+	Grass,
+	Road,
+	Rail
+};
+
 // store all textures that need to be loaded
 class ListTextures
 {
@@ -25,6 +32,7 @@ protected:
 	vector<Texture>			grass;
 	vector<Texture>			road;
 	vector<Texture>			rail;
+	vector<vector<Texture>> background;
 public:
 	vector<Texture>			car;
 	vector<Texture>			user;
