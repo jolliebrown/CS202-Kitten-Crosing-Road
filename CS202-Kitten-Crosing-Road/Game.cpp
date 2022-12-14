@@ -95,15 +95,17 @@ void Game::run()
 	{
 		Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
-		while (timeSinceLastUpdate > TimePerFrame)
-		{
-			//cout << count << endl;
-			processEvents();
-			update(TimePerFrame);
-			timeSinceLastUpdate -= TimePerFrame;
-		}
+		//while (timeSinceLastUpdate > TimePerFrame)
+		//{
+		//	//cout << count << endl;
+		//	processEvents();
+		//	update(TimePerFrame);
+		//	timeSinceLastUpdate -= TimePerFrame;
+		//}
+		processEvents();
+		//update(TimePerFrame);
 		render();
-		updateStatistics(elapsedTime);
+		//updateStatistics(elapsedTime);
 		
 	}
 }
@@ -122,6 +124,10 @@ void Game::processEvents()
 	}
 	
 	mPlayer.handleRealtimeInput();
+	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
+		mPlayer.setIdPlayer(-1);
+		gameSystem.gameLose();
+	}
 }
 
 void Game::update(Time elapsedTime)
@@ -143,10 +149,6 @@ void Game::render()
 	mPlayer.draw();
 	gameSystem.draw(mouse);
 	mWindow.display();
-	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
-		mPlayer.setIdPlayer(-1);
-		gameSystem.gameLose();
-	}
 	
 }
 
