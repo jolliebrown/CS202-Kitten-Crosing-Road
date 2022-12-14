@@ -3,7 +3,8 @@
 ListTextures::ListTextures()
 {
 	// load het asset vao day nha
-	onePicLoad(car, "Media/car.png", 0, 0, 20, 10);
+	load(car, "Media/Car.png", 0, 0, 72, 12, 24, 12);
+	//onePicLoad(car, "Media/Car.png", 0, 0, 20, 10);
 	onePicLoad(user, "Media/Binh.png");
 
 	onePicLoad(light, "Media/Tlight_g.png");
@@ -76,6 +77,21 @@ void Object::draw()
 		window.draw(asset);
 }
 
+vector<Texture>& ListTextures::load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int x, int y)
+{
+	scr.clear();
+	for (int i = 0; (i * x + x_coor) < width; i++)
+	{
+		for (int j = 0; (j * y + y_coor) < height; j++)
+		{
+			Texture tmp;
+			tmp.loadFromFile(fileName, IntRect(i * x + x_coor, j * y + y_coor, x, y));
+			scr.push_back(tmp);
+		}
+	}
+	// TODO: insert return statement here
+	return scr;
+}
 vector<Texture>& ListTextures::load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int unit)
 {
 	scr.clear();
