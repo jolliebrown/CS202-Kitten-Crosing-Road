@@ -141,7 +141,8 @@ void Game::render()
 	mPlayer.draw();
 	mWindow.display();
 	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
-	//	mPlayer.setIdPlayer(-1);
+		mPlayer.setIdPlayer(-1);
+		gameSystem.gameLose();
 	}
 }
 

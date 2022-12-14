@@ -22,6 +22,9 @@ public:
 	};
 	System();
 	System(int score, GameState state, GameMode game_mode, int level, int fish_coin);
+	bool gameLose();
+	bool gameContinue();
+	bool gameWin();
 private:
 	int					score;
 	GameState			state;

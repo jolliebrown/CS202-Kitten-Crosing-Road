@@ -132,8 +132,8 @@ bool Object::isCollided(const Object& src) {
 	float curX = asset.getPosition().x + 0.5, curY = asset.getPosition().y + 15.f;
 	
 	if (src.getBound().contains(curX, curY)) {
-		cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left+ src.getBound().width<< " " << src.getBound().top + src.getBound().height << endl;
-		cout << curX << " " << curY << endl;
+		//cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left+ src.getBound().width<< " " << src.getBound().top + src.getBound().height << endl;
+		//cout << curX << " " << curY << endl;
 		return true;
 	}
 	else return false;

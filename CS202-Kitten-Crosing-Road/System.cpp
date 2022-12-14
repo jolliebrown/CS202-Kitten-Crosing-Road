@@ -18,3 +18,18 @@ System::System(int score, GameState state, GameMode game_mode, int level, int fi
 {
 
 }
+
+bool System::gameLose() {
+	if (state != Continue) return false;
+	state = Lose;
+	return true;
+}
+bool System::gameContinue() {
+	state = Continue;
+	return true;
+}
+bool System::gameWin() {
+	if (state != Continue) return false;
+	state = Win;
+	return true;
+}

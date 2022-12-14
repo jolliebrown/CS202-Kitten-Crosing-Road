@@ -29,6 +29,7 @@ private:
 	void					updateStatistics(Time elapsedTime);
 	void					viewScroll(View &mView, Player& mPlayer);
 private:
+	System					gameSystem;
 	static const Time		TimePerFrame;
 	RenderWindow			mWindow;
 	View					mView;
