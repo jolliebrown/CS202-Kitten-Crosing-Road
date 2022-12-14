@@ -2,10 +2,11 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 
-Game::Game(vector<int>& mapIndex) : 
-	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close), 
-	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)), 
-	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 0, BaseUnit)
+Game::Game(vector<int>& mapIndex) :
+	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
+	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
+	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 0, BaseUnit),
+	gameSystem(mView, mWindow)
 {
 	for (int i = 0; i < mapIndex.size(); ++i) {
 		if (mapIndex[i] == 1) {
@@ -113,6 +114,7 @@ void Game::processEvents()
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
+		mouse = mWindow.mapPixelToCoords(Mouse::getPosition(mWindow));
 		mPlayer.handleEvent(event);
 
 		if (event.type == sf::Event::Closed)
@@ -137,13 +139,15 @@ void Game::render()
 	// draw sth here
 	mWorld.draw();
 	for (auto& lane : mLane) lane.draw();
-	
+
 	mPlayer.draw();
+	gameSystem.draw(mouse);
 	mWindow.display();
 	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.gameLose();
 	}
+	
 }
 
 void Game::updateStatistics(Time elapsedTime)

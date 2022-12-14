@@ -11,6 +11,7 @@ ListTextures::ListTextures()
 	onePicLoad(light, "Media/Tlight_y.png");
 	onePicLoad(light, "Media/Tlight_r.png");
 
+
 	vector<Texture> tmp;
 	load(tmp, "Media/Grass.png", 0, 0, 48, 32, BaseUnit);
 	background.push_back(tmp);
@@ -20,7 +21,20 @@ ListTextures::ListTextures()
 	tmp.clear();
 	onePicLoad(tmp, "Media/Rail.png");
 	background.push_back(tmp);
+	tmp.clear();
+
+	onePicLoad(pressed, "Media/System/Pause_here.png");
+	onePicLoad(pressed, "Media/System/Pause1_here.png");
+	onePicLoad(pressed, "Media/System/Settings_here.png");
+	onePicLoad(pressed, "Media/System/Home_here.png");
+
+	onePicLoad(unpressed, "Media/System/Pause.png");
+	onePicLoad(unpressed, "Media/System/Pause1.png");
+	onePicLoad(unpressed, "Media/System/Settings.png");
+	onePicLoad(unpressed, "Media/System/Home.png");
 	
+	onePicLoad(still, "Media/System/Game Paused.png");
+
 	Texture temTrainTexture;
 	temTrainTexture.create(90 + 68 * 5, 15);
 	Image temTrainImage;
@@ -36,7 +50,9 @@ ListTextures::ListTextures()
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
 	window(window), 
 	mAsset(texture), 
-	unit(unit)
+	unit(unit),
+	x(x_coor),
+	y(y_coor)
 {
 	asset.setTexture(mAsset);
 	asset.setPosition((float)x_coor, (float)y_coor);
@@ -45,7 +61,9 @@ Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) : 
 	window(window), 
 	mAsset(texture), 
-	unit(unit)
+	unit(unit),
+	x(x_coor),
+	y(y_coor)
 {
 	unit = 0;
 	asset.setTexture(mAsset);
@@ -55,12 +73,12 @@ Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) :
 Object::Object(const Object& scr) : 
 	window(scr.window), 
 	unit(scr.unit), 
-	mAsset(scr.mAsset)
+	mAsset(scr.mAsset),
+	x(scr.x),
+	y(scr.y)
 {
 	asset.setTexture(mAsset);
-	float x_coor = scr.asset.getPosition().x;
-	float y_coor = scr.asset.getPosition().y;
-	asset.setPosition(x_coor, y_coor);
+	asset.setPosition(x, y);
 }
 
 //Object& Object::operator=(const Object& scr)
@@ -167,3 +185,21 @@ bool Object::insideView() {
 		return false;
 	return true;
 }
+
+void Object::changeAppearance(Texture& texture)
+{
+	mAsset = texture;
+}
+
+bool Object::isHere(const Vector2f& mouse)
+{
+	if (asset.getGlobalBounds().contains(mouse)) return true;
+	return false;
+}
+
+void Object::setPos(View& view)
+{
+	Vector2f view_cen = view.getCenter() + Vector2f(-view.getSize().x / 2, -view.getSize().y / 2);
+	asset.setPosition(view_cen.x + x, view_cen.y + y);
+}
+

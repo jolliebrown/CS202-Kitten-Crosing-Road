@@ -39,6 +39,11 @@ public:
 	vector<Texture>			user;
 	vector<Texture>			light;
 	vector<Texture>			train;
+
+	// button
+	vector<Texture>			pressed;
+	vector<Texture>			unpressed;
+	vector<Texture>			still;
 };
 
 
@@ -53,13 +58,16 @@ public:
 	void					draw();
 	bool isCollided(const Object& src);
 	//FloatRect				getBound();
-	FloatRect			getBound() const;
-	bool insideView();
+	FloatRect				getBound() const;
+	bool					insideView();
+	void					changeAppearance(Texture& texture);
+	bool					isHere(const Vector2f& mouse);
+	void					setPos(View& view);
 private:
 	RenderWindow&			window;
 	Texture&				mAsset;
 protected:
 	int						unit;
 	Sprite					asset;
-	
+	int	x, y;
 };
