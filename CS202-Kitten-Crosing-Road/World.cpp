@@ -15,9 +15,6 @@ World::World(RenderWindow& window, vector<int>& mapIndex) :
 
 void World::draw()
 {
-	//drawListElements(grassBackground);
-	//drawListElements(roadBackground);
-	//drawListElements(railBackground);
 	drawListElements(mapBackground);
 }
 
