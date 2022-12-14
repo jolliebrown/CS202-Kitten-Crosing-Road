@@ -93,6 +93,7 @@ void Game::run()
 	int dx = 0, dy = 0;
 	while (mWindow.isOpen())
 	{
+		mouse = mWindow.mapPixelToCoords(Mouse::getPosition(mWindow));
 		Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 		//while (timeSinceLastUpdate > TimePerFrame)
@@ -116,7 +117,6 @@ void Game::processEvents()
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
-		mouse = mWindow.mapPixelToCoords(Mouse::getPosition(mWindow));
 		mPlayer.handleEvent(event);
 
 		if (event.type == sf::Event::Closed)
@@ -145,7 +145,7 @@ void Game::render()
 	// draw sth here
 	mWorld.draw();
 	for (auto& lane : mLane) lane.draw();
-
+	//cout << mouse.x << " " << mouse.y << endl;
 	mPlayer.draw();
 	gameSystem.draw(mouse);
 	mWindow.display();

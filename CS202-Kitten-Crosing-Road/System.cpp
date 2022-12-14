@@ -54,7 +54,7 @@ bool System::gameWin() {
 
 void System::draw(const Vector2f& mouse)
 {
-	pausedButtons[0].draw(mouse, true);
+	pausedButtons[0].draw(mouse, false);
 	//gamePaused.setPos(view);
 	//gamePaused.draw();
 }
@@ -76,7 +76,7 @@ void SystemButton::draw(const Vector2f& mouse, const bool& isStill)
 		unpressed.draw();
 	else
 	{
-		if (unpressed.isHere(mouse)) unpressed.draw();
-		else pressed.draw();
+		if (unpressed.isHere(mouse)) pressed.draw();
+		else unpressed.draw();
 	}
 }
