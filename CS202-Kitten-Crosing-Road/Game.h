@@ -28,6 +28,7 @@ private:
 	void					render();
 	void					updateStatistics(Time elapsedTime);
 	void					viewScroll(View &mView, Player& mPlayer);
+	void					setCur(const Event& event);
 private:
 	System					gameSystem;
 	static const Time		TimePerFrame;
@@ -38,6 +39,9 @@ private:
 	std::size_t				mStatisticsNumFrames;
 	Vector2f				mouse;
 	Cursor					cursor;
+	Image					cur_img, cur_clicked;
+
+
 	// backdround demo
 	vector<int>				mapIndex;
 	World					mWorld;

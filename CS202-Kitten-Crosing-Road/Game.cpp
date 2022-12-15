@@ -8,6 +8,10 @@ Game::Game(vector<int>& mapIndex) :
 	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 104, 0, BaseUnit),
 	gameSystem(mView, mWindow)
 {
+	cur_img.loadFromFile("Media/mouse_paw.png");
+	cur_clicked.loadFromFile("Media/mouse_clicked.png");
+	
+
 	for (int i = 0; i < mapIndex.size(); ++i) {
 		if (mapIndex[i] == 1) {
 			Road temLane(mWindow, i % 2, mWorld.car[(rand() + 1) % 3], 0, signMap * BaseUnit * i, BaseUnit + 2 * BaseUnit / 16);
@@ -88,6 +92,19 @@ void Game::viewScroll(View& mView, Player& mPlayer){
 	}
 }
 
+void Game::setCur(const Event& event)
+{
+	if (event.type == Event::MouseButtonPressed)
+	{
+		cursor.loadFromPixels(cur_clicked.getPixelsPtr(), cur_img.getSize(), Vector2u(5, 6));
+	}
+	else
+	{
+		cursor.loadFromPixels(cur_img.getPixelsPtr(), cur_img.getSize(), Vector2u(5, 6));
+	}
+	mWindow.setMouseCursor(cursor);
+}
+
 void Game::run()
 {
 	Clock clock;
@@ -121,6 +138,7 @@ void Game::processEvents()
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
+		setCur(event);
 		if (gameSystem.gameContinue()) {
 			mPlayer.handleEvent(event);
 		}
