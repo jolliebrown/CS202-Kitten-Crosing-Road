@@ -13,6 +13,7 @@ public:
 						Light(int state, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 
 	void				draw();
+	void				move();
 	float				getPos();
 	int					getState();
 private:

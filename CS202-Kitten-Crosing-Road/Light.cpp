@@ -23,6 +23,17 @@ Light::Light(int state, RenderWindow& window, vector<Texture>& texture, int x_co
 void Light::draw()
 {
 	Object::draw();
+	/*if (clock.getElapsedTime().asMilliseconds() > count[state].asMilliseconds()) {
+		state++;
+		if (state > 2) {
+			state = 0;
+			clock.restart();
+		}
+		Object::asset.setTexture(listLight[state]);
+	}*/
+}
+
+void Light::move() {
 	if (clock.getElapsedTime().asMilliseconds() > count[state].asMilliseconds()) {
 		state++;
 		if (state > 2) {

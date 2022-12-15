@@ -69,7 +69,7 @@ Game::Game(vector<int>& mapIndex) :
 //}
 
 void Game::viewScroll(View& mView, Player& mPlayer){
-	if (mPlayer.idPlayer == -1) return;
+	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
 	viewPosition = mView.getCenter();
 	viewPosition.x = max(BaseUnit * 4.f, min(BaseUnit * 22.f, mPlayer.getPosition().first));
 	viewPosition.y -= 0.01f;
@@ -114,21 +114,27 @@ void Game::run()
 
 void Game::processEvents()
 {
-
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
-		mPlayer.handleEvent(event);
+		if (gameSystem.gameContinue()) {
+			mPlayer.handleEvent(event);
+		}
 		gameSystem.handleEvent(event, mouse);
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
-	
-	mPlayer.handleRealtimeInput();
-	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
-		mPlayer.setIdPlayer(-1);
-		gameSystem.gameLose();
+	if (gameSystem.gameContinue()) {
+		mPlayer.handleRealtimeInput();
+		for (auto& lane : mLane) lane.handleEvent();
+		for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
+			mPlayer.setIdPlayer(-1);
+			gameSystem.setLose();
+			break;
+		}
 	}
+	
+	
 }
 
 void Game::update(Time elapsedTime)
@@ -138,7 +144,6 @@ void Game::update(Time elapsedTime)
 
 void Game::render()
 {
-	
 	mWindow.clear();
 	viewScroll(mView, mPlayer);
 	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
@@ -150,7 +155,6 @@ void Game::render()
 	mPlayer.draw();
 	gameSystem.draw(mouse);
 	mWindow.display();
-	
 }
 
 void Game::updateStatistics(Time elapsedTime)
@@ -170,3 +174,6 @@ void Game::updateStatistics(Time elapsedTime)
 }
 
 bool inCurrentView(Vector2f);
+bool Game::gameContinue() {
+	return gameSystem.gameContinue();
+}

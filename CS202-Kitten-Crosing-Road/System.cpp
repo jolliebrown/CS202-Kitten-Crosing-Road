@@ -38,17 +38,36 @@ System::System(View& view, RenderWindow& window, int score, GameState state, Gam
 }
 
 bool System::gameLose() {
-	if (state != Continue) return false;
+	return state == Lose;
+}
+bool System::gameContinue() {
+	return state == Continue;
+}
+bool System::gameWin() {
+	return state == Win;
+}
+
+bool System::gamePause() {
+	return state == Pause;
+}
+bool System::setLose() {
+	//if (state != Continue && state != Lose) return false;
 	state = Lose;
 	return true;
 }
-bool System::gameContinue() {
+bool System::setContinue() {
+	if (state != Pause) return false;
 	state = Continue;
 	return true;
 }
-bool System::gameWin() {
-	if (state != Continue) return false;
+bool System::setWin() {
+	//if (state != Continue && state != Win) return false;
 	state = Win;
+	return true;
+}
+bool System::setPause() {
+	if (state != Continue) return false;
+	state = Pause;
 	return true;
 }
 

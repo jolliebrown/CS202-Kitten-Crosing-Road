@@ -16,7 +16,7 @@ public:
 	void addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 
 	void draw();
-
+	void handleEvent();
 	bool isCollided(Player mPlayer);
 private:
 	int dir; // 0: left to right, 1: right to left

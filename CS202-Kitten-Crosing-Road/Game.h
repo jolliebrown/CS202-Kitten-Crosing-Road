@@ -20,7 +20,7 @@ class Game
 public:
 							Game(vector<int>& mapIndex);
 	void					run();
-
+	bool					gameContinue();
 
 private:
 	void					processEvents();

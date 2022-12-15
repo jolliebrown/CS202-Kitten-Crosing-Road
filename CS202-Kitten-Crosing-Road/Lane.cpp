@@ -28,6 +28,17 @@ void Road::draw()
 	for (auto& light : listLight) light.draw();
 }
 
+void Road::handleEvent() {
+	//return;
+	for (auto& car : listVehicle) {
+		if (listLight.size() == 0) car->move(0, 0);
+		else {
+			car->move(listLight[0].getState(), listLight[0].getPos());
+		}
+	}
+	for (auto& light : listLight) light.move();
+}
+
 bool Road::isCollided(Player mPlayer)
 {
 	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;

@@ -40,6 +40,11 @@ public:
 	bool gameLose();
 	bool gameContinue();
 	bool gameWin();
+	bool gamePause();
+	bool setLose();
+	bool setContinue();
+	bool setWin();
+	bool setPause();
 	void draw(const Vector2f& mouse);
 	void handleEvent(const Event& event, const Vector2f& mouse);
 private:

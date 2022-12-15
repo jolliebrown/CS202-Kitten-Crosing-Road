@@ -60,6 +60,7 @@ public:
 	//FloatRect				getBound();
 	FloatRect				getBound() const;
 	bool					insideView();
+	bool					gameContinue();
 	void					changeAppearance(Texture& texture);
 	bool					isHere(const Vector2f& mouse);
 	void					setPos(View& view);
