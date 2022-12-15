@@ -78,10 +78,14 @@ void Game::viewScroll(View& mView, Player& mPlayer){
 	//viewPosition.y = max(viewPosition.y, 0.f);
 	viewPosition.y = min(viewPosition.y, BaseUnit * 10.f);
 	mView.setCenter(viewPosition);
-	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 14.f)
+	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 14.f) {
 		mPlayer.setIdPlayer(-1);
-	if (mPlayer.getPosition().second > viewPosition.y + BaseUnit * 4.f)
+		gameSystem.setLose();
+	}
+	if (mPlayer.getPosition().second > viewPosition.y + BaseUnit * 4.f) {
 		mPlayer.setIdPlayer(-1);
+		gameSystem.setLose();
+	}
 }
 
 void Game::run()
