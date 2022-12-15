@@ -29,7 +29,7 @@ System::System(View& view, RenderWindow& window, int score, GameState state, Gam
 	window(window),
 	view(view)
 {
-	SystemButton pause(view, window, ListTextures::unpressed[0], ListTextures::pressed[0], 190, 6);
+	SystemButton pause(view, window, ListTextures::unpressed[0], ListTextures::pressed[0], 195, 5);
 	for (int i = 1; i < 4; i++)
 	{
 		SystemButton tmp(view, window, ListTextures::unpressed[i], ListTextures::pressed[i], 101, 59 + 31 * (i - 1));
