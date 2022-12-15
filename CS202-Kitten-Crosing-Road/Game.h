@@ -37,6 +37,7 @@ private:
 	Time					mStatisticsUpdateTime;
 	std::size_t				mStatisticsNumFrames;
 	Vector2f				mouse;
+	Cursor					cursor;
 	// backdround demo
 	vector<int>				mapIndex;
 	World					mWorld;

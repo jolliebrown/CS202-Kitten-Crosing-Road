@@ -69,6 +69,24 @@ void System::draw(const Vector2f& mouse)
 	}
 }
 
+void System::handleEvent(const Event& event, const Vector2f& mouse)
+{
+	if (event.type == Event::MouseButtonReleased)
+	{
+		if (state == Continue && pausedButtons[0].isHere(mouse))
+		{
+			state = Pause;
+		}
+		else if (state == Pause)
+		{
+			if (pausedButtons[1].isHere(mouse))
+			{
+				state = Continue;
+			}
+		}
+	}
+}
+
 
 SystemButton::SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor) : 
 	window(window), 
@@ -89,4 +107,9 @@ void SystemButton::draw(const Vector2f& mouse, const bool& isStill)
 		if (unpressed.isHere(mouse)) pressed.draw();
 		else unpressed.draw();
 	}
+}
+
+bool SystemButton::isHere(const Vector2f& mouse)
+{
+	return unpressed.isHere(mouse);
 }

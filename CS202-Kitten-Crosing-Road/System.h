@@ -7,7 +7,7 @@
 
 class SystemButton
 {
-public:
+private:
 	Object				unpressed;
 	Object				pressed;
 	RenderWindow& window;
@@ -15,6 +15,7 @@ public:
 	SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor);
 	void				draw(const Vector2f& mouse, const bool& isStill);
 	View&				view;
+	bool				isHere(const Vector2f& mouse);
 };
 
 class System : ListTextures
@@ -40,6 +41,7 @@ public:
 	bool gameContinue();
 	bool gameWin();
 	void draw(const Vector2f& mouse);
+	void handleEvent(const Event& event, const Vector2f& mouse);
 private:
 	vector<SystemButton>pausedButtons;
 	Object				gamePaused;

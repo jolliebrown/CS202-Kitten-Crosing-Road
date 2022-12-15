@@ -19,6 +19,7 @@ Game::Game(vector<int>& mapIndex) :
 			mLane.push_back(temLane);
 		}
 	}
+
 }
 //
 //Game::Game(const Game& other) : mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50),
@@ -118,7 +119,7 @@ void Game::processEvents()
 	while (mWindow.pollEvent(event))
 	{
 		mPlayer.handleEvent(event);
-
+		gameSystem.handleEvent(event, mouse);
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
