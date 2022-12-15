@@ -54,9 +54,19 @@ bool System::gameWin() {
 
 void System::draw(const Vector2f& mouse)
 {
-	pausedButtons[0].draw(mouse, false);
-	//gamePaused.setPos(view);
-	//gamePaused.draw();
+	if (state == Continue)
+	{
+		pausedButtons[0].draw(mouse, false);
+	}
+	else if (state == Pause)
+	{
+		gamePaused.setPos(view);
+		gamePaused.draw();
+		for (int i = 1; i < pausedButtons.size(); i++)
+		{
+			pausedButtons[i].draw(mouse, false);
+		}
+	}
 }
 
 
