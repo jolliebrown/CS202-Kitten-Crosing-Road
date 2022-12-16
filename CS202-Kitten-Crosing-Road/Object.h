@@ -39,13 +39,13 @@ public:
 	vector<Texture>			user;
 	vector<Texture>			light;
 	vector<Texture>			train;
+	Font					numFont;
 
 	// button
 	vector<Texture>			pressed;
 	vector<Texture>			unpressed;
 	vector<Texture>			still;
 };
-
 
 // dung cho 1 cai tile nao do (vi du: background, car, user, ...)
 class Object
@@ -60,7 +60,6 @@ public:
 	//FloatRect				getBound();
 	FloatRect				getBound() const;
 	bool					insideView();
-	bool					gameContinue();
 	void					changeAppearance(Texture& texture);
 	bool					isHere(const Vector2f& mouse);
 	void					setPos(View& view);
@@ -72,3 +71,21 @@ protected:
 	Sprite					asset;
 	int	x, y;
 };
+
+class Info
+{
+private:
+	Font&					mFont;
+	RenderWindow&			window;
+	Text					mText;
+	float x, y;
+public:
+	Info(Font& _font, RenderWindow& window, const Color& color, int size, float x_coor, float y_coor);
+	bool					isHere(const Vector2f& mouse);
+	void					setPos(const View& view);
+	void					setStr(const string& s);
+	void					draw();
+	void					drawWithView(const View& view, const int& s);
+};
+
+string convertScore(int a);

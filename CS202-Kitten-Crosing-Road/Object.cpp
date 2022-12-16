@@ -34,6 +34,7 @@ ListTextures::ListTextures()
 	onePicLoad(unpressed, "Media/System/Home.png");
 	
 	onePicLoad(still, "Media/System/Game Paused.png");
+	onePicLoad(still, "Media/System/Score_board.png");
 
 	Texture temTrainTexture;
 	temTrainTexture.create(90 + 68 * 5, 15);
@@ -45,6 +46,8 @@ ListTextures::ListTextures()
 	temTrainImage.loadFromFile("Media/Train0.png");
 	temTrainTexture.update(temTrainImage, 68 * 5, 0);
 	train.push_back(temTrainTexture);
+
+	numFont.loadFromFile("Media/pixel-1px.ttf");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
@@ -186,10 +189,6 @@ bool Object::insideView() {
 	return true;
 }
 
-bool Object::gameContinue() {
-	//return Game.gameCon
-	return true;
-}
 
 void Object::changeAppearance(Texture& texture)
 {
@@ -202,9 +201,50 @@ bool Object::isHere(const Vector2f& mouse)
 	return false;
 }
 
+bool Info::isHere(const Vector2f& mouse)
+{
+	if (mText.getGlobalBounds().contains(mouse)) return true;
+	return false;
+}
+
 void Object::setPos(View& view)
 {
 	Vector2f view_cen = view.getCenter() + Vector2f(-view.getSize().x / 2, -view.getSize().y / 2);
 	asset.setPosition(view_cen.x + x, view_cen.y + y);
 }
 
+void Info::setPos(const View& view)
+{
+	Vector2f view_cen = view.getCenter() + Vector2f(-view.getSize().x / 2, -view.getSize().y / 2);
+	mText.setPosition(view_cen.x + x, view_cen.y + y);
+}
+
+void Info::setStr(const string& s)
+{
+	mText.setString(s);
+}
+
+void Info::draw()
+{
+	window.draw(mText);
+}
+
+void Info::drawWithView(const View& view, const int& s)
+{
+	//mText.setString(convertScore(s));
+	setPos(view);
+	draw();
+}
+
+Info::Info(Font& _font, RenderWindow& window, const Color& color, int size, float x_coor, float y_coor) : 
+	mFont(_font), 
+	window(window),
+	x(x_coor),
+	y(y_coor)
+{
+	mText.setString("000");
+	mText.setFillColor(color);
+	mText.setFont(mFont);
+	mText.setCharacterSize(size);
+	mText.setPosition(x, y);
+}

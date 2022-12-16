@@ -49,7 +49,7 @@ public:
 	void handleEvent(const Event& event, const Vector2f& mouse);
 private:
 	vector<SystemButton>pausedButtons;
-	Object				gamePaused;
+	Object				gamePaused, scoreBoard;
 	int					score;
 	GameState			state;
 	GameMode			game_mode;
@@ -57,5 +57,7 @@ private:
 	int					fish_coin;
 	RenderWindow&		window;
 	View&				view;
+
+	Info				fish_score, game_score;
 };
 

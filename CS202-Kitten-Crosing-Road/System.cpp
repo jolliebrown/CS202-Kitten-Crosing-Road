@@ -1,14 +1,17 @@
 #include "System.h"
 
-System::System(View& view, RenderWindow& window) : 
+System::System(View& view, RenderWindow& window) :
 	window(window),
-	score(0), 
-	state(GameState::Continue), 
-	game_mode(GameMode::Endless), 
-	level(0), 
+	score(0),
+	state(GameState::Continue),
+	game_mode(GameMode::Endless),
+	level(0),
 	fish_coin(0),
 	gamePaused(window, ListTextures::still[0], 59, 22),
-	view(view)
+	scoreBoard(window, ListTextures::still[1], 6, 5),
+	view(view),
+	game_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 7, 28, 10),
+	fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 7, 28, 33)
 {
 	SystemButton pause(view, window, ListTextures::unpressed[0], ListTextures::pressed[0], 190, 6);
 	pausedButtons.push_back(pause);
@@ -26,8 +29,11 @@ System::System(View& view, RenderWindow& window, int score, GameState state, Gam
 	level(level),
 	fish_coin(fish_coin),
 	gamePaused(window, ListTextures::still[0], 59, 22),
+	scoreBoard(window, ListTextures::still[1], 6, 5),
 	window(window),
-	view(view)
+	view(view),
+	game_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 8, 22, 5),
+	fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 8, 22, 28)
 {
 	SystemButton pause(view, window, ListTextures::unpressed[0], ListTextures::pressed[0], 195, 5);
 	for (int i = 1; i < 4; i++)
@@ -73,6 +79,10 @@ bool System::setPause() {
 
 void System::draw(const Vector2f& mouse)
 {
+	scoreBoard.setPos(view);
+	scoreBoard.draw();
+	game_score.drawWithView(view, score);
+	fish_score.drawWithView(view, fish_coin);
 	if (state == Continue)
 	{
 		pausedButtons[0].draw(mouse, false);
@@ -86,6 +96,15 @@ void System::draw(const Vector2f& mouse)
 			pausedButtons[i].draw(mouse, false);
 		}
 	}
+}
+
+string convertScore(int a)
+{
+	if (a < 0) return "";
+	if (a == 0) return "000";
+	if (a < 10) return "00" + to_string(a);
+	if (a < 100) return "0" + to_string(a);
+	return to_string(a);
 }
 
 void System::handleEvent(const Event& event, const Vector2f& mouse)
