@@ -65,7 +65,17 @@ ListTextures::ListTextures()
 
 	onePicLoad(instructionAsset, "Media/Menu/Group 31.png");
 	onePicLoad(instructionAsset, "Media/Menu/Menu.png");
+	onePicLoad(instructionAsset, "Media/Instruction/instruction_1.png");
+	onePicLoad(instructionAsset, "Media/Instruction/instruction_2.png");
 	onePicLoad(instructionAsset, "Media/System/Home_here.png");
+
+	onePicLoad(settingsAsset, "Media/Menu/Group 31.png");
+	onePicLoad(settingsAsset, "Media/Menu/Menu.png");
+	onePicLoad(settingsAsset, "Media/System/Home_here.png");
+	onePicLoad(settingsAsset, "Media/Settings/Sound.png");
+	onePicLoad(settingsAsset, "Media/Settings/ButtonSettings.png");
+	onePicLoad(settingsAsset, "Media/Settings/Sound_here.png");
+	onePicLoad(settingsAsset, "Media/Settings/ButtonSettings_here.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
