@@ -48,6 +48,24 @@ ListTextures::ListTextures()
 	train.push_back(temTrainTexture);
 
 	numFont.loadFromFile("Media/pixel-1px.ttf");
+
+	onePicLoad(menuAsset, "Media/Menu/Group 31.png");
+	onePicLoad(menuAsset, "Media/Menu/Menu.png");
+	onePicLoad(menuAsset, "Media/Menu/Name.png");
+	onePicLoad(menuAsset, "Media/Menu/CONTINUE.png");
+	onePicLoad(menuAsset, "Media/Menu/PLAY.png");
+	onePicLoad(menuAsset, "Media/Menu/SETTINGS.png");
+	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION.png");
+	onePicLoad(menuAsset, "Media/Menu/QUIT.png");
+	onePicLoad(menuAsset, "Media/Menu/CONTINUE_here.png");
+	onePicLoad(menuAsset, "Media/Menu/PLAY_here.png");
+	onePicLoad(menuAsset, "Media/Menu/SETTINGS_here.png");
+	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION_here.png");
+	onePicLoad(menuAsset, "Media/Menu/QUIT_here.png");
+
+	onePicLoad(instructionAsset, "Media/Menu/Group 31.png");
+	onePicLoad(instructionAsset, "Media/Menu/Menu.png");
+	onePicLoad(instructionAsset, "Media/System/Home_here.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
@@ -94,7 +112,7 @@ Object::Object(const Object& scr) :
 
 void Object::draw()
 {
-	if (insideView())
+	//if (insideView())
 		window.draw(asset);
 }
 

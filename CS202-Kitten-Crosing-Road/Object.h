@@ -45,6 +45,10 @@ public:
 	vector<Texture>			pressed;
 	vector<Texture>			unpressed;
 	vector<Texture>			still;
+
+	// menu
+	vector<Texture>			menuAsset;
+	vector<Texture>			instructionAsset;
 };
 
 // dung cho 1 cai tile nao do (vi du: background, car, user, ...)
