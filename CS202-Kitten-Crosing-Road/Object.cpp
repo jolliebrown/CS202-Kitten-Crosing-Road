@@ -55,11 +55,13 @@ ListTextures::ListTextures()
 	onePicLoad(menuAsset, "Media/Menu/CONTINUE.png");
 	onePicLoad(menuAsset, "Media/Menu/PLAY.png");
 	onePicLoad(menuAsset, "Media/Menu/SETTINGS.png");
+	onePicLoad(menuAsset, "Media/Menu/LEADERBOARD.png");
 	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION.png");
 	onePicLoad(menuAsset, "Media/Menu/QUIT.png");
 	onePicLoad(menuAsset, "Media/Menu/CONTINUE_here.png");
 	onePicLoad(menuAsset, "Media/Menu/PLAY_here.png");
 	onePicLoad(menuAsset, "Media/Menu/SETTINGS_here.png");
+	onePicLoad(menuAsset, "Media/Menu/LEADERBOARD_here.png");
 	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION_here.png");
 	onePicLoad(menuAsset, "Media/Menu/QUIT_here.png");
 

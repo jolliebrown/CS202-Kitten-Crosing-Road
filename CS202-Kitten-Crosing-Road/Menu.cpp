@@ -1,13 +1,10 @@
 #include "Menu.h"
 
-const int buttonScaleFactor = 4;
-
 Button::Button(RenderWindow& mWindow, Texture& texture, int x_coor, int y_coor, bool setCenter) : Object(mWindow, texture, x_coor, y_coor)
 {
-	asset.scale(buttonScaleFactor, buttonScaleFactor);
 	if (setCenter)
 	{
-		x_coor -= texture.getSize().x * buttonScaleFactor;
+		x_coor -= texture.getSize().x;
 		x_coor /= 2;
 		asset.setPosition(x_coor, y_coor);
 	}
@@ -29,23 +26,21 @@ void Scene::draw()
 Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 {
 	Sprite sprite(menuAsset[0]);
-	sprite.scale(5, 5);
 	background.push_back(sprite);
 
 	sprite = Sprite(menuAsset[1]);
-	sprite.setPosition(Vector2f(BaseUnit * 22, BaseUnit * 16));
-	sprite.scale(4, 3.5);
+	sprite.setPosition(Vector2f(BaseUnit * 22, BaseUnit * 13));
+	sprite.scale(4, 4.5);
 	background.push_back(sprite);
 
 	sprite = Sprite(menuAsset[2]);
 	sprite.setPosition(Vector2f(BaseUnit * 4, BaseUnit * 4));
-	sprite.scale(5, 5);
 	background.push_back(sprite);
 
 
-	for (int i = 3; i < 8; ++i)
+	for (int i = 3; i < 9; ++i)
 	{
-		Button* button = new Button(window, menuAsset[i], BaseUnit * 70, BaseUnit * (19.5 + buttonScaleFactor * (i - 3)), true);
+		Button* button = new Button(window, menuAsset[i], BaseUnit * 70, BaseUnit * (15 + 5 * (i - 3)), true);
 		buttons.push_back(button);
 	}
 }
@@ -65,18 +60,18 @@ void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 					scene.push_back(settings);
 					break;
 				}
-				else if (i == 3)
+				else if (i == 4)
 				{
 					Scene* instruction = new Instruction(window);
 					scene.push_back(instruction);
 					break;
 				}
-				else if (i == 4)
+				else if (i == 5)
 					event.type = Event::Closed;
 			}
-			if (buttons.size() <= 5)
+			if (buttons.size() <= 6)
 			{
-				Button* button = new Button(window, menuAsset[i + 8], BaseUnit * 70, BaseUnit * (19.5 + buttonScaleFactor * i), true);
+				Button* button = new Button(window, menuAsset[i + 9], BaseUnit * 70, BaseUnit * (15 + 5 * i), true);
 				buttons.push_back(button);
 			}
 			checkMouse = true;
@@ -85,7 +80,7 @@ void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 	}
 	if (!checkMouse)
 	{
-		while (buttons.size() > 5)
+		while (buttons.size() > 6)
 			buttons.pop_back();
 	}
 }
@@ -98,7 +93,6 @@ void Menu::draw()
 Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 {
 	Sprite sprite(instructionAsset[0]);
-	sprite.scale(5, 5);
 	background.push_back(sprite);
 
 	sprite = Sprite(instructionAsset[1]);
@@ -108,7 +102,6 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 
 	sprite = Sprite(instructionAsset[2]);
 	sprite.setPosition(Vector2f(BaseUnit * 4.5, BaseUnit * 15));
-	sprite.scale(4, 4);
 	background.push_back(sprite);
 
 	Button* button = new Button(window, instructionAsset[4], 0, 0, false);
@@ -134,12 +127,11 @@ void Instruction::draw()
 Settings::Settings(RenderWindow& mWindow) : Scene(mWindow)
 {
 	Sprite sprite(settingsAsset[0]);
-	sprite.scale(5, 5);
 	background.push_back(sprite);
 
 	sprite = Sprite(settingsAsset[1]);
-	sprite.setPosition(Vector2f(BaseUnit * 22, BaseUnit * 16));
-	sprite.scale(4, 3.5);
+	sprite.setPosition(Vector2f(BaseUnit * 20, BaseUnit * 16));
+	sprite.scale(4.5, 3.5);
 	background.push_back(sprite);
 
 
@@ -147,7 +139,7 @@ Settings::Settings(RenderWindow& mWindow) : Scene(mWindow)
 	buttons.push_back(button);
 	for (int i = 3; i < 5; ++i)
 	{
-		Button* button = new Button(window, settingsAsset[i], BaseUnit * 70, BaseUnit * (19.5 + buttonScaleFactor * (i - 2)), true);
+		Button* button = new Button(window, settingsAsset[i], BaseUnit * 70, BaseUnit * (17 + 6 * (i - 2)), true);
 		buttons.push_back(button);
 	}
 }
@@ -169,7 +161,7 @@ void Settings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePo
 			}
 			if (buttons.size() <= 3 && i != 0)
 			{
-				Button* button = new Button(window, settingsAsset[i + 4], BaseUnit * 70, BaseUnit * (19.5 + buttonScaleFactor * i), true);
+				Button* button = new Button(window, settingsAsset[i + 4], BaseUnit * 70, BaseUnit * (17 + 6 * i), true);
 				buttons.push_back(button);
 			}
 			checkMouse = true;
