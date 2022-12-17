@@ -47,6 +47,10 @@ public:
 	vector<Texture>			still;
 
 	vector<Texture>			num_text;
+	// menu
+	vector<Texture>			menuAsset;
+	vector<Texture>			instructionAsset;
+	vector<Texture>			settingsAsset;
 };
 
 // dung cho 1 cai tile nao do (vi du: background, car, user, ...)

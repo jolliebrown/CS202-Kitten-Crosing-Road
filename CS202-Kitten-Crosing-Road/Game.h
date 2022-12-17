@@ -10,7 +10,7 @@
 #include "Light.h"
 #include "Lane.h"
 #include "System.h"
-
+#include "Menu.h"
 
 using namespace sf;
 using namespace std;
@@ -50,4 +50,6 @@ private:
 	vector<Road>			mLane;
 	Vector2f				viewPosition;
 	// 1 for road, 0 for land
+
+	vector<Scene*>			scene;
 };
