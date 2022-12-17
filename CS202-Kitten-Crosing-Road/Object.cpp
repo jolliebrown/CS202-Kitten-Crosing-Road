@@ -11,6 +11,7 @@ ListTextures::ListTextures()
 	onePicLoad(light, "Media/Tlight_y.png");
 	onePicLoad(light, "Media/Tlight_r.png");
 
+	load(num_text, "Media/Num 1px_brown.png", 0, 0, 60, 7, 6, 7);
 
 	vector<Texture> tmp;
 	load(tmp, "Media/Grass.png", 0, 0, 48, 32, BaseUnit);
@@ -213,6 +214,19 @@ void Object::setPos(View& view)
 	asset.setPosition(view_cen.x + x, view_cen.y + y);
 }
 
+void Object::changePos(int _x, int _y)
+{
+	x = _x;
+	y = _y;
+	asset.setPosition(x, y);
+}
+
+void Object::setTexture(Texture& texture)
+{
+	mAsset = texture;
+	asset.setTexture(mAsset);
+}
+
 void Info::setPos(const View& view)
 {
 	Vector2f view_cen = view.getCenter() + Vector2f(-view.getSize().x / 2, -view.getSize().y / 2);
@@ -222,6 +236,9 @@ void Info::setPos(const View& view)
 void Info::setStr(const string& s)
 {
 	mText.setString(s);
+	int x1 = (x / 2) - mText.getLocalBounds().width / 2;
+	int y1 = (x / 3 * 1) - mText.getLocalBounds().height / 2;
+	mText.setPosition(x1, y1);
 }
 
 void Info::draw()
@@ -236,7 +253,7 @@ void Info::drawWithView(const View& view, const int& s)
 	draw();
 }
 
-Info::Info(Font& _font, RenderWindow& window, const Color& color, int size, float x_coor, float y_coor) : 
+Info::Info(Font& _font, RenderWindow& window, const Color& color, int size, int x_coor, int y_coor) : 
 	mFont(_font), 
 	window(window),
 	x(x_coor),

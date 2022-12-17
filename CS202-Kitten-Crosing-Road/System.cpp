@@ -134,6 +134,14 @@ SystemButton::SystemButton(View& view, RenderWindow& window, Texture& unpressed,
 {
 }
 
+SystemButton::SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor, bool check) :
+	window(window),
+	unpressed(window, unpressed, x_coor, y_coor),
+	pressed(window, pressed, x_coor, y_coor),
+	view(view)
+{
+}
+
 void SystemButton::draw(const Vector2f& mouse, const bool& isStill)
 {
 	unpressed.setPos(view);
@@ -150,4 +158,44 @@ void SystemButton::draw(const Vector2f& mouse, const bool& isStill)
 bool SystemButton::isHere(const Vector2f& mouse)
 {
 	return unpressed.isHere(mouse);
+}
+
+InfoScore::InfoScore(int x, int y, int value, vector<Texture>& texture) : 
+	x(x), y(y), value(value), a(window, texture[0], x, y),
+	b(window, texture[0], x + 7, y),
+	c(window, texture[0], x + 14, y),
+	window(window)
+{
+	update(value, texture);
+}
+
+void InfoScore::draw()
+{
+	a.draw();
+	b.draw();
+	c.draw();
+}
+
+void InfoScore::setPos(const View& view)
+{
+	Vector2f view_cen = view.getCenter() + Vector2f(-view.getSize().x / 2, -view.getSize().y / 2);
+	changePos(view_cen.x + x, view_cen.y + y);
+}
+
+void InfoScore::changePos(int _x, int _y)
+{
+	a.changePos(_x, _y);
+	b.changePos(_x + 7, _y);
+	c.changePos(_x + 14, _y);
+}
+
+void InfoScore::update(int new_value, vector<Texture>& texture)
+{
+	int a_text = new_value / 100 % 10;
+	int b_text = new_value / 10 % 10;
+	int c_text = new_value % 10;
+
+	a.setTexture(texture[a_text]);
+	b.setTexture(texture[b_text]);
+	c.setTexture(texture[c_text]);
 }

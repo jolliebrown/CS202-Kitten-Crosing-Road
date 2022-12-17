@@ -5,6 +5,21 @@
 #include <vector>
 #include "Object.h"
 
+class InfoScore
+{
+private:
+	Object a, b, c;
+	RenderWindow& window;
+	int x, y;
+	int value;
+public:
+	InfoScore(int x, int y, int value, vector<Texture>& texture);
+	void		draw();
+	void		setPos(const View& view);
+	void		changePos(int _x, int _y);
+	void		update(int new_value, vector<Texture>& texture);
+};
+
 class SystemButton
 {
 private:
@@ -13,6 +28,7 @@ private:
 	RenderWindow& window;
 public:
 	SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor);
+	SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor, bool check);
 	void				draw(const Vector2f& mouse, const bool& isStill);
 	View&				view;
 	bool				isHere(const Vector2f& mouse);

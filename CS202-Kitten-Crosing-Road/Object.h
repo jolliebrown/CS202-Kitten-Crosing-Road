@@ -45,6 +45,8 @@ public:
 	vector<Texture>			pressed;
 	vector<Texture>			unpressed;
 	vector<Texture>			still;
+
+	vector<Texture>			num_text;
 };
 
 // dung cho 1 cai tile nao do (vi du: background, car, user, ...)
@@ -63,6 +65,8 @@ public:
 	void					changeAppearance(Texture& texture);
 	bool					isHere(const Vector2f& mouse);
 	void					setPos(View& view);
+	void					changePos(int _x, int _y);
+	void					setTexture(Texture& texture);
 private:
 	RenderWindow&			window;
 	Texture&				mAsset;
@@ -78,9 +82,9 @@ private:
 	Font&					mFont;
 	RenderWindow&			window;
 	Text					mText;
-	float x, y;
+	int x, y;
 public:
-	Info(Font& _font, RenderWindow& window, const Color& color, int size, float x_coor, float y_coor);
+	Info(Font& _font, RenderWindow& window, const Color& color, int size, int x_coor, int y_coor);
 	bool					isHere(const Vector2f& mouse);
 	void					setPos(const View& view);
 	void					setStr(const string& s);
