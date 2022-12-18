@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <map>
 #include <iostream>
 
 const int BaseUnit = 16;
@@ -19,6 +20,16 @@ enum class Environment
 	Rail
 };
 
+enum class MiniButton
+{
+	Pause,
+	Play,
+	Settings,
+	Home,
+	Restart
+};
+
+string					button_name(const MiniButton& src);
 // store all textures that need to be loaded
 class ListTextures
 {
@@ -52,8 +63,7 @@ public:
 	Font					numFont;
 
 	// button
-	vector<Texture>			pressed;
-	vector<Texture>			unpressed;
+	map < MiniButton, pair<Texture, Texture>> systemButton;
 	vector<Texture>			still;
 
 	vector<Texture>			num_text;
@@ -65,7 +75,7 @@ class Object
 public:
 	Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 	Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor);
-							Object(const Object& scr);
+	Object(const Object& scr);
 	//Object&					operator=(const Object& scr);
 	void					draw();
 	bool isCollided(const Object& src);

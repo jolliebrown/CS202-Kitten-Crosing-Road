@@ -28,6 +28,7 @@ private:
 	RenderWindow& window;
 public:
 	SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor);
+	SystemButton(View& view, RenderWindow& window, pair<Texture, Texture>& src, int x_coor, int y_coor);
 	SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor, bool check);
 	void				draw(const Vector2f& mouse, const bool& isStill);
 	View&				view;
@@ -67,7 +68,8 @@ public:
 
 private:
 	vector<SystemButton>buttons;
-	Object				gamePaused, scoreBoard;
+	Object      gamePaused, gameOver;
+	Object				scoreBoard;
 	pair<int, int>		score;
 	GameState			state;
 	GameMode			game_mode;

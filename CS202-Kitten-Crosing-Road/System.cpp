@@ -7,44 +7,56 @@ System::System(View& view, RenderWindow& window) :
 	game_mode(GameMode::Endless),
 	level(0),
 	fish_coin(0),
-	gamePaused(window, ListTextures::still[0], 59, 22),
 	scoreBoard(window, ListTextures::still[1], 6, 5),
 	view(view),
+	gameOver(window, ListTextures::still[2], 59, 55),
 	//game_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 7, 28, 10),
 	//fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 7, 28, 33)
+	gamePaused(window, ListTextures::still[0], 59, 22),
 	game_score(window, 28, 33, score.first, ListTextures::num_text),
 	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
 {
-	SystemButton pause(view, window, ListTextures::unpressed[0], ListTextures::pressed[0], 190, 6);
+	SystemButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
 	buttons.push_back(pause);
 	for (int i = 1; i < 4; i++)
 	{
-		SystemButton tmp(view, window, ListTextures::unpressed[i], ListTextures::pressed[i], 101, (59 + 31 * (i - 1)));
+		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
+		buttons.push_back(tmp);
+	}
+	for (int i = 4; i < 6; i++)
+	{
+		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
 		buttons.push_back(tmp);
 	}
 }
 
-System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
-	score(score),
-	state(state),
-	game_mode(game_mode),
-	level(level),
-	fish_coin(fish_coin),
-	gamePaused(window, ListTextures::still[0], 59, 22),
-	scoreBoard(window, ListTextures::still[1], 6, 5),
-	window(window),
-	view(view),
-	//fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 8, 22, 28)
-	game_score(window, 28, 33, score.first, ListTextures::num_text),
-	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
-{
-	SystemButton pause(view, window, ListTextures::unpressed[0], ListTextures::pressed[0], 195, 5);
-	for (int i = 1; i < 4; i++)
-	{
-		SystemButton tmp(view, window, ListTextures::unpressed[i], ListTextures::pressed[i], 101, 59 + 31 * (i - 1));
-		buttons.push_back(tmp);
-	}
-}
+//System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
+//	score(score),
+//	state(state),
+//	game_mode(game_mode),
+//	level(level),
+//	fish_coin(fish_coin),
+//	gamePaused(window, ListTextures::still[0], 59, 22),
+//	gameOver(window, ListTextures::still[2], 59, 55),
+//	scoreBoard(window, ListTextures::still[1], 6, 5),
+//	window(window),
+//	view(view),
+//	//fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 8, 22, 28)
+//	game_score(window, 28, 33, score.first, ListTextures::num_text),
+//	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
+//{
+//	SystemButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
+//	for (int i = 1; i < 4; i++)
+//	{
+//		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
+//		buttons.push_back(tmp);
+//	}
+//	for (int i = 4; i < 6; i++)
+//	{
+//		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
+//		buttons.push_back(tmp);
+//	}
+//}
 
 bool System::gameLose() {
 	return state == Lose;
@@ -86,15 +98,24 @@ void System::draw(const Vector2f& mouse)
 	scoreBoard.draw();
 	game_score.draw();
 	fish_score.draw();
-	if (state == Continue)
+	if (state == GameState::Continue)
 	{
 		buttons[0].draw(mouse, false);
 	}
-	else if (state == Pause)
+	else if (state == GameState::Pause)
 	{
 		gamePaused.setPos(view);
 		gamePaused.draw();
-		for (int i = 1; i < buttons.size(); i++)
+		for (int i = 1; i < 4; i++)
+		{
+			buttons[i].draw(mouse, false);
+		}
+	}
+	else if (state == GameState::Lose)
+	{
+		gameOver.setPos(view);
+		gameOver.draw();
+		for (int i = 4; i < 6; i++)
 		{
 			buttons[i].draw(mouse, false);
 		}
@@ -133,6 +154,14 @@ SystemButton::SystemButton(View& view, RenderWindow& window, Texture& unpressed,
 	window(window), 
 	unpressed(window, unpressed, x_coor, y_coor),
 	pressed(window, pressed, x_coor, y_coor + 2),
+	view(view)
+{
+}
+
+SystemButton::SystemButton(View& view, RenderWindow& window, pair<Texture, Texture>& src, int x_coor, int y_coor) :
+	window(window),
+	unpressed(window, src.first, x_coor, y_coor),
+	pressed(window, src.second, x_coor, y_coor + 2),
 	view(view)
 {
 }

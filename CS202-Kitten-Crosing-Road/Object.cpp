@@ -23,19 +23,17 @@ ListTextures::ListTextures()
 	onePicLoad(tmp, "Media/Rail.png");
 	background.push_back(tmp);
 	tmp.clear();
+	
+	for (int i = 0; i < 5; i++)
+	{
+		systemButton[(MiniButton)i].first.loadFromFile("Media/System/" + button_name((MiniButton) i) + ".png");
+		systemButton[(MiniButton)i].second.loadFromFile("Media/System/" + button_name((MiniButton) i) + "_here.png");
 
-	onePicLoad(pressed, "Media/System/Pause_here.png");
-	onePicLoad(pressed, "Media/System/Pause1_here.png");
-	onePicLoad(pressed, "Media/System/Settings_here.png");
-	onePicLoad(pressed, "Media/System/Home_here.png");
-
-	onePicLoad(unpressed, "Media/System/Pause.png");
-	onePicLoad(unpressed, "Media/System/Pause1.png");
-	onePicLoad(unpressed, "Media/System/Settings.png");
-	onePicLoad(unpressed, "Media/System/Home.png");
+	}
 	
 	onePicLoad(still, "Media/System/Game Paused.png");
 	onePicLoad(still, "Media/System/Score_board.png");
+	onePicLoad(still, "Media/System/Game Over.png");
 
 	Texture temTrainTexture;
 	temTrainTexture.create(90 + 68 * 5, 15);
@@ -124,16 +122,33 @@ Object::Object(const Object& scr) :
 
 //Object& Object::operator=(const Object& scr)
 //{
+//	this->window = scr.window;
 //	this->unit = scr.unit;
-//	this->mAsset = scr.mAsset;
-//
-//	// TODO: insert return statement here
 //}
 
 void Object::draw()
 {
 	if (insideView())
 		window.draw(asset);
+}
+
+string button_name(const MiniButton& src)
+{
+	switch (src)
+	{
+	case MiniButton::Pause:
+		return "Pause";
+	case MiniButton::Play:
+		return "Play";
+	case MiniButton::Settings:
+		return "Settings";
+	case MiniButton::Home:
+		return "Home";
+	case MiniButton::Restart:
+		return "Restart";
+	default:
+		return "";
+	}
 }
 
 vector<Texture>& ListTextures::load(vector<Texture>& scr, string fileName, int x_coor, int y_coor, int width, int height, int x, int y)
