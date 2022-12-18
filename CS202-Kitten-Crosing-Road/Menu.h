@@ -4,16 +4,20 @@
 #include <SFML/Window.hpp>
 #include <vector>
 #include "Object.h"
+#include "System.h"
 
 class Button : public Object {
 public:
 	Button(RenderWindow& mWindow, Texture& texture, int x_coor, int y_coor, bool setCenter);
 
+	void draw(RenderWindow& window);
 };
 
 class Scene : public ListTextures {
 public:
 	Scene(RenderWindow& mWindow);
+
+	~Scene();
 
 	virtual void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) = 0;
 	virtual void draw();
@@ -37,11 +41,22 @@ public:
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
 	void draw() override;
+private:
+	int pageIndex;
+	int pageNum;
 };
 
 class Settings : public Scene {
 public:
 	Settings(RenderWindow& mWindow);
+
+	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
+	void draw() override;
+};
+
+class Mode : public Scene {
+public:
+	Mode(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
 	void draw() override;

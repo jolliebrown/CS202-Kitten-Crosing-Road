@@ -50,8 +50,10 @@ ListTextures::ListTextures()
 
 	numFont.loadFromFile("Media/pixel-1px.ttf");
 
-	onePicLoad(menuAsset, "Media/Menu/Group 31.png");
-	onePicLoad(menuAsset, "Media/Menu/Menu.png");
+	onePicLoad(commonAsset, "Media/Menu/Group 31.png");
+	onePicLoad(commonAsset, "Media/Menu/Menu.png");
+	onePicLoad(commonAsset, "Media/System/Home_here.png");
+
 	onePicLoad(menuAsset, "Media/Menu/Name.png");
 	onePicLoad(menuAsset, "Media/Menu/CONTINUE.png");
 	onePicLoad(menuAsset, "Media/Menu/PLAY.png");
@@ -66,19 +68,24 @@ ListTextures::ListTextures()
 	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION_here.png");
 	onePicLoad(menuAsset, "Media/Menu/QUIT_here.png");
 
-	onePicLoad(instructionAsset, "Media/Menu/Group 31.png");
-	onePicLoad(instructionAsset, "Media/Menu/Menu.png");
 	onePicLoad(instructionAsset, "Media/Instruction/instruction_1.png");
+	onePicLoad(instructionAsset, "Media/Instruction/Page1.png");
 	onePicLoad(instructionAsset, "Media/Instruction/instruction_2.png");
-	onePicLoad(instructionAsset, "Media/System/Home_here.png");
+	onePicLoad(instructionAsset, "Media/Instruction/Page2.png");
+	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_yes.png");
+	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_yes.png");
+	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_no.png");
+	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_no.png");
 
-	onePicLoad(settingsAsset, "Media/Menu/Group 31.png");
-	onePicLoad(settingsAsset, "Media/Menu/Menu.png");
-	onePicLoad(settingsAsset, "Media/System/Home_here.png");
 	onePicLoad(settingsAsset, "Media/Settings/Sound.png");
 	onePicLoad(settingsAsset, "Media/Settings/ButtonSettings.png");
 	onePicLoad(settingsAsset, "Media/Settings/Sound_here.png");
 	onePicLoad(settingsAsset, "Media/Settings/ButtonSettings_here.png");
+
+	onePicLoad(modeAsset, "Media/Menu/CLASSIC.png");
+	onePicLoad(modeAsset, "Media/Menu/ENDLESS.png");
+	onePicLoad(modeAsset, "Media/Menu/CLASSIC_here.png");
+	onePicLoad(modeAsset, "Media/Menu/ENDLESS_here.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
@@ -125,7 +132,7 @@ Object::Object(const Object& scr) :
 
 void Object::draw()
 {
-	//if (insideView())
+	if (insideView())
 		window.draw(asset);
 }
 

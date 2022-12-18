@@ -9,9 +9,7 @@ int main()
     game.run();*/
 
     // run menu
-    ContextSettings settings;
-    settings.antialiasingLevel = 8.0;
-    RenderWindow window(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close, settings);
+    RenderWindow window(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close);
     vector<Scene*> scene;
     Scene* menu = new Menu(window);
     scene.push_back(menu);

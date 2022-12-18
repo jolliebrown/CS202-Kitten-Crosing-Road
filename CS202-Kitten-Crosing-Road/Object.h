@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -34,6 +34,16 @@ protected:
 	vector<Texture>			road;
 	vector<Texture>			rail;
 	vector<vector<Texture>> background;
+
+	// menu
+
+	// pictures that many scenes will use
+	vector<Texture>			commonAsset;
+	// pictures for individual scene
+	vector<Texture>			menuAsset;
+	vector<Texture>			modeAsset;
+	vector<Texture>			instructionAsset;
+	vector<Texture>			settingsAsset;
 public:
 	vector<Texture>			car;
 	vector<Texture>			user;
@@ -47,10 +57,6 @@ public:
 	vector<Texture>			still;
 
 	vector<Texture>			num_text;
-	// menu
-	vector<Texture>			menuAsset;
-	vector<Texture>			instructionAsset;
-	vector<Texture>			settingsAsset;
 };
 
 // dung cho 1 cai tile nao do (vi du: background, car, user, ...)
