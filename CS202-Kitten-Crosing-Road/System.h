@@ -13,7 +13,7 @@ private:
 	int x, y;
 	int value;
 public:
-	InfoScore(int x, int y, int value, vector<Texture>& texture);
+	InfoScore(RenderWindow& window, int x, int y, int value, vector<Texture>& texture);
 	void		draw();
 	void		setPos(const View& view);
 	void		changePos(int _x, int _y);
@@ -52,7 +52,7 @@ public:
 		TwoPlayer
 	};
 	System(View& view, RenderWindow& window);
-	System(View& view, RenderWindow& window, int score, GameState state, GameMode game_mode, int level, int fish_coin);
+	System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin);
 	bool gameLose();
 	bool gameContinue();
 	bool gameWin();
@@ -63,10 +63,12 @@ public:
 	bool setPause();
 	void draw(const Vector2f& mouse);
 	void handleEvent(const Event& event, const Vector2f& mouse);
+	friend class Player;
+
 private:
-	vector<SystemButton>pausedButtons;
+	vector<SystemButton>buttons;
 	Object				gamePaused, scoreBoard;
-	int					score;
+	pair<int, int>		score;
 	GameState			state;
 	GameMode			game_mode;
 	int					level;
@@ -74,6 +76,6 @@ private:
 	RenderWindow&		window;
 	View&				view;
 
-	Info				fish_score, game_score;
+	InfoScore			fish_score, game_score;
 };
 

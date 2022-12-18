@@ -74,12 +74,12 @@ public:
 	bool					insideView();
 	void					changeAppearance(Texture& texture);
 	bool					isHere(const Vector2f& mouse);
-	void					setPos(View& view);
+	void					setPos(const View& view);
 	void					changePos(int _x, int _y);
 	void					setTexture(Texture& texture);
 private:
 	RenderWindow&			window;
-	Texture&				mAsset;
+	Texture*				mAsset;
 protected:
 	int						unit;
 	Sprite					asset;

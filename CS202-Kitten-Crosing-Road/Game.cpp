@@ -140,7 +140,7 @@ void Game::processEvents()
 	{
 		setCur(event);
 		if (gameSystem.gameContinue()) {
-			mPlayer.handleEvent(event);
+			mPlayer.handleEvent(event, gameSystem);
 		}
 		gameSystem.handleEvent(event, mouse);
 		if (event.type == sf::Event::Closed)

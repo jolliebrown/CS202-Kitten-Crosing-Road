@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "System.h"
 
 //void Player::draw()
 //{
@@ -66,7 +67,7 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 	mKeyBinding[Keyboard::Down] = MoveDown;
 }
 
-void Player::handleEvent(const sf::Event& event)
+void Player::handleEvent(const sf::Event& event, System& gameSystem)
 {
 	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
@@ -86,6 +87,23 @@ void Player::handleEvent(const sf::Event& event)
 			{
 				mAction[found->second] = tmp;
 			}
+		}
+		// no obstables
+		if (mAction[Action::MoveUp].y)
+		{
+			if (gameSystem.score.second >= 0) 
+			{
+			gameSystem.score.first++;
+			gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
+			}
+			else
+			{
+				gameSystem.score.second++;
+			}
+		}
+		if (mAction[Action::MoveDown].y)
+		{
+			gameSystem.score.second--;
 		}
 	}
 	movePlayer();

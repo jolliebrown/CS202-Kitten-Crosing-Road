@@ -90,24 +90,24 @@ ListTextures::ListTextures()
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
 	window(window), 
-	mAsset(texture), 
 	unit(unit),
 	x(x_coor),
 	y(y_coor)
 {
-	asset.setTexture(mAsset);
+	mAsset = &texture;
+	asset.setTexture(*mAsset);
 	asset.setPosition((float)x_coor, (float)y_coor);
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor) : 
 	window(window), 
-	mAsset(texture), 
 	unit(unit),
 	x(x_coor),
 	y(y_coor)
 {
 	unit = 0;
-	asset.setTexture(mAsset);
+	mAsset = &texture;
+	asset.setTexture(*mAsset);
 	asset.setPosition((float)x_coor, (float)y_coor);
 }
 
@@ -118,7 +118,7 @@ Object::Object(const Object& scr) :
 	x(scr.x),
 	y(scr.y)
 {
-	asset.setTexture(mAsset);
+	asset.setTexture(*mAsset);
 	asset.setPosition(x, y);
 }
 
@@ -230,7 +230,8 @@ bool Object::insideView() {
 
 void Object::changeAppearance(Texture& texture)
 {
-	mAsset = texture;
+	mAsset = &texture;
+	asset.setTexture(*mAsset);
 }
 
 bool Object::isHere(const Vector2f& mouse)
@@ -245,7 +246,7 @@ bool Info::isHere(const Vector2f& mouse)
 	return false;
 }
 
-void Object::setPos(View& view)
+void Object::setPos(const View& view)
 {
 	Vector2f view_cen = view.getCenter() + Vector2f(-view.getSize().x / 2, -view.getSize().y / 2);
 	asset.setPosition(view_cen.x + x, view_cen.y + y);
@@ -260,8 +261,8 @@ void Object::changePos(int _x, int _y)
 
 void Object::setTexture(Texture& texture)
 {
-	mAsset = texture;
-	asset.setTexture(mAsset);
+	mAsset = &texture;
+	asset.setTexture(*mAsset);
 }
 
 void Info::setPos(const View& view)

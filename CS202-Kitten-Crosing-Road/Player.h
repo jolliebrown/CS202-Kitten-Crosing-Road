@@ -2,7 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <map>
-
+#include "System.h"
 #include "Object.h"
 
 class Player : public Object
@@ -20,7 +20,7 @@ public:
 	};
 	void				draw();
 						Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
-	void				handleEvent(const sf::Event& event);
+	void				handleEvent(const sf::Event& event, System& gameSystem);
 	void				handleRealtimeInput();
 	bool				movePlayer();
 	pair <float, float> getPosition() {
