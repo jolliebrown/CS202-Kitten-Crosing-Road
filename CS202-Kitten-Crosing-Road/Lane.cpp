@@ -3,14 +3,14 @@
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit)
 {
 	this->dir = dir;
-	Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, unit);
+	Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
 }
 
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo)
 {
 	this->dir = dir;
-	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, unit);
+	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
 }
 

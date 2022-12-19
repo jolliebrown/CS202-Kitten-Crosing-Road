@@ -13,12 +13,13 @@ Game::Game(vector<int>& mapIndex) :
 	
 
 	for (int i = 0; i < mapIndex.size(); ++i) {
+		int dir = (i % 2 == 0) ? -1 : 1;
 		if (mapIndex[i] == 1) {
-			Road temLane(mWindow, i % 2, mWorld.car[(rand() + 1) % 3], 0, signMap * BaseUnit * i, BaseUnit * 3);
+			Road temLane(mWindow, dir, mWorld.car[(rand() + 1) % 3], 0, signMap * BaseUnit * i, BaseUnit * 3);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Road temLane(mWindow, i % 2, mWorld.train[0], 0, signMap * BaseUnit * i, BaseUnit * 3, 0.3, 0.5);
+			Road temLane(mWindow, dir, mWorld.train[0], 0, signMap * BaseUnit * i, BaseUnit * 3, 0.3, 0.5);
 			mLane.push_back(temLane);
 		}
 	}
