@@ -26,7 +26,8 @@ enum class MiniButton
 	Play,
 	Settings,
 	Home,
-	Restart
+	Restart,
+	Next
 };
 
 enum class FishCoin

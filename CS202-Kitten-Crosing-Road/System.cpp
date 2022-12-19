@@ -10,8 +10,7 @@ System::System(View& view, RenderWindow& window) :
 	scoreBoard(window, ListTextures::still[1], 6, 5),
 	view(view),
 	gameOver(window, ListTextures::still[2], 59, 55),
-	//game_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 7, 28, 10),
-	//fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 7, 28, 33)
+	gameWon(window, ListTextures::still[3], 59, 55),
 	gamePaused(window, ListTextures::still[0], 59, 22),
 	game_score(window, 28, 33, score.first, ListTextures::num_text),
 	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
@@ -26,6 +25,11 @@ System::System(View& view, RenderWindow& window) :
 	for (int i = 4; i < 6; i++)
 	{
 		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
+		buttons.push_back(tmp);
+	}
+	for (int i = 6; i < 9; i++)
+	{
+		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
 		buttons.push_back(tmp);
 	}
 	for (int i = 0; i < 3; i++)
@@ -127,6 +131,7 @@ void System::draw(const Vector2f& mouse)
 	scoreBoard.draw();
 	game_score.draw();
 	fish_score.draw();
+	int l = 0, r = 0;
 	if (state == GameState::Continue)
 	{
 		buttons[0].draw(mouse, false);
@@ -135,19 +140,27 @@ void System::draw(const Vector2f& mouse)
 	{
 		gamePaused.setPos(view);
 		gamePaused.draw();
-		for (int i = 1; i < 4; i++)
-		{
-			buttons[i].draw(mouse, false);
-		}
+		buttons[0].draw(mouse, true);
+		l = 1;
+		r = 4;
 	}
 	else if (state == GameState::Lose)
 	{
 		gameOver.setPos(view);
 		gameOver.draw();
-		for (int i = 4; i < 6; i++)
-		{
-			buttons[i].draw(mouse, false);
-		}
+		l = 4;
+		r = 6;
+	}
+	else if (state == GameState::Win)
+	{
+		gameWon.setPos(view);
+		gameWon.draw();
+		l = 6;
+		r = 9;
+	}
+	for (int i = l; i < r; i++)
+	{
+		buttons[i].draw(mouse, false);
 	}
 }
 

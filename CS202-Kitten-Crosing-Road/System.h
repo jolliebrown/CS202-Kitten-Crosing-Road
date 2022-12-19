@@ -73,7 +73,7 @@ protected:
 private:
 	vector<SystemButton>buttons;
 	vector<Object>		fish_boost;
-	Object      gamePaused, gameOver;
+	Object      gamePaused, gameOver, gameWon;
 	Object				scoreBoard;
 	pair<int, int>		score;
 	GameState			state;

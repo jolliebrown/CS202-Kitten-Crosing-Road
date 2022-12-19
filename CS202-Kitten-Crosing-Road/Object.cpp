@@ -24,7 +24,7 @@ ListTextures::ListTextures()
 	background.push_back(tmp);
 	tmp.clear();
 	
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		systemButton[(MiniButton)i].first.loadFromFile("Media/System/" + button_name((MiniButton) i) + ".png");
 		systemButton[(MiniButton)i].second.loadFromFile("Media/System/" + button_name((MiniButton) i) + "_here.png");
@@ -34,6 +34,7 @@ ListTextures::ListTextures()
 	onePicLoad(still, "Media/System/Game Paused.png");
 	onePicLoad(still, "Media/System/Score_board.png");
 	onePicLoad(still, "Media/System/Game Over.png");
+	onePicLoad(still, "Media/System/Win.png");
 
 	fishCoinName[FishCoin::Bonus] = "Bonus";
 	fishCoinName[FishCoin::Normal] = "Normal";
@@ -165,6 +166,8 @@ string button_name(const MiniButton& src)
 		return "Home";
 	case MiniButton::Restart:
 		return "Restart";
+	case MiniButton::Next:
+		return "Next";
 	default:
 		return "";
 	}
