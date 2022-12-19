@@ -82,7 +82,7 @@ void Game::viewScroll(View& mView, Player& mPlayer){
 	//viewPosition.y = max(viewPosition.y, 0.f);
 	viewPosition.y = min(viewPosition.y, BaseUnit * 10.f);
 	mView.setCenter(viewPosition);
-	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 14.f) {
+	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 29.f) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.setLose();
 	}
@@ -135,6 +135,7 @@ void Game::run()
 
 void Game::processEvents()
 {
+	//cout << mPlayer.getPosition().first << " " << mPlayer.getPosition().second << endl;
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
@@ -147,6 +148,7 @@ void Game::processEvents()
 			mWindow.close();
 	}
 	if (gameSystem.gameContinue()) {
+		//cout << "Hiii\n";
 		mPlayer.handleRealtimeInput();
 		for (auto& lane : mLane) lane.handleEvent();
 		for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {

@@ -89,7 +89,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 			}
 		}
 		// no obstables
-		if (mAction[Action::MoveUp].y)
+		/*if (mAction[Action::MoveUp].y)
 		{
 			if (gameSystem.score.second >= 0) 
 			{
@@ -104,7 +104,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 		if (mAction[Action::MoveDown].y)
 		{
 			gameSystem.score.second--;
-		}
+		}*/
 	}
 	movePlayer();
 
@@ -112,18 +112,18 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 
 void Player::handleRealtimeInput()
 {
-	//Vector2i tmp;
-	//map<Action, Vector2i>::iterator itr;
-	//for (auto found : mKeyBinding)
+	//vector2i tmp;
+	//map<action, vector2i>::iterator itr;
+	//for (auto found : mkeybinding)
 	//{
-	//	// If key is pressed, lookup action and trigger corresponding command
-	//	if (sf::Keyboard::isKeyPressed(found.first) && isRealtimeAction(found.second, tmp))
+	//	// if key is pressed, lookup action and trigger corresponding command
+	//	if (sf::keyboard::iskeypressed(found.first) && isrealtimeaction(found.second, tmp))
 	//	{
-	//		itr = mAction.find(found.second);
-	//		if (itr != mAction.end())
+	//		itr = maction.find(found.second);
+	//		if (itr != maction.end())
 	//			itr->second += tmp;
 	//		else
-	//			mAction.insert({ found.second, tmp });
+	//			maction.insert({ found.second, tmp });
 	//	}
 	//}
 }
@@ -189,8 +189,7 @@ void Player::test()
 
 void Player::changePosition(int x, int y)
 {
-	
-	asset.setPosition(asset.getPosition().x + x, asset.getPosition().y + y);
+	this->asset.setPosition(asset.getPosition().x + x, asset.getPosition().y + y);
 }
 
 void Player::assignKey(Action action, Keyboard::Key key)

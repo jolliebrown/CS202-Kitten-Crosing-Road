@@ -19,7 +19,7 @@ public:
 
 	void draw();
 	void handleEvent();
-	bool isCollided(Player mPlayer);
+	bool isCollided(Player& mPlayer);
 private:
 	int dir; // 0: left to right, 1: right to left
 	vector<Vehicle*>	listVehicle;

@@ -79,7 +79,8 @@ public:
 	Object(const Object& scr);
 	//Object&					operator=(const Object& scr);
 	void					draw();
-	bool isCollided(const Object& src);
+	bool isCollided(Object& src);
+	//const bool isCollided(const Object& src) const;
 	//FloatRect				getBound();
 	FloatRect				getBound() const;
 	bool					insideView();

@@ -3,12 +3,6 @@
 int main()
 {
     srand(time(NULL));
-    vector<int> mapIndex(0);
-    for (int i = 0; i < 20; i++) mapIndex.push_back((rand() * 1) * (rand() + 1) % 3);
-    Game game(mapIndex);
-    game.run();
-
-    // run menu
     /*RenderWindow window(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close);
     vector<Scene*> scene;
     Scene* menu = new Menu(window);
@@ -29,5 +23,13 @@ int main()
         scene[scene.size() - 1]->draw();
         window.display();
     }*/
+    vector<int> mapIndex(0);
+    for (int i = 0; i < 20; i++) mapIndex.push_back((rand() * 1) * (rand() + 1) % 3);
+    //mapIndex.push_back(1);
+    Game game(mapIndex);
+    game.run();
+
+    // run menu
+    
     return 0;
 }

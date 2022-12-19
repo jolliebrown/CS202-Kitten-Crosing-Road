@@ -52,7 +52,7 @@ void Road::handleEvent() {
 	for (auto& light : listLight) light.move();
 }
 
-bool Road::isCollided(Player mPlayer)
+bool Road::isCollided(Player& mPlayer)
 {
 	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
 	return false;
