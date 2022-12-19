@@ -14,6 +14,19 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 	listVehicle.push_back(Tem);
 }
 
+//Road::Road(const Road& road)
+//{
+//	cerr << "Deep copy...\n";
+//	dir = road.dir;
+//	for (auto v : road.listVehicle) {
+//		Vehicle* Tem = new Vehicle(*v);
+//		listVehicle.push_back(Tem);
+//	}
+//	for (auto v : road.listLight) {
+//		listLight.push_back(v);
+//	}
+//}
+
 void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
 	listLight.push_back(Light(window, texture, x_coor, y_coor, unit));

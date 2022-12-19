@@ -16,7 +16,7 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	acce = 0.01;
 	clock.restart();
 	startMoveTime = milliseconds(Rand(1000, 8000));
-	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor + (16 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
 	Object::asset.setPosition(-Object::asset.getGlobalBounds().width, coord.y);
 }
 
@@ -28,9 +28,8 @@ Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& t
 	velo = initVelo;
 	acce = 0.01;
 	clock.restart();
-	//startMoveTime = milliseconds(Rand(1000, 8000));
 	startMoveTime = milliseconds(Rand(1000, 8000));
-	coord = Vector2f(x_coor, (float)(y_coor + (18 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor + (16 - Object::asset.getGlobalBounds().height) * 1.0 / 2));
 	Object::asset.setPosition(-Object::asset.getGlobalBounds().width, coord.y);
 }
 

@@ -10,8 +10,10 @@
 class Road
 {
 public:
+	Road() = default;
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit);
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo);
+	//Road(const Road& road);
 
 	void addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 

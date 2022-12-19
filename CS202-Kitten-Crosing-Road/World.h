@@ -10,6 +10,7 @@ using namespace sf;
 using namespace std;
 
 #include "Object.h"
+#include "Lane.h"
 
 class World : public ListTextures
 {

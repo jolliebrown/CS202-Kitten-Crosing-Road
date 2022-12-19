@@ -20,6 +20,12 @@ Light::Light(int state, RenderWindow& window, vector<Texture>& texture, int x_co
 	listLight = texture;
 }
 
+Light::Light(const Light& light) : Object(light)
+{
+	state = light.state, clock = light.clock, listLight = light.listLight;
+	for (int i = 0; i < 3; ++i) count[i] = light.count[i];
+}
+
 void Light::draw()
 {
 	Object::draw();

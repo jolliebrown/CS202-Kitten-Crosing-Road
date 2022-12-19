@@ -1,10 +1,10 @@
 #include "World.h"
 
-World::World(RenderWindow& window, vector<int>& mapIndex) : 
+World::World(RenderWindow& window, vector<int>& mapIndex) :
 	window(window), 
 	mapIndex(mapIndex)
 {
-	for (unsigned int i = 0; i < mapIndex.size(); i++)
+	for (int i = 0; i < mapIndex.size(); i++)
 	{
 		int j = mapIndex[i];
 		vector<Object> tmp;
