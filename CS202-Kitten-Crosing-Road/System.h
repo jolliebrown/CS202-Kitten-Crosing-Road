@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Object.h"
+#include "other.h"
 
 class InfoScore
 {
@@ -66,6 +67,9 @@ public:
 	void handleEvent(const Event& event, const Vector2f& mouse);
 	friend class Player;
 
+protected:
+
+
 private:
 	vector<SystemButton>buttons;
 	vector<Object>		fish_boost;
@@ -79,5 +83,7 @@ private:
 	RenderWindow&		window;
 	View&				view;
 	InfoScore			fish_score, game_score;
+	void				generateNextNormalBoost(Object& curBoost);
+	void				generateNextSpecialBoost(Object& curBoost);
 };
 

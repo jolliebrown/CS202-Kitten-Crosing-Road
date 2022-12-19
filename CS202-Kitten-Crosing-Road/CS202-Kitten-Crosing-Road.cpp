@@ -25,7 +25,7 @@ int main()
     }*/
     vector<int> mapIndex(0);
     for (int i = 0; i < 2; i++) mapIndex.push_back(0);
-    for (int i = 0; i < 20; i++) mapIndex.push_back((rand() * 1) * (rand() + 1) % 3);
+    for (int i = 0; i < 25; i++) mapIndex.push_back((rand() * 1) * (rand() + 1) % 3);
     //mapIndex.push_back(1);
     Game game(mapIndex);
     game.run();

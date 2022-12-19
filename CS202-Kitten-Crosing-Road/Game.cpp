@@ -75,7 +75,7 @@ Game::Game(vector<int>& mapIndex) :
 void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
 	viewPosition = mView.getCenter();
-	viewPosition.x = max(BaseUnit * 8.f, min(BaseUnit * 22.f, mPlayer.getPosition().first));
+	viewPosition.x = max(BaseUnit * 8.f - 4.f, min(BaseUnit * 22.f, mPlayer.getPosition().first));
 	viewPosition.y -= 0.01f;
 	if (viewPosition.y > mPlayer.getPosition().second)
 		viewPosition.y = mPlayer.getPosition().second;
@@ -141,15 +141,16 @@ void Game::processEvents()
 	{
 		setCur(event);
 		if (gameSystem.gameContinue()) {
-			mPlayer.handleEvent(event, gameSystem);
+			gameSystem.handleEvent(event, mouse);
 		}
-		gameSystem.handleEvent(event, mouse);
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
 	if (gameSystem.gameContinue()) {
+		mPlayer.handleEvent(event, gameSystem);
 		//cout << "Hiii\n";
 		mPlayer.handleRealtimeInput();
+		//gameSystem
 		for (auto& lane : mLane) lane.handleEvent();
 		for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
 			mPlayer.setIdPlayer(-1);
@@ -157,7 +158,6 @@ void Game::processEvents()
 			break;
 		}
 	}
-	
 	
 }
 

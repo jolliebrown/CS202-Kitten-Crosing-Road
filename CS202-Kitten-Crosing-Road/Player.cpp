@@ -89,7 +89,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 			}
 		}
 		// no obstables
-		/*if (mAction[Action::MoveUp].y)
+		if (mAction[Action::MoveUp].y)
 		{
 			if (gameSystem.score.second >= 0) 
 			{
@@ -104,10 +104,19 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 		if (mAction[Action::MoveDown].y)
 		{
 			gameSystem.score.second--;
-		}*/
+		}
 	}
 	movePlayer();
-
+	for (int i = 0; i < 4; i++) {
+		Object& boost = gameSystem.fish_boost[i];
+		if (this->isCollided(boost)) {
+			gameSystem.fish_coin += 1;
+			gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
+			if (i != 3) gameSystem.generateNextNormalBoost(boost);
+			else gameSystem.generateNextSpecialBoost(boost);
+			// gen toa do moi cho no
+		}
+	}
 }
 
 void Player::handleRealtimeInput()

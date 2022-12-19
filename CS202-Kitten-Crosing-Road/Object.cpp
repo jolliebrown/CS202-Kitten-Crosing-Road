@@ -227,9 +227,9 @@ bool Object::isCollided(Object& src) {
 	//cout << curX << " " << curY << endl;
 	//if (src.getBound().contains(curX, curY)) {
 	if (src.getBound().contains(curX, curY)) {
-		cout << "end\n";
+		/*cout << "end\n";
 		cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left+ src.getBound().width<< " " << src.getBound().top + src.getBound().height << endl;
-		cout << curX << " " << curY << endl;
+		cout << curX << " " << curY << endl;*/
 		return true;
 	}
 	else return false;

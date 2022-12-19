@@ -1,5 +1,5 @@
 #include "System.h"
-
+#include "other.h"
 System::System(View& view, RenderWindow& window) :
 	window(window),
 	score({0, 0}),
@@ -28,13 +28,32 @@ System::System(View& view, RenderWindow& window) :
 		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
 		buttons.push_back(tmp);
 	}
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		Object tmp(window, ListTextures::fishCoin[FishCoin::Normal], 0, signMap * BaseUnit * i);
+		Object tmp(window, ListTextures::fishCoin[(FishCoin)0], 100.f, signMap * BaseUnit * i);
+		generateNextNormalBoost(tmp);
 		fish_boost.push_back(tmp);
 	}
+	Object tmp(window, ListTextures::fishCoin[(FishCoin)3], 100.f, signMap * BaseUnit * 3);
+	generateNextSpecialBoost(tmp);
+	fish_boost.push_back(tmp);
 }
 
+
+void System::generateNextNormalBoost(Object& curBoost) {
+	Vector2f viewPosition = window.getView().getCenter();
+	int curX = Rand(5, 10) * BaseUnit, curY = viewPosition.y - BaseUnit * 6.f - BaseUnit * Rand(0, 5);
+	curY = curY / 16 * 16;
+	curBoost.changePos((int)curX, (int)curY);
+}
+
+void System::generateNextSpecialBoost(Object& curBoost) {
+	Vector2f viewPosition = window.getView().getCenter();
+	int curX = Rand(5, 10) * BaseUnit, curY = viewPosition.y - BaseUnit * 6.f - BaseUnit * Rand(0, 5);
+	curY = curY / 16 * 16;
+	curBoost.changePos((int)curX, (int)curY);
+	curBoost.changeAppearance(ListTextures::fishCoin[(FishCoin)Rand(1, 3)]);
+}
 
 //System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
 //	score(score),
