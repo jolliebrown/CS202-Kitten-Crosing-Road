@@ -255,6 +255,12 @@ void Settings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePo
 					scene.pop_back();
 					break;
 				}
+				else if (i == 2)
+				{
+					Scene* buttonSettings = new ButtonSettings(window);
+					scene.push_back(buttonSettings);
+					break;
+				}
 			}
 			if (buttons.size() <= 3 && i != 0)
 			{
@@ -331,6 +337,64 @@ void Mode::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 }
 
 void Mode::draw()
+{
+	Scene::draw();
+}
+
+ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
+{
+	// Background
+	Sprite sprite(commonAsset[0]);
+	background.push_back(sprite);
+
+	sprite = Sprite(commonAsset[1]);
+	sprite.setPosition(BaseUnit * 17, BaseUnit * 16);
+	sprite.scale(5.5, 4);
+	background.push_back(sprite);
+
+	// Button
+	Button* button = new Button(window, commonAsset[2], 0, 0, false);
+	buttons.push_back(button);
+	for (int i = 0; i < 4; ++i)
+	{
+		Button* button = new Button(window, buttonSettings_Asset[i], BaseUnit * 70, BaseUnit * (20 + 6 * i), true);
+		buttons.push_back(button);
+	}
+}
+
+void ButtonSettings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
+{
+	bool checkMouse = false;
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		if (buttons[i]->getBound().contains(mousePosition))
+		{
+			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			{
+				if (i == 0)
+				{
+					delete scene.back();
+					scene.pop_back();
+					break;
+				}
+			}
+			if (buttons.size() <= 5 && i != 0)
+			{
+				Button* button = new Button(window, buttonSettings_Asset[i + 3], BaseUnit * 70, BaseUnit * (20 + 6 * (i - 1)), true);
+				buttons.push_back(button);
+			}
+			checkMouse = true;
+			break;
+		}
+	}
+	if (!checkMouse && buttons.size() > 5)
+	{
+		delete buttons.back();
+		buttons.pop_back();
+	}
+}
+
+void ButtonSettings::draw()
 {
 	Scene::draw();
 }

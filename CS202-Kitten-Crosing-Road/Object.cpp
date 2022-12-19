@@ -84,6 +84,15 @@ ListTextures::ListTextures()
 	onePicLoad(modeAsset, "Media/Menu/ENDLESS.png");
 	onePicLoad(modeAsset, "Media/Menu/CLASSIC_here.png");
 	onePicLoad(modeAsset, "Media/Menu/ENDLESS_here.png");
+
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonUp.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonDown.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonLeft.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonRight.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonUp_here.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonDown_here.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonLeft_here.png");
+	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonRight_here.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
