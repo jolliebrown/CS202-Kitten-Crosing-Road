@@ -141,13 +141,14 @@ void Game::processEvents()
 	{
 		setCur(event);
 		if (gameSystem.gameContinue()) {
-			gameSystem.handleEvent(event, mouse);
+			mPlayer.handleEvent(event, gameSystem);
 		}
+		gameSystem.handleEvent(event, mouse);
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
 	if (gameSystem.gameContinue()) {
-		mPlayer.handleEvent(event, gameSystem);
+		
 		//cout << "Hiii\n";
 		mPlayer.handleRealtimeInput();
 		//gameSystem
