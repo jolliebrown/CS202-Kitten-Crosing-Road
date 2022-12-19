@@ -55,6 +55,7 @@ protected:
 	vector<Texture>			modeAsset;
 	vector<Texture>			instructionAsset;
 	vector<Texture>			settingsAsset;
+	vector<Texture>			buttonSettings_Asset;
 public:
 	vector<Texture>			car;
 	vector<Texture>			user;

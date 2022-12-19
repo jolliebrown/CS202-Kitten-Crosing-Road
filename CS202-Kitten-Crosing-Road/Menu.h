@@ -52,11 +52,21 @@ public:
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
 	void draw() override;
+private:
+
 };
 
 class Mode : public Scene {
 public:
 	Mode(RenderWindow& mWindow);
+
+	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
+	void draw() override;
+};
+
+class ButtonSettings : public Scene {
+public:
+	ButtonSettings(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
 	void draw() override;
