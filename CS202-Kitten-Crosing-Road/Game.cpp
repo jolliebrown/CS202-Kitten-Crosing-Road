@@ -174,9 +174,9 @@ void Game::render()
 	mWindow.setView(mView);
 	// draw sth here
 	mWorld.draw();
+	mPlayer.draw();
 	for (auto& lane : mLane) lane.draw();
 	//cout << mouse.x << " " << mouse.y << endl;
-	mPlayer.draw();
 	gameSystem.draw(mouse);
 	mWindow.display();
 }

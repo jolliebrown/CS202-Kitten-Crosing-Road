@@ -12,8 +12,8 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 {
 	dir = _dir; limVelo = dir * 0.2; initVelo = dir * 0.1; velo = dir * initVelo; acce = dir * 0.01;
 
-	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 28 + Object::asset.getGlobalBounds().width;
-	endPoint = (dir == 1) ? BaseUnit * 28 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
 
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
 	if (dir == -1) Object::asset.rotate(180);
@@ -29,8 +29,8 @@ Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& t
 {
 	dir = _dir; this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
 
-	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 28 + Object::asset.getGlobalBounds().width;
-	endPoint = (dir == 1) ? BaseUnit * 28 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
 
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
 	if (dir == -1) Object::asset.rotate(180);
