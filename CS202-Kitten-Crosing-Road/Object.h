@@ -29,6 +29,14 @@ enum class MiniButton
 	Restart
 };
 
+enum class FishCoin
+{
+	Normal,
+	Stop,
+	Destroy,
+	Bonus
+};
+
 string					button_name(const MiniButton& src);
 // store all textures that need to be loaded
 class ListTextures
@@ -65,6 +73,8 @@ public:
 
 	// button
 	map < MiniButton, pair<Texture, Texture>> systemButton;
+	map <FishCoin, string> fishCoinName;
+	map<FishCoin, Texture> fishCoin;
 	vector<Texture>			still;
 
 	vector<Texture>			num_text;

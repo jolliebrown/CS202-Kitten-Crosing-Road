@@ -35,6 +35,16 @@ ListTextures::ListTextures()
 	onePicLoad(still, "Media/System/Score_board.png");
 	onePicLoad(still, "Media/System/Game Over.png");
 
+	fishCoinName[FishCoin::Bonus] = "Bonus";
+	fishCoinName[FishCoin::Normal] = "Normal";
+	fishCoinName[FishCoin::Stop] = "Stop";
+	fishCoinName[FishCoin::Destroy] = "Destroy";
+
+	for (int i = 0; i < 4; i++)
+	{
+		fishCoin[(FishCoin)i].loadFromFile("Media/System/" + fishCoinName[(FishCoin)i] + ".png");
+	}
+
 	Texture temTrainTexture;
 	temTrainTexture.create(90 + 68 * 5, 15);
 	Image temTrainImage;

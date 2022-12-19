@@ -68,6 +68,7 @@ public:
 
 private:
 	vector<SystemButton>buttons;
+	vector<Object>		fish_boost;
 	Object      gamePaused, gameOver;
 	Object				scoreBoard;
 	pair<int, int>		score;
@@ -77,7 +78,6 @@ private:
 	int					fish_coin;
 	RenderWindow&		window;
 	View&				view;
-
 	InfoScore			fish_score, game_score;
 };
 

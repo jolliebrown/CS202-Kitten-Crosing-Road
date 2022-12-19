@@ -28,7 +28,13 @@ System::System(View& view, RenderWindow& window) :
 		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
 		buttons.push_back(tmp);
 	}
+	for (int i = 0; i < 4; i++)
+	{
+		Object tmp(window, ListTextures::fishCoin[FishCoin::Normal], 0, signMap * BaseUnit * i);
+		fish_boost.push_back(tmp);
+	}
 }
+
 
 //System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
 //	score(score),
@@ -94,6 +100,10 @@ bool System::setPause() {
 
 void System::draw(const Vector2f& mouse)
 {
+	for (int i = 0; i < fish_boost.size(); i++)
+	{
+		fish_boost[i].draw();
+	}
 	scoreBoard.setPos(view);
 	scoreBoard.draw();
 	game_score.draw();
