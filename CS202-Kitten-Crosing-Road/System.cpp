@@ -177,15 +177,15 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 {
 	if (event.type == Event::MouseButtonReleased)
 	{
-		if (state == Continue && buttons[0].isHere(mouse))
+		if (state == GameState::Continue && buttons[0].isHere(mouse))
 		{
-			state = Pause;
+			state = GameState::Pause;
 		}
-		else if (state == Pause)
+		else if (state == GameState::Pause)
 		{
 			if (buttons[1].isHere(mouse))
 			{
-				state = Continue;
+				state = GameState::Continue;
 			}
 		}
 	}
