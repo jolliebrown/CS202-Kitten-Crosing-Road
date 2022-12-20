@@ -11,16 +11,20 @@ World::World(RenderWindow& window) :
 		int j = mapIndex[i];
 		int pos = signMap * BaseUnit * i;
 		int dir = (rand() % 2 == 0) ? -1 : 1;
-		vector<Object> tmp;
+		/*vector<Object> tmp;
 		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, pos);
-		mapBackground.push(tmp);
+		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Road temLane(window, dir, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3);
+			Road temLane(window, dir, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Road temLane(window, dir, train[0], 0, pos, BaseUnit * 3, 0.5, 1);
+			Road temLane(window, dir, train[0], 0, pos, BaseUnit * 3, 0.5, 1, background[j]);
+			mLane.push_back(temLane);
+		}
+		else {
+			Road temLane(window, 0, pos, BaseUnit, background[j]);
 			mLane.push_back(temLane);
 		}
 	}
@@ -74,6 +78,7 @@ void World::drawListElements(vector<vector<Object>>& target)
 
 void World::drawListElements(queue<vector<Object>> target)
 {
+	return;
 	while (!target.empty())
 	{
 		drawElement(target.front());
@@ -85,27 +90,31 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 	int topView = window.getView().getCenter().y;
 	int botView = window.getView().getCenter().y + window.getView().getSize().y / 2;
 	
-	while (mLane.size() < 30) {
+	while (mLane.size()) {
 		int curposition = mLane[0].getPosition();
 		if (curposition > botView) {
 			int nextPosition = mLane.back().getPosition() + signMap * BaseUnit;
 			mLane.erase(mLane.begin());
-			mapBackground.pop();
+			//mapBackground.pop();
 			mapIndex.erase(mapIndex.begin());
 			int nextId = generateNextLaneIndex();
 			int dir = (rand() % 2 == 0) ? -1 : 1;
 			mapIndex.push_back(nextId);
 			if (nextId == 1) {
-				Road temLane(window, dir, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3);
+				Road temLane(window, dir, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
 				mLane.push_back(temLane);
 			}
 			else if (nextId == 2) {
-				Road temLane(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.5, 1);
+				Road temLane(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.5, 1, background[nextId]);
 				mLane.push_back(temLane);
 			}
-			vector<Object> tmp;
+			else {
+				Road temLane(window, 0, nextPosition, BaseUnit, background[nextId]);
+				mLane.push_back(temLane);
+			}
+			/*vector<Object> tmp;
 			generate(tmp, ListTextures::background[nextId], nextId == 0 ? BaseUnit : BaseUnit * 3, nextPosition);
-			mapBackground.push(tmp);
+			mapBackground.push(tmp);*/
 		}
 		else return true;
 		

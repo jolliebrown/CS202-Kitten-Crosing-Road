@@ -1,28 +1,48 @@
 #include "Lane.h"
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture)
+Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture> mTexture) :
+	window(window)
 {
 	this->dir = dir;
 	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
+	generate(window, listTexture, mTexture, unit, y_coor);
+}
+
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture> mTexture):
+	window(window)
+{
+	this->dir = dir;
+	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
 	Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture)
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture> mTexture):
+	window(window)
 {
 	this->dir = dir;
 	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
 	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(const Road& road)
+Road::Road(const Road& road):
+	window(road.window)
 {
 	cerr << "Deep copy...\n";
 	dir = road.dir;
 	y_coor = road.y_coor;
+	unit = road.unit;
+	mTexture = road.mTexture;
+
 	for (auto v : road.listVehicle) {
 		Vehicle* Tem = new Vehicle(*v);
 		listVehicle.push_back(Tem);
@@ -31,6 +51,26 @@ Road::Road(const Road& road)
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
 	}*/
+}
+
+Road& Road::operator = (const Road& road)
+{
+	cerr << "Deep copy...\n";
+	//window = road.window;
+	dir = road.dir;
+	y_coor = road.y_coor;
+	unit = road.unit;
+	mTexture = road.mTexture;
+
+	for (auto v : road.listVehicle) {
+		Vehicle* Tem = new Vehicle(*v);
+		listVehicle.push_back(Tem);
+	}
+	generate(window, listTexture, mTexture, unit, y_coor);
+	/*for (auto v : road.listLight) {
+		listLight.push_back(v);
+	}*/
+	return *this;
 }
 
 vector<Object>& Road::generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos)
