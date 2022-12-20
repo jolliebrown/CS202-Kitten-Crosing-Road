@@ -40,8 +40,19 @@ ListTextures::ListTextures()
 	fishCoinName[FishCoin::Normal] = "Normal";
 	fishCoinName[FishCoin::Stop] = "Stop";
 	fishCoinName[FishCoin::Destroy] = "Destroy";
+	int fishCoinNum = 4;
 
-	for (int i = 0; i < 4; i++)
+	menuListName[MenuList::Menu] = "Menu";
+	menuListName[MenuList::Mode] = "Mode";
+	menuListName[MenuList::Settings] = "Settings";
+	menuListName[MenuList::Instruction] = "Instruction";
+	menuListName[MenuList::Leaderboard] = "Leaderboard";
+	menuListName[MenuList::Classic] = "Classic";
+	menuListName[MenuList::ButtonSettings] = "ButtonSettings";
+	int menuListNum = 7;
+	int maxMenuNum = 12;
+
+	for (int i = 0; i < fishCoinNum; i++)
 	{
 		fishCoin[(FishCoin)i].loadFromFile("Media/System/" + fishCoinName[(FishCoin)i] + ".png");
 	}
@@ -58,6 +69,19 @@ ListTextures::ListTextures()
 	train.push_back(temTrainTexture);
 
 	numFont.loadFromFile("Media/pixel-1px.ttf");
+
+	for (int i = 0; i < menuListNum; i++)
+	{
+		for (int j = 0; j < maxMenuNum; j++)
+		{
+			pair<Texture, Texture> menu_tmp;
+			if (menu_tmp.first.loadFromFile("Media/Scene/" + menuListName[(MenuList)i] + "/" + to_string(j) + ".png"))
+			{
+				menu_tmp.second.loadFromFile("Media/Scene/" + menuListName[(MenuList)i] + "/" + to_string(j) + "_here.png");
+				menuTexture[(MenuList)i].push_back(menu_tmp);
+			}
+		}
+	}
 
 	onePicLoad(commonAsset, "Media/Menu/Group 31.png");
 	onePicLoad(commonAsset, "Media/Menu/Menu.png");

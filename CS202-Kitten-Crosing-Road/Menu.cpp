@@ -1,58 +1,39 @@
 #include "Menu.h"
 
-Button::Button(RenderWindow& mWindow, Texture& texture, int x_coor, int y_coor, bool setCenter) : Object(mWindow, texture, x_coor, y_coor)
-{
-	if (setCenter)
-	{
-		x_coor -= texture.getSize().x;
-		x_coor /= 2;
-		asset.setPosition(x_coor, y_coor);
-	}
-}
-
-void Button::draw(RenderWindow& window)
-{
-	window.draw(asset);
-}
-
 Scene::Scene(RenderWindow& mWindow) : window(mWindow)
 {
-	
+	sceneName = MenuList::Menu;
 }
 
-Scene::~Scene()
+void Scene::draw(const Vector2f& mouse)
 {
-	for (int i = 0; i < buttons.size(); ++i)
-		delete buttons[i];
-}
-
-void Scene::draw()
-{
+	// draw 
 	for (int i = 0; i < background.size(); ++i)
-		window.draw(background[i]);
+		background[i].draw();
 	for (int i = 0; i < buttons.size(); ++i)
-		buttons[i]->draw(window);
+		buttons[i].draw(mouse, false);
 }
+
 
 Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 {
+	sceneName = MenuList::Menu;
+
 	// Background
-	Sprite sprite(commonAsset[0]);
+	Object sprite(window, commonAsset[0], 0, 0);
+	Object menuboard(window, commonAsset[1], 22, 13);
+	Object gameName(window, menuAsset[0], 4, 4);
+	sprite.setPos(mWindow.getView());
+	menuboard.setPos(mWindow.getView());
+	gameName.setPos(mWindow.getView());
+	
+	background.push_back(sprite);
+	background.push_back(gameName);
 	background.push_back(sprite);
 
-	sprite = Sprite(commonAsset[1]);
-	sprite.setPosition(BaseUnit * 22, BaseUnit * 13);
-	sprite.scale(4, 4.5);
-	background.push_back(sprite);
-
-	sprite = Sprite(menuAsset[0]);
-	sprite.setPosition((BaseUnit * 70 - menuAsset[0].getSize().x) / 2, BaseUnit * 4);
-	background.push_back(sprite);
-
-	// Button
-	for (int i = 1; i < 7; ++i)
+	for (int i = 0; i < menuTexture[sceneName].size(); ++i)
 	{
-		Button* button = new Button(window, menuAsset[i], BaseUnit * 70, BaseUnit * (15 + 5 * (i - 1)), true);
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, BaseUnit * 70, BaseUnit * (15 + 5 * (i - 1)), true);
 		buttons.push_back(button);
 	}
 }
@@ -62,7 +43,7 @@ void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 	bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
-		if (buttons[i]->getBound().contains(mousePosition))
+		if (buttons[i].isHere(mousePosition))
 		{
 			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 			{
@@ -87,64 +68,68 @@ void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 					break;
 				}
 			}
-			if (buttons.size() <= 6)
-			{
-				Button* button = new Button(window, menuAsset[i + 7], BaseUnit * 70, BaseUnit * (15 + 5 * i), true);
-				buttons.push_back(button);
-			}
 			checkMouse = true;
 			break;
 		}
 	}
-	if (!checkMouse && buttons.size() > 6)
-	{
-		delete buttons.back();
-		buttons.pop_back();
-	}
 }
 
-void Menu::draw()
+void Menu::draw(const Vector2f& mouse)
 {
-	Scene::draw();
+	Scene::draw(mouse);
 }
 
 Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 {
+	sceneName = MenuList::Instruction;
+
+	// Background
+	Object sprite(window, commonAsset[0], 0, 0);
+	Object menuboard(window, commonAsset[1], 2, 9);
+	Object gameName(window, menuAsset[0], 4, 4);
+
+	background.push_back(sprite);
+	background.push_back(gameName);
+	background.push_back(sprite);
 	// Initialize the number of instruction page
 	pageIndex = 1;
 	pageNum = 2;
 
 	// Background
-	Sprite sprite(commonAsset[0]);
-	background.push_back(sprite);
+	//Sprite sprite(commonAsset[0]);
+	//background.push_back(sprite);
 
-	sprite = Sprite(commonAsset[1]);
-	sprite.setPosition(BaseUnit * 2, BaseUnit * 9);
-	sprite.scale(10, 5.5);
-	background.push_back(sprite);
+	//sprite = Sprite(commonAsset[1]);
+	//sprite.setPosition(BaseUnit * 2, BaseUnit * 9);
+	//sprite.scale(10, 5.5);
+	//background.push_back(sprite);
 
-	sprite = Sprite(instructionAsset[2 * pageIndex - 2]);
-	sprite.setPosition((BaseUnit * 70 - instructionAsset[0].getSize().x) / 2, BaseUnit * 11);
-	background.push_back(sprite);
+	//sprite = Sprite(instructionAsset[2 * pageIndex - 2]);
+	//sprite.setPosition((BaseUnit * 70 - instructionAsset[0].getSize().x) / 2, BaseUnit * 11);
+	//background.push_back(sprite);
 
-	sprite = Sprite(instructionAsset[2 * pageIndex - 1]);
-	sprite.setPosition((BaseUnit * 70 - instructionAsset[1].getSize().x) / 2, BaseUnit * 43);
-	background.push_back(sprite);
+	//sprite = Sprite(instructionAsset[2 * pageIndex - 1]);
+	//sprite.setPosition((BaseUnit * 70 - instructionAsset[1].getSize().x) / 2, BaseUnit * 43);
+	//background.push_back(sprite);
 
-	// Button
-	Button* button = new Button(window, commonAsset[2], 0, 0, false);
+	// SystemButton
+	for (int i = 0; i < menuTexture[sceneName].size(); i++)
+	{
+
+	}
+	/*SystemButton* button = new SystemButton(window, commonAsset[2], 0, 0, false);
 	buttons.push_back(button);
 
-	button = new Button(window, instructionAsset[6], BaseUnit * 25, BaseUnit * 42, false);
+	button = new SystemButton(window, instructionAsset[6], BaseUnit * 25, BaseUnit * 42, false);
 	buttons.push_back(button);
 
-	button = new Button(window, instructionAsset[5], BaseUnit * 41, BaseUnit * 42, false);
-	buttons.push_back(button);
+	button = new SystemButton(window, instructionAsset[5], BaseUnit * 41, BaseUnit * 42, false);
+	buttons.push_back(button);*/
 }
 
 void Instruction::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	/*for (int i = 0; i < buttons.size(); ++i)
 	{
 		if (buttons[i]->getBound().contains(mousePosition))
 		{
@@ -160,13 +145,13 @@ void Instruction::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mous
 					--pageIndex;
 					if (pageIndex == pageNum - 1)
 					{
-						Button* button = new Button(window, instructionAsset[5], BaseUnit * 41, BaseUnit * 42, false);
+						SystemButton* button = new SystemButton(window, instructionAsset[5], BaseUnit * 41, BaseUnit * 42, false);
 						swap(buttons.back(), button);
 						delete button;
 					}
 					if (pageIndex == 1)
 					{
-						Button* button = new Button(window, instructionAsset[6], BaseUnit * 25, BaseUnit * 42, false);
+						SystemButton* button = new SystemButton(window, instructionAsset[6], BaseUnit * 25, BaseUnit * 42, false);
 						swap(buttons[1], button);
 						delete button;
 					}
@@ -187,13 +172,13 @@ void Instruction::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mous
 					++pageIndex;
 					if (pageIndex == 2)
 					{
-						Button* button = new Button(window, instructionAsset[4], BaseUnit * 25, BaseUnit * 42, false);
+						SystemButton* button = new SystemButton(window, instructionAsset[4], BaseUnit * 25, BaseUnit * 42, false);
 						swap(buttons[1], button);
 						delete button;
 					}
 					if (pageIndex == pageNum)
 					{
-						Button* button = new Button(window, instructionAsset[7], BaseUnit * 41, BaseUnit * 42, false);
+						SystemButton* button = new SystemButton(window, instructionAsset[7], BaseUnit * 41, BaseUnit * 42, false);
 						swap(buttons.back(), button);
 						delete button;
 					}
@@ -211,38 +196,40 @@ void Instruction::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mous
 				}
 			}
 		}
-	}
+	}*/
 }
 
-void Instruction::draw()
+void Instruction::draw(const Vector2f& mouse)
 {
-	Scene::draw();
+	Scene::draw(mouse);
 }
 
 Settings::Settings(RenderWindow& mWindow) : Scene(mWindow)
 {
+	sceneName = MenuList::Settings;
+
 	// Background
-	Sprite sprite(commonAsset[0]);
-	background.push_back(sprite);
+	//Sprite sprite(commonAsset[0]);
+	//background.push_back(sprite);
 
-	sprite = Sprite(commonAsset[1]);
-	sprite.setPosition(BaseUnit * 18.5, BaseUnit * 19);
-	sprite.scale(5, 2);
-	background.push_back(sprite);
+	//sprite = Sprite(commonAsset[1]);
+	//sprite.setPosition(BaseUnit * 18.5, BaseUnit * 19);
+	//sprite.scale(5, 2);
+	//background.push_back(sprite);
 
-	// Button
-	Button* button = new Button(window, commonAsset[2], 0, 0, false);
-	buttons.push_back(button);
-	for (int i = 0; i < 2; ++i)
-	{
-		Button* button = new Button(window, settingsAsset[i], BaseUnit * 70, BaseUnit * (22 + 6 * i), true);
-		buttons.push_back(button);
-	}
+	//// SystemButton
+	//SystemButton* button = new SystemButton(window, commonAsset[2], 0, 0, false);
+	//buttons.push_back(button);
+	//for (int i = 0; i < 2; ++i)
+	//{
+	//	SystemButton* button = new SystemButton(window, settingsAsset[i], BaseUnit * 70, BaseUnit * (22 + 6 * i), true);
+	//	buttons.push_back(button);
+	//}
 }
 
 void Settings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
 {
-	bool checkMouse = false;
+	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		if (buttons[i]->getBound().contains(mousePosition))
@@ -264,7 +251,7 @@ void Settings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePo
 			}
 			if (buttons.size() <= 3 && i != 0)
 			{
-				Button* button = new Button(window, settingsAsset[i + 1], BaseUnit * 70, BaseUnit * (22 + 6 * (i - 1)), true);
+				SystemButton* button = new SystemButton(window, settingsAsset[i + 1], BaseUnit * 70, BaseUnit * (22 + 6 * (i - 1)), true);
 				buttons.push_back(button);
 			}
 			checkMouse = true;
@@ -275,38 +262,40 @@ void Settings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePo
 	{
 		delete buttons.back();
 		buttons.pop_back();
-	}
+	}*/
 }
 
-void Settings::draw()
+void Settings::draw(const Vector2f& mouse)
 {
-	Scene::draw();
+	Scene::draw(mouse);
 }
 
 Mode::Mode(RenderWindow& mWindow) : Scene(mWindow)
 {
-	// Background
-	Sprite sprite(commonAsset[0]);
-	background.push_back(sprite);
+	sceneName = MenuList::Mode;
 
-	sprite = Sprite(commonAsset[1]);
-	sprite.setPosition(BaseUnit * 22, BaseUnit * 19);
-	sprite.scale(4, 2);
-	background.push_back(sprite);
+	//// Background
+	//Sprite sprite(commonAsset[0]);
+	//background.push_back(sprite);
 
-	// Button
-	Button* button = new Button(window, commonAsset[2], 0, 0, false);
-	buttons.push_back(button);
-	for (int i = 0; i < 2; ++i)
-	{
-		Button* button = new Button(window, modeAsset[i], BaseUnit * 70, BaseUnit * (22 + 6 * i), true);
-		buttons.push_back(button);
-	}
+	//sprite = Sprite(commonAsset[1]);
+	//sprite.setPosition(BaseUnit * 22, BaseUnit * 19);
+	//sprite.scale(4, 2);
+	//background.push_back(sprite);
+
+	//// SystemButton
+	//SystemButton* button = new SystemButton(window, commonAsset[2], 0, 0, false);
+	//buttons.push_back(button);
+	//for (int i = 0; i < 2; ++i)
+	//{
+	//	SystemButton* button = new SystemButton(window, modeAsset[i], BaseUnit * 70, BaseUnit * (22 + 6 * i), true);
+	//	buttons.push_back(button);
+	//}
 }
 
 void Mode::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
 {
-	bool checkMouse = false;
+	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		if (buttons[i]->getBound().contains(mousePosition))
@@ -322,7 +311,7 @@ void Mode::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 			}
 			if (buttons.size() <= 3 && i != 0)
 			{
-				Button* button = new Button(window, modeAsset[i + 1], BaseUnit * 70, BaseUnit * (22 + 6 * (i - 1)), true);
+				SystemButton* button = new SystemButton(window, modeAsset[i + 1], BaseUnit * 70, BaseUnit * (22 + 6 * (i - 1)), true);
 				buttons.push_back(button);
 			}
 			checkMouse = true;
@@ -333,38 +322,40 @@ void Mode::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 	{
 		delete buttons.back();
 		buttons.pop_back();
-	}
+	}*/
 }
 
-void Mode::draw()
+void Mode::draw(const Vector2f& mouse)
 {
-	Scene::draw();
+	Scene::draw(mouse);
 }
 
 ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
 {
-	// Background
-	Sprite sprite(commonAsset[0]);
-	background.push_back(sprite);
+	//sceneName = MenuList::ButtonSettings;
 
-	sprite = Sprite(commonAsset[1]);
-	sprite.setPosition(BaseUnit * 17, BaseUnit * 16);
-	sprite.scale(5.5, 4);
-	background.push_back(sprite);
+	//// Background
+	//Sprite sprite(commonAsset[0]);
+	//background.push_back(sprite);
 
-	// Button
-	Button* button = new Button(window, commonAsset[2], 0, 0, false);
-	buttons.push_back(button);
-	for (int i = 0; i < 4; ++i)
-	{
-		Button* button = new Button(window, buttonSettings_Asset[i], BaseUnit * 70, BaseUnit * (20 + 6 * i), true);
-		buttons.push_back(button);
-	}
+	//sprite = Sprite(commonAsset[1]);
+	//sprite.setPosition(BaseUnit * 17, BaseUnit * 16);
+	//sprite.scale(5.5, 4);
+	//background.push_back(sprite);
+
+	//// SystemButton
+	//SystemButton* button = new SystemButton(window, commonAsset[2], 0, 0, false);
+	//buttons.push_back(button);
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	SystemButton* button = new SystemButton(window, buttonSettings_Asset[i], BaseUnit * 70, BaseUnit * (20 + 6 * i), true);
+	//	buttons.push_back(button);
+	//}
 }
 
 void ButtonSettings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
 {
-	bool checkMouse = false;
+	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		if (buttons[i]->getBound().contains(mousePosition))
@@ -380,7 +371,7 @@ void ButtonSettings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f m
 			}
 			if (buttons.size() <= 5 && i != 0)
 			{
-				Button* button = new Button(window, buttonSettings_Asset[i + 3], BaseUnit * 70, BaseUnit * (20 + 6 * (i - 1)), true);
+				SystemButton* button = new SystemButton(window, buttonSettings_Asset[i + 3], BaseUnit * 70, BaseUnit * (20 + 6 * (i - 1)), true);
 				buttons.push_back(button);
 			}
 			checkMouse = true;
@@ -391,10 +382,10 @@ void ButtonSettings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f m
 	{
 		delete buttons.back();
 		buttons.pop_back();
-	}
+	}*/
 }
 
-void ButtonSettings::draw()
+void ButtonSettings::draw(const Vector2f& mouse)
 {
-	Scene::draw();
+	Scene::draw(mouse);
 }

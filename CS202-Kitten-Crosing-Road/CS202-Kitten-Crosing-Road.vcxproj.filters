@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Scene">
+      <UniqueIdentifier>{aebd55c2-f4b7-4b1b-8f46-00733a28c33f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Scene\Menu">
+      <UniqueIdentifier>{d003ea12-6ce9-415a-b2e5-17d613348153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Scene\Settings">
+      <UniqueIdentifier>{3e8753f9-4d7b-400f-8ec4-a37ad84beafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Scene\Instruction">
+      <UniqueIdentifier>{cf0a7098-8017-4647-a069-4df8ea28813e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Scene\ButtonSettings">
+      <UniqueIdentifier>{2675a381-c36f-4c0a-8eb7-39a1805cf60c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CS202-Kitten-Crosing-Road.cpp">
@@ -48,6 +63,9 @@
     <ClCompile Include="other.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SystemFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -80,6 +98,9 @@
     <ClInclude Include="other.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SystemFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Media\user_b.png">
@@ -93,6 +114,129 @@
     </Image>
     <Image Include="Media\user_v.png">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\ENDLESS.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\ENDLESS_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\Group 31.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\MainMenu.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\Menu.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\menu_bar.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\Name.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\QUIT.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\QUIT_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\instruction_1.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\instruction_2.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\MoveLeft_no.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\MoveLeft_yes.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\MoveRight_no.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\MoveRight_yes.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\Page1.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Instruction\Page2.png">
+      <Filter>Resource Files\Scene\Instruction</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\0.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Settings\ButtonSettings.png">
+      <Filter>Resource Files\Scene\Settings</Filter>
+    </Image>
+    <Image Include="Media\Scene\Settings\ButtonSettings_here.png">
+      <Filter>Resource Files\Scene\Settings</Filter>
+    </Image>
+    <Image Include="Media\Scene\Settings\Sound.png">
+      <Filter>Resource Files\Scene\Settings</Filter>
+    </Image>
+    <Image Include="Media\Scene\Settings\Sound_here.png">
+      <Filter>Resource Files\Scene\Settings</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\0_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\1.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\1_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\2.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\2_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\3.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\3_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\4.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\4_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\5.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\Menu\5_here.png">
+      <Filter>Resource Files\Scene\Menu</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\1.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\1_here.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\0.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\0_here.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\2.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\2_here.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\3.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
+    </Image>
+    <Image Include="Media\Scene\ButtonSettings\3_here.png">
+      <Filter>Resource Files\Scene\ButtonSettings</Filter>
     </Image>
   </ItemGroup>
 </Project>
