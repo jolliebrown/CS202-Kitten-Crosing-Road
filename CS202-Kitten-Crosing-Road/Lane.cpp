@@ -81,3 +81,7 @@ bool Road::isCollided(Player& mPlayer)
 	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
 	return false;
 }
+
+int Road::getPosition() {
+	return y_coor;
+}

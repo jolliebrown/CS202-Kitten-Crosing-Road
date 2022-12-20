@@ -4,7 +4,8 @@
 World::World(RenderWindow& window) :
 	window(window)
 {
-	mapIndex = generateRangeLanes(1, 20);
+	mapIndex.clear();
+	for (int i = 0; i < 16; i++) mapIndex.push_back(generateNextLaneIndex());
 	for (int i = 0; i < mapIndex.size(); i++)
 	{
 		int j = mapIndex[i];
@@ -23,7 +24,6 @@ World::World(RenderWindow& window) :
 			mLane.push_back(temLane);
 		}
 	}
-
 }
 
 void World::draw()
@@ -79,4 +79,40 @@ void World::drawListElements(queue<vector<Object>> target)
 		drawElement(target.front());
 		target.pop();
 	}
+}
+
+bool World::handleEvent(RenderWindow& window, View& mView) {
+	int topView = window.getView().getCenter().y;
+	int botView = window.getView().getCenter().y + window.getView().getSize().y / 2;
+	
+	while (mLane.size() < 30) {
+		int curposition = mLane[0].getPosition();
+		if (curposition > botView) {
+			int nextPosition = mLane.back().getPosition() + signMap * BaseUnit;
+			mLane.erase(mLane.begin());
+			mapBackground.pop();
+			mapIndex.erase(mapIndex.begin());
+			int nextId = generateNextLaneIndex();
+			int dir = (rand() % 2 == 0) ? -1 : 1;
+			mapIndex.push_back(nextId);
+			if (nextId == 1) {
+				Road temLane(window, dir, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3);
+				mLane.push_back(temLane);
+			}
+			else if (nextId == 2) {
+				Road temLane(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.5, 1);
+				mLane.push_back(temLane);
+			}
+			vector<Object> tmp;
+			generate(tmp, ListTextures::background[nextId], nextId == 0 ? BaseUnit : BaseUnit * 3, nextPosition);
+			mapBackground.push(tmp);
+		}
+		else return true;
+		
+	}
+	return false;
+}
+
+int	World::getPosition(int laneIndex) {
+	return 0;
 }
