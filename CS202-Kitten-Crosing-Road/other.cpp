@@ -43,6 +43,9 @@ long long Rand(long long l, long long h)
 //    cout << "Running time " << mess << ": " << time << "s\n";
 //}
 //
+
+
+
 int generateNextLaneIndex(int status) {
     static int nLane = 0;
     static int freq[3] = { 5, 5, 2};
@@ -56,10 +59,8 @@ int generateNextLaneIndex(int status) {
     vector<int> randLanes;
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < freq[i]; j++) randLanes.push_back(i);
-    int nums = Rand(2, 5);
-    //for (int i = 0; i < nums; i++)
-      //  random_shuffle(randLanes.begin(), randLanes.end());
-    return randLanes[0];
+    int nums = Rand(0, randLanes.size() - 1);
+    return randLanes[nums];
 }
 
 vector <int> generateRangeLanes(int l, int r){

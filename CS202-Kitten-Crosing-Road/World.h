@@ -17,6 +17,7 @@ class World : public ListTextures
 public:
 	explicit						World(RenderWindow& window);
 	void							draw();
+	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);
 private: 
 	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
@@ -33,4 +34,5 @@ private:
 	vector<int>						mapIndex; //
 	const int						range = 32;
 	RenderWindow& window;
+	int								getPosition(int laneIndex);
 };
