@@ -18,7 +18,7 @@ using namespace std;
 class Game
 {
 public:
-							Game(vector<int>& mapIndex);
+							Game();
 	void					run();
 	bool					gameContinue();
 

@@ -223,9 +223,9 @@ vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName,
 }
 
 bool Object::isCollided(Object& src) {
-	//if (getBound().intersects(src.getBound())) return true;
+	
 	//else return false;
-	float curX = asset.getPosition().x + 0.5, curY = asset.getPosition().y + 15.f;
+	float curX = asset.getPosition().x + 10.f, curY = asset.getPosition().y + 15.f;
 	//cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left + src.getBound().width << " " << src.getBound().top + src.getBound().height << endl;
 	//cout << curX << " " << curY << endl;
 	//if (src.getBound().contains(curX, curY)) {

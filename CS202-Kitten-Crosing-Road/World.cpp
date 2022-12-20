@@ -1,9 +1,10 @@
 #include "World.h"
+#include "other.h"
 
-World::World(RenderWindow& window, vector<int>& mapIndex) :
-	window(window), 
-	mapIndex(mapIndex)
+World::World(RenderWindow& window) :
+	window(window)
 {
+	mapIndex = generateRangeLanes(1, 20);
 	for (int i = 0; i < mapIndex.size(); i++)
 	{
 		int j = mapIndex[i];
@@ -11,6 +12,7 @@ World::World(RenderWindow& window, vector<int>& mapIndex) :
 		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, signMap * BaseUnit * i);
 		mapBackground.push(tmp);
 	}
+
 }
 
 void World::draw()

@@ -2,17 +2,17 @@
 
 const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 
-Game::Game(vector<int>& mapIndex) :
+Game::Game() :
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
-	mWorld(mWindow, mapIndex), mPlayer(mWindow, mWorld.user[0], 120, -30, BaseUnit),
+	mWorld(mWindow), mPlayer(mWindow, mWorld.user[0], 120, -30, BaseUnit),
 	gameSystem(mView, mWindow)
 {
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 	
 
-	for (int i = 0; i < mapIndex.size(); ++i) {
+	/*for (int i = 0; i < mapIndex.size(); ++i) {
 		int dir = (i % 2 == 0) ? -1 : 1;
 		if (mapIndex[i] == 1) {
 			Road temLane(mWindow, dir, mWorld.car[(rand() + 1) % 3], 0, signMap * BaseUnit * i, BaseUnit * 3);
@@ -22,7 +22,7 @@ Game::Game(vector<int>& mapIndex) :
 			Road temLane(mWindow, dir, mWorld.train[0], 0, signMap * BaseUnit * i, BaseUnit * 3, 0.3, 0.5);
 			mLane.push_back(temLane);
 		}
-	}
+	}*/
 
 }
 //
