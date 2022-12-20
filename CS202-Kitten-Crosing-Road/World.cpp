@@ -8,9 +8,20 @@ World::World(RenderWindow& window) :
 	for (int i = 0; i < mapIndex.size(); i++)
 	{
 		int j = mapIndex[i];
+		int pos = signMap * BaseUnit * i;
+		int dir = (rand() % 2 == 0) ? -1 : 1;
 		vector<Object> tmp;
-		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, signMap * BaseUnit * i);
+		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, pos);
 		mapBackground.push(tmp);
+
+		if (mapIndex[i] == 1) {
+			Road temLane(window, dir, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3);
+			mLane.push_back(temLane);
+		}
+		else if (mapIndex[i] == 2) {
+			Road temLane(window, dir, train[0], 0, pos, BaseUnit * 3, 0.5, 1);
+			mLane.push_back(temLane);
+		}
 	}
 
 }
@@ -18,6 +29,17 @@ World::World(RenderWindow& window) :
 void World::draw()
 {
 	drawListElements(mapBackground);
+	for (auto& lane : mLane) lane.draw();
+}
+
+void World::processEvent(System& gameSystem, Player& mPlayer)
+{
+	for (auto& lane : mLane) lane.handleEvent();
+	for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
+		mPlayer.setIdPlayer(-1);
+		gameSystem.setLose();
+		break;
+	}
 }
 
 vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos)

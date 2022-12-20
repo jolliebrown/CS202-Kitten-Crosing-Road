@@ -152,12 +152,7 @@ void Game::processEvents()
 		//cout << "Hiii\n";
 		mPlayer.handleRealtimeInput();
 		//gameSystem
-		for (auto& lane : mLane) lane.handleEvent();
-		for (auto& lane : mLane) if (lane.isCollided(mPlayer)) {
-			mPlayer.setIdPlayer(-1);
-			gameSystem.setLose();
-			break;
-		}
+		mWorld.processEvent(gameSystem, mPlayer);
 	}
 	
 }
@@ -176,7 +171,6 @@ void Game::render()
 	// draw sth here
 	mWorld.draw();
 	mPlayer.draw();
-	for (auto& lane : mLane) lane.draw();
 	//cout << mouse.x << " " << mouse.y << endl;
 	gameSystem.draw(mouse);
 	mWindow.display();

@@ -13,6 +13,7 @@ public:
 						Vehicle() = default;
 						Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 						Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+						Vehicle(const Vehicle& vehicle);
 
 	void				draw(int state = 0, float x_coord = 0);
 	void				move(int state, float x_coord);
