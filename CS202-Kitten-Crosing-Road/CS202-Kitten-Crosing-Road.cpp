@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include "other.h"
 int main()
 {
     srand(time(NULL));
@@ -23,11 +23,12 @@ int main()
         scene[scene.size() - 1]->draw();
         window.display();
     }*/
-    vector<int> mapIndex(0);
-    for (int i = 0; i < 2; i++) mapIndex.push_back(0);
-    for (int i = 0; i < 25; i++) mapIndex.push_back((rand() * 1) * (rand() + 1) % 3);
-    //mapIndex.push_back(1);
-    Game game(mapIndex);
+    //vector<int> mapIndex(0);
+    //mapIndex = generateRangeLanes(1, 30);
+    ///*for (int i = 0; i < 2; i++) mapIndex.push_back(0);*/
+    //
+    ////mapIndex.push_back(1);
+    Game game;
     game.run();
 
     // run menu

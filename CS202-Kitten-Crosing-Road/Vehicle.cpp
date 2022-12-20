@@ -41,6 +41,16 @@ Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& t
 	Object::asset.setPosition(startPoint, coord.y);
 }
 
+Vehicle::Vehicle(const Vehicle& vehicle):
+	Object(vehicle), coord(vehicle.coord), startPoint(vehicle.startPoint), endPoint(vehicle.endPoint),
+	velo(vehicle.velo), limVelo(vehicle.limVelo), initVelo(vehicle.initVelo), acce(vehicle.acce),
+	startMoveTime(vehicle.startMoveTime), clock(vehicle.clock), dir(vehicle.dir)
+{
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	if (dir == -1) Object::asset.rotate(180);
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
 void Vehicle::draw(int state, float x_coord)
 {
 	Object::draw();

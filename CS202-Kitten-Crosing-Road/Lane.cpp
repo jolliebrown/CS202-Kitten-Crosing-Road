@@ -3,6 +3,7 @@
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit)
 {
 	this->dir = dir;
+	this->y_coor = y_coor;
 	Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
 }
@@ -10,22 +11,24 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo)
 {
 	this->dir = dir;
+	this->y_coor = y_coor;
 	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
 }
 
-//Road::Road(const Road& road)
-//{
-//	cerr << "Deep copy...\n";
-//	dir = road.dir;
-//	for (auto v : road.listVehicle) {
-//		Vehicle* Tem = new Vehicle(*v);
-//		listVehicle.push_back(Tem);
-//	}
-//	for (auto v : road.listLight) {
-//		listLight.push_back(v);
-//	}
-//}
+Road::Road(const Road& road)
+{
+	cerr << "Deep copy...\n";
+	dir = road.dir;
+	y_coor = road.y_coor;
+	for (auto v : road.listVehicle) {
+		Vehicle* Tem = new Vehicle(*v);
+		listVehicle.push_back(Tem);
+	}
+	/*for (auto v : road.listLight) {
+		listLight.push_back(v);
+	}*/
+}
 
 void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
@@ -56,4 +59,8 @@ bool Road::isCollided(Player& mPlayer)
 {
 	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
 	return false;
+}
+
+int Road::getPosition() {
+	return y_coor;
 }
