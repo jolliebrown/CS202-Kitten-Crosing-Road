@@ -1,30 +1,17 @@
 #pragma once
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <vector>
-#include "Object.h"
-#include "System.h"
-
-class Button : public Object {
-public:
-	Button(RenderWindow& mWindow, Texture& texture, int x_coor, int y_coor, bool setCenter);
-
-	void draw(RenderWindow& window);
-};
+#include "SystemFunction.h"
 
 class Scene : public ListTextures {
 public:
 	Scene(RenderWindow& mWindow);
 
-	~Scene();
-
-	virtual void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) = 0;
-	virtual void draw();
+	virtual void			handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) = 0;
+	virtual void			draw(const Vector2f& mouse);
 protected:
-	RenderWindow& window;
-	vector<Button*> buttons;
-	vector<Sprite> background;
+	RenderWindow&			window;
+	vector<SystemButton>	buttons;
+	vector<Object>			background;
+	MenuList				sceneName;
 };
 
 class Menu : public Scene {
@@ -32,7 +19,7 @@ public:
 	Menu(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
-	void draw() override;
+	void draw(const Vector2f& mouse) override;
 };
 
 class Instruction : public Scene {
@@ -40,7 +27,7 @@ public:
 	Instruction(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
-	void draw() override;
+	void draw(const Vector2f& mouse) override;
 private:
 	int pageIndex;
 	int pageNum;
@@ -51,7 +38,7 @@ public:
 	Settings(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
-	void draw() override;
+	void draw(const Vector2f& mouse) override;
 private:
 
 };
@@ -61,7 +48,7 @@ public:
 	Mode(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
-	void draw() override;
+	void draw(const Vector2f& mouse) override;
 };
 
 class ButtonSettings : public Scene {
@@ -69,5 +56,5 @@ public:
 	ButtonSettings(RenderWindow& mWindow);
 
 	void handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition) override;
-	void draw() override;
+	void draw(const Vector2f& mouse) override;
 };

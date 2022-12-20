@@ -15,21 +15,21 @@ System::System(View& view, RenderWindow& window) :
 	game_score(window, 28, 33, score.first, ListTextures::num_text),
 	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
 {
-	SystemButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
+	FloatingButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
 	buttons.push_back(pause);
 	for (int i = 1; i < 4; i++)
 	{
-		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
+		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
 		buttons.push_back(tmp);
 	}
 	for (int i = 4; i < 6; i++)
 	{
-		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
+		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
 		buttons.push_back(tmp);
 	}
 	for (int i = 6; i < 9; i++)
 	{
-		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
+		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
 		buttons.push_back(tmp);
 	}
 	for (int i = 0; i < 3; i++)
@@ -41,6 +41,9 @@ System::System(View& view, RenderWindow& window) :
 	Object tmp(window, ListTextures::fishCoin[(FishCoin)3], 100.f, signMap * BaseUnit * 3);
 	generateNextSpecialBoost(tmp);
 	fish_boost.push_back(tmp);
+
+	Scene* menu_tmp = new Menu(window);
+	mainMenu.push_back(menu_tmp);
 }
 
 
@@ -88,41 +91,42 @@ void System::generateNextSpecialBoost(Object& curBoost) {
 //}
 
 bool System::gameLose() {
-	return state == Lose;
+	return state == GameState::Lose;
 }
 bool System::gameContinue() {
-	return state == Continue;
+	return state == GameState::Continue;
 }
 bool System::gameWin() {
-	return state == Win;
+	return state == GameState::Win;
 }
 
 bool System::gamePause() {
-	return state == Pause;
+	return state == GameState::Pause;
 }
 bool System::setLose() {
 	//if (state != Continue && state != Lose) return false;
-	state = Lose;
+	state = GameState::Lose;
 	return true;
 }
 bool System::setContinue() {
-	if (state != Pause) return false;
-	state = Continue;
+	if (state != GameState::Pause) return false;
+	state = GameState::Continue;
 	return true;
 }
 bool System::setWin() {
 	//if (state != Continue && state != Win) return false;
-	state = Win;
+	state = GameState::Win;
 	return true;
 }
 bool System::setPause() {
-	if (state != Continue) return false;
-	state = Pause;
+	if (state != GameState::Continue) return false;
+	state = GameState::Pause;
 	return true;
 }
 
 void System::draw(const Vector2f& mouse)
 {
+	state = GameState::Menu;
 	for (int i = 0; i < fish_boost.size(); i++)
 	{
 		fish_boost[i].draw();
@@ -132,7 +136,11 @@ void System::draw(const Vector2f& mouse)
 	game_score.draw();
 	fish_score.draw();
 	int l = 0, r = 0;
-	if (state == GameState::Continue)
+	if (state == GameState::Menu)
+	{
+		mainMenu[0]->draw(mouse);
+	}
+	else if (state == GameState::Continue)
 	{
 		buttons[0].draw(mouse, false);
 	}
@@ -192,86 +200,4 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 }
 
 
-SystemButton::SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor) : 
-	window(window), 
-	unpressed(window, unpressed, x_coor, y_coor),
-	pressed(window, pressed, x_coor, y_coor + 2),
-	view(view)
-{
-}
 
-SystemButton::SystemButton(View& view, RenderWindow& window, pair<Texture, Texture>& src, int x_coor, int y_coor) :
-	window(window),
-	unpressed(window, src.first, x_coor, y_coor),
-	pressed(window, src.second, x_coor, y_coor + 2),
-	view(view)
-{
-}
-
-SystemButton::SystemButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor, bool check) :
-	window(window),
-	unpressed(window, unpressed, x_coor, y_coor),
-	pressed(window, pressed, x_coor, y_coor),
-	view(view)
-{
-}
-
-void SystemButton::draw(const Vector2f& mouse, const bool& isStill)
-{
-	unpressed.setPos(view);
-	pressed.setPos(view);
-	if (isStill)
-		unpressed.draw();
-	else
-	{
-		if (unpressed.isHere(mouse)) pressed.draw();
-		else unpressed.draw();
-	}
-}
-
-bool SystemButton::isHere(const Vector2f& mouse)
-{
-	return unpressed.isHere(mouse);
-}
-InfoScore::InfoScore(RenderWindow& window, int x, int y, int value, vector<Texture>& texture) :
-	window(window),
-	x(x), y(y), value(value), 
-	a(window, texture[0], x, y),
-	b(window, texture[0], x + 6, y),
-	c(window, texture[0], x + 12, y)
-{
-	update(value, texture);
-}
-
-void InfoScore::draw()
-{
-	setPos(window.getView());
-	a.draw();
-	b.draw();
-	c.draw();
-}
-
-void InfoScore::setPos(const View& view)
-{
-	a.setPos(view);
-	b.setPos(view);
-	c.setPos(view);
-}
-
-void InfoScore::changePos(int _x, int _y)
-{
-	a.changePos(_x, _y);
-	b.changePos(_x + 7, _y);
-	c.changePos(_x + 14, _y);
-}
-
-void InfoScore::update(int new_value, vector<Texture>& texture)
-{
-	int a_text = new_value / 100 % 10;
-	int b_text = new_value / 10 % 10;
-	int c_text = new_value % 10;
-
-	a.setTexture(texture[a_text]);
-	b.setTexture(texture[b_text]);
-	c.setTexture(texture[c_text]);
-}

@@ -38,6 +38,17 @@ enum class FishCoin
 	Bonus
 };
 
+enum class MenuList
+{
+	Menu,
+	Mode,
+	Classic,
+	Settings,
+	Leaderboard,
+	ButtonSettings,
+	Instruction
+};
+
 string					button_name(const MiniButton& src);
 // store all textures that need to be loaded
 class ListTextures
@@ -60,6 +71,8 @@ protected:
 	// pictures that many scenes will use
 	vector<Texture>			commonAsset;
 	// pictures for individual scene
+	map <MenuList, string>  menuListName;
+	map <MenuList, vector<pair<Texture, Texture>>> menuTexture;
 	vector<Texture>			menuAsset;
 	vector<Texture>			modeAsset;
 	vector<Texture>			instructionAsset;
@@ -77,7 +90,7 @@ public:
 	map <FishCoin, string> fishCoinName;
 	map<FishCoin, Texture> fishCoin;
 	vector<Texture>			still;
-
+	
 	vector<Texture>			num_text;
 };
 
