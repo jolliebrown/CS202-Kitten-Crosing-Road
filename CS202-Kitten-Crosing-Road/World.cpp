@@ -28,7 +28,7 @@ World::World(RenderWindow& window) :
 
 void World::draw()
 {
-	drawListElements(mapBackground);
+	//drawListElements(mapBackground);
 	for (auto& lane : mLane) lane.draw();
 }
 

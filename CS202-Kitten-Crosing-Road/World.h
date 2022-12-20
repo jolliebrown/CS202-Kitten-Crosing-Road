@@ -25,9 +25,6 @@ private:
 	void							drawListElements(queue<vector<Object>> target);
 
 private:
-	vector<vector<Object>>			grassBackground;
-	vector<vector<Object>>			roadBackground;
-	vector<vector<Object>>			railBackground;
 	queue<vector<Object>>			mapBackground;
 	vector<Road>					mLane;
 	vector<int>						mapIndex; //

@@ -88,7 +88,8 @@ public:
 	Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 	Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor);
 	Object(const Object& scr);
-	//Object&					operator=(const Object& scr);
+	Object&					operator=(Object& scr);
+	//~Object();
 	void					draw();
 	bool isCollided(Object& src);
 	//const bool isCollided(const Object& src) const;

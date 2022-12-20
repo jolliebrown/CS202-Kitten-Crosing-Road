@@ -140,11 +140,21 @@ Object::Object(const Object& scr) :
 	asset.setPosition(x, y);
 }
 
-//Object& Object::operator=(const Object& scr)
+//Object::~Object()
 //{
-//	this->window = scr.window;
-//	this->unit = scr.unit;
+//	delete mAsset;
 //}
+
+Object& Object::operator=(Object& scr)
+{
+	if (this == &scr) return *this;
+
+	this->unit = scr.unit;
+	this->asset = scr.asset;
+	this->x = scr.x; this->y = scr.y;
+	swap(this->mAsset, scr.mAsset);
+	return *this;
+}
 
 void Object::draw()
 {

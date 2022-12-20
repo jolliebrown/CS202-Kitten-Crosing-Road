@@ -1,30 +1,50 @@
 #include "Lane.h"
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit)
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture)
 {
 	this->dir = dir;
+	this->y_coor = y_coor;
 	Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
+	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo)
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture)
 {
 	this->dir = dir;
+	this->y_coor = y_coor;
 	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, dir, unit);
 	listVehicle.push_back(Tem);
+	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
 Road::Road(const Road& road)
 {
 	cerr << "Deep copy...\n";
 	dir = road.dir;
+	y_coor = road.y_coor;
 	for (auto v : road.listVehicle) {
 		Vehicle* Tem = new Vehicle(*v);
 		listVehicle.push_back(Tem);
 	}
+	generate(window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
 	}*/
+}
+
+vector<Object>& Road::generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos)
+{
+	res.clear();
+	int countTextures = texture.size();
+	for (int i = 0; i < range; i++)
+	{
+		int random = rand() % countTextures;
+		Object tmp(window, texture[random], i * unit, pos, unit);
+		res.push_back(tmp);
+	}
+	// TODO: insert return statement here
+	return res;
 }
 
 void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
@@ -39,6 +59,10 @@ void Road::draw()
 		else car->draw(listLight[0].getState(), listLight[0].getPos());
 	}
 	for (auto& light : listLight) light.draw();
+	for (unsigned int i = 0; i < listTexture.size(); i++)
+	{
+		listTexture[i].draw();
+	}
 }
 
 void Road::handleEvent() {
