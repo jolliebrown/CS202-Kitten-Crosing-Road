@@ -1,7 +1,7 @@
 #include "Lane.h"
 
 Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture> mTexture) :
-	window(window)
+	window(&window)
 {
 	this->dir = dir;
 	this->y_coor = y_coor;
@@ -11,7 +11,7 @@ Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Textur
 }
 
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture> mTexture):
-	window(window)
+	window(&window)
 {
 	this->dir = dir;
 	this->y_coor = y_coor;
@@ -23,7 +23,7 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 }
 
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture> mTexture):
-	window(window)
+	window(&window)
 {
 	this->dir = dir;
 	this->y_coor = y_coor;
@@ -48,7 +48,7 @@ Road::Road(const Road& road):
 		listVehicle.push_back(Tem);
 	}
 	listTexture = road.listTexture;
-	generate(window, listTexture, mTexture, unit, y_coor);
+	generate(*window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
 	}*/
@@ -57,7 +57,8 @@ Road::Road(const Road& road):
 Road& Road::operator = (const Road& road)
 {
 	cerr << "Assignment...\n";
-	//window = road.window;
+	delete window;
+	window = road.window;
 	dir = road.dir;
 	y_coor = road.y_coor;
 	unit = road.unit;
@@ -68,7 +69,7 @@ Road& Road::operator = (const Road& road)
 		listVehicle.push_back(Tem);
 	}
 	listTexture = road.listTexture;
-	generate(window, listTexture, mTexture, unit, y_coor);
+	generate(*window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
 	}*/

@@ -10,7 +10,6 @@
 class Road
 {
 public:
-	Road() = default;
 	Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture> mTexture);
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture> mTexture);
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture> mTexture);
@@ -28,7 +27,7 @@ private:
 	int dir; // 0: left to right, 1: right to left
 	int y_coor;
 	int unit;
-	RenderWindow&		window;
+	RenderWindow*		window;
 	vector<Texture>		mTexture;
 	vector<Vehicle*>	listVehicle;
 	vector<Light>		listLight;
