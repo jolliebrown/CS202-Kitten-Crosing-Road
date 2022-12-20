@@ -47,6 +47,7 @@ Road::Road(const Road& road):
 		Vehicle* Tem = new Vehicle(*v);
 		listVehicle.push_back(Tem);
 	}
+	listTexture = road.listTexture;
 	generate(window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
@@ -55,17 +56,18 @@ Road::Road(const Road& road):
 
 Road& Road::operator = (const Road& road)
 {
-	cerr << "Deep copy...\n";
+	cerr << "Assignment...\n";
 	//window = road.window;
 	dir = road.dir;
 	y_coor = road.y_coor;
 	unit = road.unit;
 	mTexture = road.mTexture;
-
+	listVehicle.clear();
 	for (auto v : road.listVehicle) {
 		Vehicle* Tem = new Vehicle(*v);
 		listVehicle.push_back(Tem);
 	}
+	listTexture = road.listTexture;
 	generate(window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
@@ -94,15 +96,15 @@ void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, 
 
 void Road::draw()
 {
+	for (unsigned int i = 0; i < listTexture.size(); i++)
+	{
+		listTexture[i].draw();
+	}
 	for (auto& car : listVehicle) {
 		if (listLight.size() == 0) car->draw();
 		else car->draw(listLight[0].getState(), listLight[0].getPos());
 	}
 	for (auto& light : listLight) light.draw();
-	for (unsigned int i = 0; i < listTexture.size(); i++)
-	{
-		listTexture[i].draw();
-	}
 }
 
 void Road::handleEvent() {

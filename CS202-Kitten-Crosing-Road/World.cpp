@@ -87,9 +87,9 @@ void World::drawListElements(queue<vector<Object>> target)
 }
 
 bool World::handleEvent(RenderWindow& window, View& mView) {
-	int topView = window.getView().getCenter().y;
-	int botView = window.getView().getCenter().y + window.getView().getSize().y / 2;
-	
+	int topView = (int)window.getView().getCenter().y;
+	int botView = (int) window.getView().getCenter().y + (int) window.getView().getSize().y / 2;
+	cout << mLane.size() << endl;
 	while (mLane.size()) {
 		int curposition = mLane[0].getPosition();
 		if (curposition > botView) {

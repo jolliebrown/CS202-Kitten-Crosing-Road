@@ -104,8 +104,8 @@ void Game::update(Time elapsedTime)
 void Game::render()
 {
 	mWindow.clear();
-	viewScroll(mView, mPlayer);
-	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
+	//viewScroll(mView, mPlayer);
+	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
 	mWindow.setView(mView);
 	// draw sth here
 	mWorld.draw();
