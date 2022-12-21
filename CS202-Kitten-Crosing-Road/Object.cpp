@@ -259,17 +259,16 @@ vector<Texture>& ListTextures::onePicLoad(vector<Texture>& scr, string fileName,
 bool Object::isCollided(Object& src) {
 	
 	//else return false;
-	float curX = asset.getPosition().x + 10.f, curY = asset.getPosition().y + 15.f;
-	//cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left + src.getBound().width << " " << src.getBound().top + src.getBound().height << endl;
-	//cout << curX << " " << curY << endl;
-	//if (src.getBound().contains(curX, curY)) {
+	float curX = asset.getPosition().x + 10.f, curY = asset.getPosition().y + 16.f;
+	float tempX = src.asset.getPosition().x, tempY = src.asset.getPosition().y - 10.f;
+
 	if (src.getBound().contains(curX, curY)) {
-		/*cout << "end\n";
-		cout << src.getBound().left << " " << src.getBound().top << " " << src.getBound().left+ src.getBound().width<< " " << src.getBound().top + src.getBound().height << endl;
-		cout << curX << " " << curY << endl;*/
 		return true;
 	}
-	else return false;
+	if (getBound().contains(tempX, tempY)) {
+		return true;
+	}
+	return false;
 
 	/*
 	int curX = asset.getPosition().x, curY = asset.getPosition().y;

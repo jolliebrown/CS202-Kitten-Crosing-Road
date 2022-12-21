@@ -91,7 +91,9 @@ void Game::processEvents()
 		mPlayer.handleRealtimeInput();
 		//gameSystem
 		mWorld.processEvent(gameSystem, mPlayer);
+		mPlayer.handleEvent(event, gameSystem);
 		mWorld.handleEvent(mWindow, mView);
+		
 	}
 	
 }
