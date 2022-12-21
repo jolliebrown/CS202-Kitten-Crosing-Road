@@ -35,7 +35,7 @@ public:
 	friend class Player;
 private:
 	vector<Scene*>      mainMenu;
-	vector<SystemButton>buttons;
+	vector<FloatingButton>buttons;
 	vector<Object>		fish_boost;
 	Object      gamePaused, gameOver, gameWon;
 	Object				scoreBoard;

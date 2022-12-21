@@ -41,7 +41,7 @@ private:
 	View& view;
 public:
 	FloatingButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor);
-	FloatingButton(View& view, RenderWindow& window, pair<Texture, Texture> pressed, int x_coor, int y_coor);
+	FloatingButton(View& view, RenderWindow& window, pair<Texture, Texture>& pressed, int x_coor, int y_coor);
 	FloatingButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor, bool setCenter);
 	void				draw(const Vector2f& mouse, const bool& isStill);
 };

@@ -46,9 +46,9 @@ FloatingButton::FloatingButton(View& view, RenderWindow& window, Texture& unpres
 {
 }
 
-FloatingButton::FloatingButton(View& view, RenderWindow& window, pair<Texture, Texture> pressed, int x_coor, int y_coor) :
+FloatingButton::FloatingButton(View& view, RenderWindow& window, pair<Texture, Texture>& pressed, int x_coor, int y_coor) :
 	view(view),
-	SystemButton(window, pressed.first, pressed.second, x_coor, y_coor)
+	SystemButton(window, pressed, x_coor, y_coor)
 {
 }
 
