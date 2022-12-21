@@ -89,14 +89,17 @@ void World::drawListElements(queue<vector<Object>> target)
 bool World::handleEvent(RenderWindow& window, View& mView) {
 	int topView = (int)window.getView().getCenter().y;
 	int botView = (int) window.getView().getCenter().y + (int) window.getView().getSize().y / 2;
-	cout << mLane.size() << endl;
-	while (mLane.size()) {
-		int curposition = mLane[0].getPosition();
+	//cout << mLane.size() << endl;
+	static int curID = 0;
+	while (mLane.size() && curID < mLane.size()) {
+		int curposition = mLane[curID].getPosition();
 		if (curposition > botView) {
+			curID++;
+			//cout << curID << " " << curposition << " " << botView << endl;
 			int nextPosition = mLane.back().getPosition() + signMap * BaseUnit;
-			mLane.erase(mLane.begin());
+			//mLane.erase(mLane.begin());
 			//mapBackground.pop();
-			mapIndex.erase(mapIndex.begin());
+			//mapIndex.erase(mapIndex.begin());
 			int nextId = generateNextLaneIndex();
 			int dir = (rand() % 2 == 0) ? -1 : 1;
 			mapIndex.push_back(nextId);

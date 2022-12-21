@@ -37,7 +37,7 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 Road::Road(const Road& road):
 	window(road.window)
 {
-	cerr << "Deep copy...\n";
+	//cerr << "Deep copy...\n";
 	dir = road.dir;
 	y_coor = road.y_coor;
 	unit = road.unit;
@@ -56,7 +56,7 @@ Road::Road(const Road& road):
 
 Road& Road::operator = (const Road& road)
 {
-	cerr << "Assignment...\n";
+	//cerr << "Assignment...\n";
 	delete window;
 	window = road.window;
 	dir = road.dir;
@@ -69,7 +69,7 @@ Road& Road::operator = (const Road& road)
 		listVehicle.push_back(Tem);
 	}
 	listTexture = road.listTexture;
-	generate(*window, listTexture, mTexture, unit, y_coor);
+	//generate(*window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);
 	}*/
