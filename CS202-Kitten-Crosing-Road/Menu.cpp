@@ -9,9 +9,13 @@ void Scene::draw(const Vector2f& mouse)
 {
 	// draw 
 	for (int i = 0; i < background.size(); ++i)
+	{
 		background[i].draw();
+	}
 	for (int i = 0; i < buttons.size(); ++i)
+	{
 		buttons[i].draw(mouse, false);
+	}
 }
 
 
@@ -21,26 +25,23 @@ Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object sprite(window, commonAsset[0], 0, 0);
-	Object menuboard(window, commonAsset[1], 22, 13);
-	Object gameName(window, menuAsset[0], 4, 4);
+	Object menuboard(window, commonAsset[1], 59, 40);
 	sprite.setPos(mWindow.getView());
 	menuboard.setPos(mWindow.getView());
-	gameName.setPos(mWindow.getView());
 	
 	background.push_back(sprite);
-	background.push_back(gameName);
-	background.push_back(sprite);
+	background.push_back(menuboard);
 
 	for (int i = 0; i < menuTexture[sceneName].size(); ++i)
 	{
-		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, BaseUnit * 70, BaseUnit * (15 + 5 * (i - 1)), true);
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second,  224, (50 + 17 * i), true);
 		buttons.push_back(button);
 	}
 }
 
 void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
 {
-	bool checkMouse = false;
+	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		if (buttons[i].isHere(mousePosition))
@@ -71,7 +72,7 @@ void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePositi
 			checkMouse = true;
 			break;
 		}
-	}
+	}*/
 }
 
 void Menu::draw(const Vector2f& mouse)

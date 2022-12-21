@@ -126,7 +126,7 @@ bool System::setPause() {
 
 void System::draw(const Vector2f& mouse)
 {
-	//state = GameState::Menu;
+	state = GameState::Menu;
 	for (int i = 0; i < fish_boost.size(); i++)
 	{
 		fish_boost[i].draw();
@@ -138,6 +138,7 @@ void System::draw(const Vector2f& mouse)
 	int l = 0, r = 0;
 	if (state == GameState::Menu)
 	{
+		view.reset(FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10));
 		mainMenu[0]->draw(mouse);
 	}
 	else if (state == GameState::Continue)

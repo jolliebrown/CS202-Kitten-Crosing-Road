@@ -83,11 +83,11 @@ ListTextures::ListTextures()
 		}
 	}
 
-	onePicLoad(commonAsset, "Media/Menu/Group 31.png");
-	onePicLoad(commonAsset, "Media/Menu/Menu.png");
+	onePicLoad(commonAsset, "Media/Scene/Menu/Group 31.png");
+	onePicLoad(commonAsset, "Media/Scene/Menu/Menu.png");
 	onePicLoad(commonAsset, "Media/System/Home_here.png");
 
-	onePicLoad(menuAsset, "Media/Menu/Name.png");
+	onePicLoad(menuAsset, "Media/Scene/Menu/Name.png");
 	onePicLoad(menuAsset, "Media/Menu/CONTINUE.png");
 	onePicLoad(menuAsset, "Media/Menu/PLAY.png");
 	onePicLoad(menuAsset, "Media/Menu/SETTINGS.png");
