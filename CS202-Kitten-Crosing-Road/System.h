@@ -37,6 +37,7 @@ private:
 	vector<Scene*>      mainMenu;
 	vector<FloatingButton>buttons;
 	vector<Object>		fish_boost;
+	vector<FishCoin>	fish_boost_name;
 	Object      gamePaused, gameOver, gameWon;
 	Object				scoreBoard;
 	pair<int, int>		score;
@@ -48,5 +49,5 @@ private:
 	View& view;
 	InfoScore			fish_score, game_score;
 	void				generateNextNormalBoost(Object& curBoost);
-	void				generateNextSpecialBoost(Object& curBoost);
+	FishCoin			generateNextSpecialBoost(Object& curBoost);
 };

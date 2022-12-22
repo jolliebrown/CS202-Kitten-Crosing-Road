@@ -35,12 +35,15 @@ System::System(View& view, RenderWindow& window) :
 	for (int i = 0; i < 3; i++)
 	{
 		Object tmp(window, ListTextures::fishCoin[(FishCoin)0], 100.f, signMap * BaseUnit * i);
+		FishCoin tmp_name = FishCoin::Normal;
 		generateNextNormalBoost(tmp);
 		fish_boost.push_back(tmp);
+		fish_boost_name.push_back(tmp_name);
 	}
 	Object tmp(window, ListTextures::fishCoin[(FishCoin)3], 100.f, signMap * BaseUnit * 3);
-	generateNextSpecialBoost(tmp);
+	FishCoin tmp_name = generateNextSpecialBoost(tmp);
 	fish_boost.push_back(tmp);
+	fish_boost_name.push_back(tmp_name);
 
 	Scene* menu_tmp = new Menu(window);
 	mainMenu.push_back(menu_tmp);
@@ -54,12 +57,14 @@ void System::generateNextNormalBoost(Object& curBoost) {
 	curBoost.changePos((int)curX, (int)curY);
 }
 
-void System::generateNextSpecialBoost(Object& curBoost) {
+FishCoin System::generateNextSpecialBoost(Object& curBoost) {
 	Vector2f viewPosition = window.getView().getCenter();
 	int curX = Rand(5, 10) * BaseUnit, curY = viewPosition.y - BaseUnit * 6.f - BaseUnit * Rand(0, 5);
 	curY = curY / 16 * 16;
 	curBoost.changePos((int)curX, (int)curY);
-	curBoost.changeAppearance(ListTextures::fishCoin[(FishCoin)Rand(1, 3)]);
+	int rd = Rand(1, 3);
+	curBoost.changeAppearance(ListTextures::fishCoin[(FishCoin)rd]);
+	return (FishCoin)rd;
 }
 
 //System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
