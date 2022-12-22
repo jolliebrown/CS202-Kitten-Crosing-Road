@@ -47,7 +47,7 @@ Road::Road(const Road& road):
 		Vehicle* Tem = new Vehicle(*v);
 		listVehicle.push_back(Tem);
 	}
-	listTexture = road.listTexture;
+	//listTexture = road.listTexture;
 	generate(*window, listTexture, mTexture, unit, y_coor);
 	/*for (auto v : road.listLight) {
 		listLight.push_back(v);

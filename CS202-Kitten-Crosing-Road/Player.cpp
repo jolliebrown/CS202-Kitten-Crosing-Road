@@ -71,7 +71,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 {
 	for (int i = 0; i < 4; i++) {
 		Object& boost = gameSystem.fish_boost[i];
-		if (this->isCollided(boost)) {
+		if (this->isCollidedSpecial(boost)) {
 			gameSystem.fish_coin += 1;
 			gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
 			if (i != 3) gameSystem.generateNextNormalBoost(boost);
@@ -117,6 +117,16 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 		}
 	}
 	movePlayer();
+	for (int i = 0; i < 4; i++) {
+		Object& boost = gameSystem.fish_boost[i];
+		if (this->isCollidedSpecial(boost)) {
+			gameSystem.fish_coin += 1;
+			gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
+			if (i != 3) gameSystem.generateNextNormalBoost(boost);
+			else gameSystem.generateNextSpecialBoost(boost);
+			// gen toa do moi cho no
+		}
+	}
 	
 }
 

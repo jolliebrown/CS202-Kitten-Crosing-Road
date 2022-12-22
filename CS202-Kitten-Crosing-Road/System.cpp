@@ -126,7 +126,7 @@ bool System::setPause() {
 
 void System::draw(const Vector2f& mouse)
 {
-	state = GameState::Menu;
+	//state = GameState::Menu;
 	for (int i = 0; i < fish_boost.size(); i++)
 	{
 		fish_boost[i].draw();

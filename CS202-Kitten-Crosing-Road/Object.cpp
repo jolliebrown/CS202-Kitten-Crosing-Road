@@ -260,12 +260,39 @@ bool Object::isCollided(Object& src) {
 	
 	//else return false;
 	float curX = asset.getPosition().x + 10.f, curY = asset.getPosition().y + 16.f;
-	float tempX = src.asset.getPosition().x, tempY = src.asset.getPosition().y - 10.f;
+	float tempX = src.asset.getPosition().x - 10.f, tempY = src.asset.getPosition().y - 16.f;
 
 	if (src.getBound().contains(curX, curY)) {
 		return true;
 	}
-	if (getBound().contains(tempX, tempY)) {
+	/*if (getBound().contains(tempX, tempY)) {
+		return true;
+	}*/
+	return false;
+
+	/*
+	int curX = asset.getPosition().x, curY = asset.getPosition().y;
+	int carX = src.asset.getPosition().x, carY = src.asset.getPosition().y;
+	if (abs(curX - carX) <= 12 && abs(curY - carY) <= 12) {
+		return true;
+	}
+	return false;
+	*/
+}
+
+bool Object::isCollidedSpecial(Object& src) {
+	//return src.getBound().intersects(getBound());
+	//else return false;
+	float curX = asset.getPosition().x + 8.f, curY = asset.getPosition().y + 16.f;
+	if (src.getBound().contains(curX, curY)) {
+		return true;
+	}
+	curX = asset.getPosition().x + 8.f, curY = asset.getPosition().y + 8.f;
+	if (src.getBound().contains(curX, curY)) {
+		return true;
+	}
+	curX = asset.getPosition().x + 8.f, curY = asset.getPosition().y;
+	if (src.getBound().contains(curX, curY)) {
 		return true;
 	}
 	return false;
