@@ -16,6 +16,7 @@ class World : public ListTextures
 {
 public:
 	explicit						World(RenderWindow& window);
+									~World();
 	void							draw();
 	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);

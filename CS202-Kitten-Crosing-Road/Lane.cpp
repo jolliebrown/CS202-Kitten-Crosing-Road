@@ -31,6 +31,22 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
+Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
+	window(&window)
+{
+	this->dir = dir;
+	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
+	for (int i = 0; i < 1; ++i) {
+		Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
+		listVehicle.push_back(Tem);
+	}
+	generate(window, listTexture, mTexture, unit, y_coor);
+	addLight(window, listLightTexture, BaseUnit * 9, y_coor, unit);
+	//addLight(window, listLightTexture, BaseUnit * 8, y_coor, unit);
+}
+
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture):
 	window(&window)
 {
@@ -56,16 +72,15 @@ Road::Road(const Road& road):
 		Vehicle* Tem = new Vehicle(*v);
 		listVehicle.push_back(Tem);
 	}
-	//listTexture = road.listTexture;
-	generate(*window, listTexture, mTexture, unit, y_coor);
-	/*for (auto v : road.listLight) {
-		listLight.push_back(v);
-	}*/
+	listTexture = road.listTexture;
+	//generate(*window, listTexture, mTexture, unit, y_coor);
+	listLight = road.listLight;
 }
 
 Road& Road::operator = (const Road& road)
 {
 	//cerr << "Assignment...\n";
+	if (this == &road) return *this;
 	delete window;
 	window = road.window;
 	dir = road.dir;
@@ -79,9 +94,7 @@ Road& Road::operator = (const Road& road)
 	}
 	listTexture = road.listTexture;
 	//generate(*window, listTexture, mTexture, unit, y_coor);
-	/*for (auto v : road.listLight) {
-		listLight.push_back(v);
-	}*/
+	listLight = road.listLight;
 	return *this;
 }
 
@@ -101,7 +114,7 @@ vector<Object>& Road::generate(RenderWindow& window, vector<Object>& res, vector
 
 void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
-	listLight.push_back(Light(window, texture, x_coor, y_coor, unit));
+	listLight.push_back(Light(window, texture, x_coor, y_coor - 5, unit));
 }
 
 void Road::draw()

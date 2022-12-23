@@ -5,7 +5,7 @@ Light::Light(RenderWindow& window, vector<Texture>& texture, int x_coord, int y_
 	this->state = 0;
 	count[0] = milliseconds(3000);
 	count[1] = milliseconds(4000);
-	count[2] = milliseconds(7000);
+	count[2] = milliseconds(10000);
 	clock.restart();
 	listLight = texture;
 }
@@ -15,7 +15,7 @@ Light::Light(int state, RenderWindow& window, vector<Texture>& texture, int x_co
 	this->state = state;
 	count[0] = milliseconds(3000);
 	count[1] = milliseconds(4000);
-	count[2] = milliseconds(7000);
+	count[2] = milliseconds(10000);
 	clock.restart();
 	listLight = texture;
 }

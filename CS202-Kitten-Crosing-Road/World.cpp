@@ -16,11 +16,11 @@ World::World(RenderWindow& window) :
 		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Road* temLane = new Road(window, dir, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
+			Road* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Road* temLane = new Road(window, dir, train[0], 0, pos, BaseUnit * 3, 0.5, 1, background[j]);
+			Road* temLane = new Road(window, dir, train[0], 0, pos, BaseUnit * 3, 0.3, 1, background[j]);
 			mLane.push_back(temLane);
 		}
 		else {
@@ -30,15 +30,21 @@ World::World(RenderWindow& window) :
 	}
 }
 
+World::~World()
+{
+	for (auto& lane : mLane) delete lane;
+}
+
 void World::draw()
 {
 	//drawListElements(mapBackground);
-	for (auto& lane : mLane) lane->draw();
+	for (int i = mLane.size() - 1; i >= 0; --i) mLane[i]->draw();
 }
 
 void World::processEvent(System& gameSystem, Player& mPlayer)
 {
 	for (auto& lane : mLane) lane->handleEvent();
+	cerr << "************\n\n";
 	for (auto& lane : mLane) if (lane->isCollided(mPlayer)) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.setLose();
@@ -105,11 +111,11 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 			mapIndex.push_back(nextId);
 			cerr << "Add here\n\n";
 			if (nextId == 1) {
-				Road* temLane = new Road(window, dir, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
+				Road* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
 				mLane.push_back(temLane);
 			}
 			else if (nextId == 2) {
-				Road* temLane = new Road(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.3, 0.5, background[nextId]);
+				Road* temLane = new Road(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.3, 1, background[nextId]);
 				mLane.push_back(temLane);
 			}
 			else {
