@@ -27,7 +27,7 @@ private:
 
 private:
 	queue<vector<Object>>			mapBackground;
-	vector<Road>					mLane;
+	vector<Road*>					mLane;
 	vector<int>						mapIndex; //
 	const int						range = 32;
 	RenderWindow& window;

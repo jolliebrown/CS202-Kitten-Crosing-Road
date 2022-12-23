@@ -1,6 +1,13 @@
 #include "Lane.h"
 
-Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture> mTexture) :
+Road::Road()
+{
+	dir = 0;
+	y_coor = 0;
+	unit = 0;
+}
+
+Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
 	window(&window)
 {
 	this->dir = dir;
@@ -10,19 +17,21 @@ Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Textur
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture> mTexture):
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture):
 	window(&window)
 {
 	this->dir = dir;
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-	Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
-	listVehicle.push_back(Tem);
+	for (int i = 0; i < 1; ++i) {
+		Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
+		listVehicle.push_back(Tem);
+	}
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture> mTexture):
+Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture):
 	window(&window)
 {
 	this->dir = dir;
