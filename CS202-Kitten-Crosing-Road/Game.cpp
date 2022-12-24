@@ -87,15 +87,9 @@ void Game::processEvents()
 			mWindow.close();
 	}
 	if (gameSystem.gameContinue()) {
-
-		mPlayer.handleRealtimeInput();
-		//gameSystem
 		mWorld.processEvent(gameSystem, mPlayer);
-		mPlayer.handleEvent(event, gameSystem);
 		mWorld.handleEvent(mWindow, mView);
-		
 	}
-	
 }
 
 void Game::update(Time elapsedTime)

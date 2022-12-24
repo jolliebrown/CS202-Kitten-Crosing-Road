@@ -44,7 +44,7 @@ void World::draw()
 void World::processEvent(System& gameSystem, Player& mPlayer)
 {
 	for (auto& lane : mLane) lane->handleEvent();
-	cerr << "************\n\n";
+	//cerr << "************\n\n";
 	for (auto& lane : mLane) if (lane->isCollided(mPlayer)) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.setLose();
@@ -109,7 +109,7 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 			int nextId = generateNextLaneIndex();
 			int dir = (rand() % 2 == 0) ? -1 : 1;
 			mapIndex.push_back(nextId);
-			cerr << "Add here\n\n";
+			//cerr << "Add here\n\n";
 			if (nextId == 1) {
 				Road* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
 				mLane.push_back(temLane);

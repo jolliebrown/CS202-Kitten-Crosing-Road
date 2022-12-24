@@ -55,6 +55,7 @@ void System::generateNextNormalBoost(Object& curBoost) {
 	int curX = Rand(5, 10) * BaseUnit, curY = viewPosition.y - BaseUnit * 6.f - BaseUnit * Rand(0, 5);
 	curY = curY / 16 * 16;
 	curBoost.changePos((int)curX, (int)curY);
+	//cout << "done\n";
 }
 
 FishCoin System::generateNextSpecialBoost(Object& curBoost) {
@@ -64,6 +65,7 @@ FishCoin System::generateNextSpecialBoost(Object& curBoost) {
 	curBoost.changePos((int)curX, (int)curY);
 	int rd = Rand(1, 3);
 	curBoost.changeAppearance(ListTextures::fishCoin[(FishCoin)rd]);
+	//cout << "done\n";
 	return (FishCoin)rd;
 }
 

@@ -69,86 +69,69 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 
 void Player::handleEvent(const sf::Event& event, System& gameSystem)
 {
+	//cout << mAction.size() << endl;
+	if (event.type == sf::Event::KeyReleased)
+	{
+		//	test();
+		Vector2i tmp;
+		// Check if pressed key appears in key binding, trigger command if so
+		map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
+		if (found != mKeyBinding.end() && isRealtimeAction(found->second, tmp))
+		{
+			map<Action, Vector2i>::iterator itr = mAction.find(found->second);
+			if (itr != mAction.end())
+			{
+				itr->second += tmp;
+			}
+			else
+			{
+				mAction[found->second] = tmp;
+			}
+		}
+		// no obstables
+		if (mAction[Action::MoveUp].y)
+		{
+			if (gameSystem.score.second >= 0)
+			{
+				gameSystem.score.first++;
+				cout << "1\n";
+				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
+			}
+			else
+			{
+				gameSystem.score.second++;
+			}
+		}
+		if (mAction[Action::MoveDown].y)
+		{
+			gameSystem.score.second--;
+		}
+	}
+	movePlayer();
 	for (int i = 0; i < 4; i++) {
 		Object& boost = gameSystem.fish_boost[i];
 		if (this->isCollidedSpecial(boost)) {
-			gameSystem.fish_coin += 1;
-			if (this->isCollided(boost)) {
-				if (i != 3)
+			if (i != 3)
+			{
+				gameSystem.fish_coin += 1;
+				gameSystem.generateNextNormalBoost(boost);
+			}
+			else
+			{
+				FishCoin& tmp = gameSystem.fish_boost_name[3];
+				if (tmp == FishCoin::Bonus)
+				{
+					gameSystem.fish_coin += 5;
+					cout << 5 << endl;
+				}
+				else
 				{
 					gameSystem.fish_coin += 1;
-					gameSystem.generateNextNormalBoost(boost);
 				}
-				else
-				{
-					FishCoin& tmp = gameSystem.fish_boost_name[3];
-					if (tmp == FishCoin::Bonus)
-					{
-						gameSystem.fish_coin += 5;
-					}
-					else if (tmp == FishCoin::Destroy)
-					{
-
-					}
-					else if (tmp == FishCoin::Stop)
-					{
-
-					}
-					tmp = gameSystem.generateNextSpecialBoost(boost);
-				}
-				// gen toa do moi cho no
-				gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
+				gameSystem.generateNextSpecialBoost(boost);
 			}
+			gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
 		}
-		//cout << mAction.size() << endl;
-		if (event.type == sf::Event::KeyReleased)
-		{
-			//	test();
-			Vector2i tmp;
-			// Check if pressed key appears in key binding, trigger command if so
-			map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
-			if (found != mKeyBinding.end() && isRealtimeAction(found->second, tmp))
-			{
-				map<Action, Vector2i>::iterator itr = mAction.find(found->second);
-				if (itr != mAction.end())
-				{
-					itr->second += tmp;
-				}
-				else
-				{
-					mAction[found->second] = tmp;
-				}
-			}
-			// no obstables
-			if (mAction[Action::MoveUp].y)
-			{
-				if (gameSystem.score.second >= 0)
-				{
-					gameSystem.score.first++;
-					gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
-				}
-				else
-				{
-					gameSystem.score.second++;
-				}
-			}
-			if (mAction[Action::MoveDown].y)
-			{
-				gameSystem.score.second--;
-			}
-		}
-		movePlayer();
-		for (int i = 0; i < 4; i++) {
-			Object& boost = gameSystem.fish_boost[i];
-			if (this->isCollidedSpecial(boost)) {
-				gameSystem.fish_coin += 1;
-				gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
-				if (i != 3) gameSystem.generateNextNormalBoost(boost);
-				else gameSystem.generateNextSpecialBoost(boost);
-				// gen toa do moi cho no
-			}
-		}
-
 	}
 }
 
@@ -222,7 +205,7 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 
 void Player::test()
 {
-	cerr << "my action: \n";
+	//cerr << "my action: \n";
 	for (auto itr = mAction.begin(); itr != mAction.end(); ++itr)
 	{
 		cerr << itr->second.x << ',' << itr->second.y << endl;
