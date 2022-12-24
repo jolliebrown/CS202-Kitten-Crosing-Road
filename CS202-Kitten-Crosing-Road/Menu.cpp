@@ -274,23 +274,22 @@ Mode::Mode(RenderWindow& mWindow) : Scene(mWindow)
 {
 	sceneName = MenuList::Mode;
 
-	//// Background
-	//Sprite sprite(commonAsset[0]);
-	//background.push_back(sprite);
+	// Background
+	Object grassBackground(window, commonAsset[1], 0, 0);
+	Object modeBoard(window, commonAsset[3], 76, 56);
+	grassBackground.setPos(mWindow.getView());
+	modeBoard.setPos(mWindow.getView());
+	background.push_back(grassBackground);
+	background.push_back(modeBoard);
 
-	//sprite = Sprite(commonAsset[1]);
-	//sprite.setPosition(BaseUnit * 22, BaseUnit * 19);
-	//sprite.scale(4, 2);
-	//background.push_back(sprite);
-
-	//// SystemButton
-	//SystemButton* button = new SystemButton(window, commonAsset[2], 0, 0, false);
-	//buttons.push_back(button);
-	//for (int i = 0; i < 2; ++i)
-	//{
-	//	SystemButton* button = new SystemButton(window, modeAsset[i], BaseUnit * 70, BaseUnit * (22 + 6 * i), true);
-	//	buttons.push_back(button);
-	//}
+	// Button
+	SystemButton backButton(window, commonAsset.back(), commonAsset.back(), 0, 0, false);
+	buttons.push_back(backButton);
+	for (int i = 0; i < menuTexture[sceneName].size(); ++i)
+	{
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (65 + 25 * i), true);
+		buttons.push_back(button);
+	}
 }
 
 Mode::~Mode()
@@ -300,34 +299,20 @@ Mode::~Mode()
 
 void Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
-		if (buttons[i]->getBound().contains(mousePosition))
+		if (buttons[i].isHere(mousePosition))
 		{
 			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 			{
 				if (i == 0)
 				{
-					delete scene.back();
 					scene.pop_back();
-					break;
 				}
 			}
-			if (buttons.size() <= 3 && i != 0)
-			{
-				SystemButton* button = new SystemButton(window, modeAsset[i + 1], BaseUnit * 70, BaseUnit * (22 + 6 * (i - 1)), true);
-				buttons.push_back(button);
-			}
-			checkMouse = true;
 			break;
 		}
 	}
-	if (!checkMouse && buttons.size() > 3)
-	{
-		delete buttons.back();
-		buttons.pop_back();
-	}*/
 }
 
 void Mode::draw(const Vector2f& mouse)
