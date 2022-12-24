@@ -220,22 +220,21 @@ Settings::Settings(RenderWindow& mWindow) : Scene(mWindow)
 	sceneName = MenuList::Settings;
 
 	// Background
-	//Sprite sprite(commonAsset[0]);
-	//background.push_back(sprite);
+	Object grassBackground(window, commonAsset[1], 0, 0);
+	Object settingsBoard(window, commonAsset[5], 51.5, 55);
+	grassBackground.setPos(mWindow.getView());
+	settingsBoard.setPos(mWindow.getView());
+	background.push_back(grassBackground);
+	background.push_back(settingsBoard);
 
-	//sprite = Sprite(commonAsset[1]);
-	//sprite.setPosition(BaseUnit * 18.5, BaseUnit * 19);
-	//sprite.scale(5, 2);
-	//background.push_back(sprite);
-
-	//// SystemButton
-	//SystemButton* button = new SystemButton(window, commonAsset[2], 0, 0, false);
-	//buttons.push_back(button);
-	//for (int i = 0; i < 2; ++i)
-	//{
-	//	SystemButton* button = new SystemButton(window, settingsAsset[i], BaseUnit * 70, BaseUnit * (22 + 6 * i), true);
-	//	buttons.push_back(button);
-	//}
+	// Button
+	SystemButton backButton(window, commonAsset.back(), commonAsset.back(), 0, 0, false);
+	buttons.push_back(backButton);
+	for (int i = 0; i < menuTexture[sceneName].size(); ++i)
+	{
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (65 + 25 * i), true);
+		buttons.push_back(button);
+	}
 }
 
 Settings::~Settings()
@@ -245,40 +244,25 @@ Settings::~Settings()
 
 void Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
-		if (buttons[i]->getBound().contains(mousePosition))
+		if (buttons[i].isHere(mousePosition))
 		{
 			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 			{
 				if (i == 0)
 				{
-					delete scene.back();
 					scene.pop_back();
-					break;
 				}
 				else if (i == 2)
 				{
 					Scene* buttonSettings = new ButtonSettings(window);
 					scene.push_back(buttonSettings);
-					break;
 				}
 			}
-			if (buttons.size() <= 3 && i != 0)
-			{
-				SystemButton* button = new SystemButton(window, settingsAsset[i + 1], BaseUnit * 70, BaseUnit * (22 + 6 * (i - 1)), true);
-				buttons.push_back(button);
-			}
-			checkMouse = true;
 			break;
 		}
 	}
-	if (!checkMouse && buttons.size() > 3)
-	{
-		delete buttons.back();
-		buttons.pop_back();
-	}*/
 }
 
 void Settings::draw(const Vector2f& mouse)
