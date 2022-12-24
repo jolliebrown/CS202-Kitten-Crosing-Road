@@ -5,6 +5,11 @@ Scene::Scene(RenderWindow& mWindow) : window(mWindow)
 	sceneName = MenuList::Menu;
 }
 
+Scene::~Scene()
+{
+
+}
+
 void Scene::draw(const Vector2f& mouse)
 {
 	// draw 
@@ -25,10 +30,9 @@ Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object sprite(window, commonAsset[0], 0, 0);
-	Object menuboard(window, commonAsset[1], 59, 40);
+	Object menuboard(window, commonAsset[2], 59, 40);
 	sprite.setPos(mWindow.getView());
 	menuboard.setPos(mWindow.getView());
-	
 	background.push_back(sprite);
 	background.push_back(menuboard);
 
@@ -39,7 +43,12 @@ Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 	}
 }
 
-void Menu::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
+Menu::~Menu()
+{
+
+}
+
+void Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
@@ -87,10 +96,8 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 	// Background
 	Object sprite(window, commonAsset[0], 0, 0);
 	Object menuboard(window, commonAsset[1], 2, 9);
-	Object gameName(window, menuAsset[0], 4, 4);
 
 	background.push_back(sprite);
-	background.push_back(gameName);
 	background.push_back(sprite);
 	// Initialize the number of instruction page
 	pageIndex = 1;
@@ -128,7 +135,12 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 	buttons.push_back(button);*/
 }
 
-void Instruction::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
+Instruction::~Instruction()
+{
+
+}
+
+void Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	/*for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -228,7 +240,12 @@ Settings::Settings(RenderWindow& mWindow) : Scene(mWindow)
 	//}
 }
 
-void Settings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
+Settings::~Settings()
+{
+
+}
+
+void Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
@@ -294,7 +311,12 @@ Mode::Mode(RenderWindow& mWindow) : Scene(mWindow)
 	//}
 }
 
-void Mode::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
+Mode::~Mode()
+{
+
+}
+
+void Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
@@ -354,7 +376,12 @@ ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
 	//}
 }
 
-void ButtonSettings::handleEvent(Event& event, vector<Scene*>& scene, Vector2f mousePosition)
+ButtonSettings::~ButtonSettings()
+{
+
+}
+
+void ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
