@@ -44,7 +44,6 @@ enum class MenuList
 	Mode,
 	Classic,
 	Settings,
-	Leaderboard,
 	ButtonSettings,
 	Instruction
 };
@@ -73,11 +72,7 @@ protected:
 	// pictures for individual scene
 	map <MenuList, string>  menuListName;
 	map <MenuList, vector<pair<Texture, Texture>>> menuTexture;
-	vector<Texture>			menuAsset;
-	vector<Texture>			modeAsset;
 	vector<Texture>			instructionAsset;
-	vector<Texture>			settingsAsset;
-	vector<Texture>			buttonSettings_Asset;
 public:
 	vector<Texture>			car;
 	vector<Texture>			user;

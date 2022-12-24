@@ -46,11 +46,10 @@ ListTextures::ListTextures()
 	menuListName[MenuList::Mode] = "Mode";
 	menuListName[MenuList::Settings] = "Settings";
 	menuListName[MenuList::Instruction] = "Instruction";
-	menuListName[MenuList::Leaderboard] = "Leaderboard";
 	menuListName[MenuList::Classic] = "Classic";
 	menuListName[MenuList::ButtonSettings] = "ButtonSettings";
-	int menuListNum = 7;
-	int maxMenuNum = 12;
+	int menuListNum = 6;
+	int maxMenuNum = 10;
 
 	for (int i = 0; i < fishCoinNum; i++)
 	{
@@ -83,23 +82,15 @@ ListTextures::ListTextures()
 		}
 	}
 
-	onePicLoad(commonAsset, "Media/Scene/Menu/Group 31.png");
-	onePicLoad(commonAsset, "Media/Scene/Menu/Menu.png");
+	onePicLoad(commonAsset, "Media/Scene/Menu/menuBackground.png");
+	onePicLoad(commonAsset, "Media/Scene/Menu/otherSceneBackground.png");
+	for (int i = 0; i < menuListNum; i++)
+	{
+		Texture menu_tmp;
+		menu_tmp.loadFromFile("Media/Scene/" + menuListName[(MenuList)i] + "/" + menuListName[(MenuList)i] + ".png");
+		commonAsset.push_back(menu_tmp);
+	}
 	onePicLoad(commonAsset, "Media/System/Home_here.png");
-
-	onePicLoad(menuAsset, "Media/Scene/Menu/Name.png");
-	onePicLoad(menuAsset, "Media/Menu/CONTINUE.png");
-	onePicLoad(menuAsset, "Media/Menu/PLAY.png");
-	onePicLoad(menuAsset, "Media/Menu/SETTINGS.png");
-	onePicLoad(menuAsset, "Media/Menu/LEADERBOARD.png");
-	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION.png");
-	onePicLoad(menuAsset, "Media/Menu/QUIT.png");
-	onePicLoad(menuAsset, "Media/Menu/CONTINUE_here.png");
-	onePicLoad(menuAsset, "Media/Menu/PLAY_here.png");
-	onePicLoad(menuAsset, "Media/Menu/SETTINGS_here.png");
-	onePicLoad(menuAsset, "Media/Menu/LEADERBOARD_here.png");
-	onePicLoad(menuAsset, "Media/Menu/INSTRUCTION_here.png");
-	onePicLoad(menuAsset, "Media/Menu/QUIT_here.png");
 
 	onePicLoad(instructionAsset, "Media/Instruction/instruction_1.png");
 	onePicLoad(instructionAsset, "Media/Instruction/Page1.png");
@@ -109,25 +100,6 @@ ListTextures::ListTextures()
 	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_yes.png");
 	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_no.png");
 	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_no.png");
-
-	onePicLoad(settingsAsset, "Media/Settings/Sound.png");
-	onePicLoad(settingsAsset, "Media/Settings/ButtonSettings.png");
-	onePicLoad(settingsAsset, "Media/Settings/Sound_here.png");
-	onePicLoad(settingsAsset, "Media/Settings/ButtonSettings_here.png");
-
-	onePicLoad(modeAsset, "Media/Menu/CLASSIC.png");
-	onePicLoad(modeAsset, "Media/Menu/ENDLESS.png");
-	onePicLoad(modeAsset, "Media/Menu/CLASSIC_here.png");
-	onePicLoad(modeAsset, "Media/Menu/ENDLESS_here.png");
-
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonUp.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonDown.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonLeft.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonRight.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonUp_here.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonDown_here.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonLeft_here.png");
-	onePicLoad(buttonSettings_Asset, "Media/Settings/Button_settings/ButtonRight_here.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
