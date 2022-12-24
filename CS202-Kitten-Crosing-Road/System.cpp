@@ -144,7 +144,7 @@ void System::draw(const Vector2f& mouse)
 	if (state == GameState::Menu)
 	{
 		view.reset(FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10));
-		mainMenu[0]->draw(mouse);
+		mainMenu.back()->draw(mouse);
 	}
 	else if (state == GameState::Continue)
 	{
@@ -201,6 +201,10 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			{
 				state = GameState::Continue;
 			}
+		}
+		else if (state == GameState::Menu)
+		{
+			mainMenu.back()->handleEvent(event, mainMenu, mouse);
 		}
 	}
 }
