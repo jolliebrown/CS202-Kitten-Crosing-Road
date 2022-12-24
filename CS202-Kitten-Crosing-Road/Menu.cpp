@@ -36,6 +36,7 @@ Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 	background.push_back(sprite);
 	background.push_back(menuboard);
 
+	// Button
 	for (int i = 0; i < menuTexture[sceneName].size(); ++i)
 	{
 		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second,  224, (50 + 17 * i), true);
@@ -50,7 +51,6 @@ Menu::~Menu()
 
 void Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	/*bool checkMouse = false;
 	for (int i = 0; i < buttons.size(); ++i)
 	{
 		if (buttons[i].isHere(mousePosition))
@@ -61,27 +61,25 @@ void Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f
 				{
 					Scene* settings = new Settings(window);
 					scene.push_back(settings);
-					break;
 				}
-				else if (i == 4)
+				else if (i == 3)
 				{
 					Scene* instruction = new Instruction(window);
 					scene.push_back(instruction);
-					break;
 				}
 				else if (i == 5)
-					event.type = Event::Closed;
+				{
+					const_cast<Event&>(event).type = Event::Closed;
+				}
 				else
 				{
 					Scene* mode = new Mode(window);
 					scene.push_back(mode);
-					break;
 				}
 			}
-			checkMouse = true;
 			break;
 		}
-	}*/
+	}
 }
 
 void Menu::draw(const Vector2f& mouse)
