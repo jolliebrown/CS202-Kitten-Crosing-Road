@@ -239,4 +239,9 @@
       <Filter>Resource Files\Scene\ButtonSettings</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="GameData.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

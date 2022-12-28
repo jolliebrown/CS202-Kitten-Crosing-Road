@@ -19,6 +19,10 @@ bool Game::gameRestart() {
 	gameSystem.setContinue();
 	return true;
 }
+Game::~Game()
+{
+	saveFile();
+}
 void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
 	viewPosition = mView.getCenter();
@@ -50,6 +54,15 @@ void Game::setCur(const Event& event)
 		cursor.loadFromPixels(cur_img.getPixelsPtr(), cur_img.getSize(), Vector2u(5, 6));
 	}
 	mWindow.setMouseCursor(cursor);
+}
+
+void Game::saveFile()
+{
+	ofstream fout("GameData.txt");
+	// save info parameters
+	gameSystem.writeFile(fout);
+	// save map
+	mWorld.writeFile(fout);
 }
 
 void Game::run()

@@ -2,25 +2,27 @@
 #include "SystemFunction.h"
 #include "Menu.h"
 
+enum GameMode
+{
+	Endless,
+	Classic,
+	TwoPlayer
+};
+
+enum class GameState
+{
+	Win,
+	Lose,
+	Continue,
+	Pause,
+	Save,
+	Menu, 
+	Restart
+};
+
 class System : ListTextures
 {
 public:
-	enum class GameState
-	{
-		Win,
-		Lose,
-		Continue,
-		Pause,
-		Save,
-		Menu,
-		Restart
-	};
-	enum GameMode
-	{
-		Endless,
-		Classic,
-		TwoPlayer
-	};
 	System(View& view, RenderWindow& window);
 	System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin);
 	bool gameLose();
@@ -36,6 +38,8 @@ public:
 	void draw(const Vector2f& mouse);
 	void handleEvent(const Event& event, const Vector2f& mouse);
 	friend class Player;
+	void				resetParameter(GameMode new_mode, int game_level = 0);
+	void				writeFile(ofstream& fout);
 private:
 	vector<Scene*>      mainMenu;
 	vector<FloatingButton>buttons;
@@ -51,6 +55,7 @@ private:
 	RenderWindow& window;
 	View& view;
 	InfoScore			fish_score, game_score;
+private:
 	void				generateNextNormalBoost(Object& curBoost);
 	FishCoin			generateNextSpecialBoost(Object& curBoost);
 };
