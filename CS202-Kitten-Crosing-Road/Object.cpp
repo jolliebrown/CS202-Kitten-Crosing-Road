@@ -263,7 +263,7 @@ bool Object::isCollidedSpecial(Object& src) {
 	if (src.getBound().contains(curX, curY)) {
 		return true;
 	}
-	curX = asset.getPosition().x + 8.f, curY = asset.getPosition().y;
+	//curX = asset.getPosition().x + 8.f, curY = asset.getPosition().y;
 	if (src.getBound().contains(curX, curY)) {
 		return true;
 	}
