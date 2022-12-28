@@ -60,7 +60,7 @@ World::World(RenderWindow& window, bool check) :
 			mLane.push_back(temLane);
 		}
 		else {
-			Lane* temLane = new Road(window, 0, pos, BaseUnit, obstacle[0], background[j]);
+			Lane* temLane = new Road(window, 0, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
 			mLane.push_back(temLane);
 		}
 	}
@@ -90,7 +90,7 @@ bool World::worldRestart() {
 			mLane.push_back(temLane);
 		}
 		else {
-			Lane* temLane = new Road(window, 0, pos, BaseUnit, obstacle[0], background[j]);
+			Lane* temLane = new Road(window, 0, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
 			mLane.push_back(temLane);
 		}
 	}
@@ -169,7 +169,7 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 				mLane.push_back(temLane);
 			}
 			else {
-				Lane* temLane = new Road(window, 0, nextPosition, BaseUnit, obstacle[0], background[nextId]);
+				Lane* temLane = new Road(window, 0, nextPosition, BaseUnit, obstacle[Rand(1, 100) % 2], background[nextId]);
 				mLane.push_back(temLane);
 			}
 			/*vector<Object> tmp;
