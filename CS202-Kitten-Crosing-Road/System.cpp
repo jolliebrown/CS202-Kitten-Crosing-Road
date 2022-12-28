@@ -17,16 +17,19 @@ System::System(View& view, RenderWindow& window) :
 {
 	FloatingButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
 	buttons.push_back(pause);
+	// Pause
 	for (int i = 1; i < 4; i++)
 	{
 		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
 		buttons.push_back(tmp);
 	}
+	// Lose
 	for (int i = 4; i < 6; i++)
 	{
 		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
 		buttons.push_back(tmp);
 	}
+	// Win
 	for (int i = 6; i < 9; i++)
 	{
 		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
@@ -97,6 +100,9 @@ FishCoin System::generateNextSpecialBoost(Object& curBoost) {
 //	}
 //}
 
+bool System::gameRestart() {
+	return state == GameState::Restart;
+}
 bool System::gameLose() {
 	return state == GameState::Lose;
 }
@@ -110,13 +116,20 @@ bool System::gameWin() {
 bool System::gamePause() {
 	return state == GameState::Pause;
 }
+
+bool System::setRestart() {
+	//if (state != Continue && state != Lose) return false;
+	state = GameState::Restart;
+	return true;
+}
+
 bool System::setLose() {
 	//if (state != Continue && state != Lose) return false;
 	state = GameState::Lose;
 	return true;
 }
 bool System::setContinue() {
-	if (state != GameState::Pause) return false;
+	//if (state != GameState::Pause) return false;
 	state = GameState::Continue;
 	return true;
 }
@@ -126,7 +139,7 @@ bool System::setWin() {
 	return true;
 }
 bool System::setPause() {
-	if (state != GameState::Continue) return false;
+	//if (state != GameState::Continue) return false;
 	state = GameState::Pause;
 	return true;
 }
@@ -207,6 +220,13 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 		else if (state == GameState::Menu)
 		{
 			mainMenu.back()->handleEvent(event, mainMenu, mouse);
+		}
+		else if (state == GameState::Lose)
+		{
+			if (buttons[4].isHere(mouse))
+			{
+				state = GameState::Restart;
+			}
 		}
 	}
 }

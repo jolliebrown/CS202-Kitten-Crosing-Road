@@ -5,6 +5,7 @@ World::World(RenderWindow& window) :
 	window(window)
 {
 	mapIndex.clear();
+	curID = 0;
 	for (int i = 0; i < 16; i++) mapIndex.push_back(generateNextLaneIndex());
 	for (int i = 0; i < mapIndex.size(); i++)
 	{
@@ -28,6 +29,37 @@ World::World(RenderWindow& window) :
 			mLane.push_back(temLane);
 		}
 	}
+}
+
+bool World::worldRestart() {
+	mapIndex.clear();
+	mLane.clear();
+	mapIndex.push_back(generateNextLaneIndex(-1));
+	curID = 0;
+	for (int i = 1; i < 16; i++) mapIndex.push_back(generateNextLaneIndex());
+	for (int i = 0; i < mapIndex.size(); i++)
+	{
+		int j = mapIndex[i];
+		int pos = signMap * BaseUnit * i;
+		int dir = (rand() % 2 == 0) ? -1 : 1;
+		/*vector<Object> tmp;
+		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, pos);
+		mapBackground.push(tmp);*/
+
+		if (mapIndex[i] == 1) {
+			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
+			mLane.push_back(temLane);
+		}
+		else if (mapIndex[i] == 2) {
+			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, background[j]);
+			mLane.push_back(temLane);
+		}
+		else {
+			Lane* temLane = new Road(window, 0, pos, BaseUnit, background[j]);
+			mLane.push_back(temLane);
+		}
+	}
+	return true;
 }
 
 World::~World()
@@ -96,7 +128,6 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 	int topView = (int)window.getView().getCenter().y;
 	int botView = (int) window.getView().getCenter().y + (int) window.getView().getSize().y / 2;
 	//cout << mLane.size() << endl;
-	static int curID = 0;
 	while (mLane.size() && curID < mLane.size()) {
 		int curposition = mLane[curID]->getPosition();
 		if (curposition > botView) {

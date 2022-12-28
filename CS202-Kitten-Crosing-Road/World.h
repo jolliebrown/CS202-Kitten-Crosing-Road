@@ -20,6 +20,7 @@ public:
 	void							draw();
 	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);
+	bool							worldRestart();
 private: 
 	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
 	void							drawElement(vector<Object>& target);
@@ -33,4 +34,5 @@ private:
 	const int						range = 32;
 	RenderWindow& window;
 	int								getPosition(int laneIndex);
+	int								curID = 0;
 };
