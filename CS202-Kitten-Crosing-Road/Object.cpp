@@ -4,6 +4,8 @@ ListTextures::ListTextures()
 {
 	// load het asset vao day nha
 	load(car, "Media/Car.png", 0, 0, 72, 12, 24, 12);
+	load(obstacle[0], "Media/Obstacle_Bush.png", 0, 0, 32, 16, 16, 16);
+	load(obstacle[1], "Media/Obstacle_Rock.png", 0, 0, 32, 16, 16, 16);
 	//onePicLoad(car, "Media/Car.png", 0, 0, 20, 10);
 	onePicLoad(user, "Media/Binh.png");
 

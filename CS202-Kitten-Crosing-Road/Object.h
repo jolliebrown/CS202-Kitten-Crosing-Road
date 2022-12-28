@@ -73,6 +73,7 @@ protected:
 	map <MenuList, string>  menuListName;
 	map <MenuList, vector<pair<Texture, Texture>>> menuTexture;
 public:
+	vector<Texture>			obstacle[2];
 	vector<Texture>			car;
 	vector<Texture>			user;
 	vector<Texture>			light;
