@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <fstream>
 #include <vector>
 #include "Object.h"
 #include "other.h"
@@ -45,4 +46,3 @@ public:
 	FloatingButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor, bool setCenter);
 	void				draw(const Vector2f& mouse, const bool& isStill);
 };
-

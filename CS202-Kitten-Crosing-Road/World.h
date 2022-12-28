@@ -17,16 +17,13 @@ class World : public ListTextures
 public:
 	explicit						World(RenderWindow& window);
 									~World();
+	void							writeFile(ofstream& fout);
 	void							draw();
 	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);
 	bool							worldRestart();
 private: 
 	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
-	void							drawElement(vector<Object>& target);
-	void							drawListElements(vector<vector<Object>>& target);
-	void							drawListElements(queue<vector<Object>> target);
-
 private:
 	queue<vector<Object>>			mapBackground;
 	vector<Lane*>					mLane;

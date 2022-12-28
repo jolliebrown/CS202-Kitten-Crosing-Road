@@ -72,33 +72,71 @@ FishCoin System::generateNextSpecialBoost(Object& curBoost) {
 	return (FishCoin)rd;
 }
 
-//System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
-//	score(score),
-//	state(state),
-//	game_mode(game_mode),
-//	level(level),
-//	fish_coin(fish_coin),
-//	gamePaused(window, ListTextures::still[0], 59, 22),
-//	gameOver(window, ListTextures::still[2], 59, 55),
-//	scoreBoard(window, ListTextures::still[1], 6, 5),
-//	window(window),
-//	view(view),
-//	//fish_score(ListTextures::numFont, window, Color(182, 137, 98, 255), 8, 22, 28)
-//	game_score(window, 28, 33, score.first, ListTextures::num_text),
-//	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
-//{
-//	SystemButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
-//	for (int i = 1; i < 4; i++)
-//	{
-//		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
-//		buttons.push_back(tmp);
-//	}
-//	for (int i = 4; i < 6; i++)
-//	{
-//		SystemButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
-//		buttons.push_back(tmp);
-//	}
-//}
+void System::writeFile(ofstream& fout)
+{
+	fout << score.first << " " << score.second << endl;
+	fout << (int)state << endl;
+	fout << (int)game_mode << endl;
+	fout << level << endl;
+	fout << fish_coin << endl;
+}
+
+void System::resetParameter(GameMode new_mode, int game_level)
+{
+	score = { 0, 0 };
+	game_mode = new_mode;
+	level = game_level;
+	state = GameState::Continue;
+}
+
+System::System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin) :
+	score(score),
+	state(state),
+	game_mode(game_mode),
+	level(level),
+	fish_coin(fish_coin),
+	scoreBoard(window, ListTextures::still[1], 6, 5),
+	view(view),
+	window(window),
+	gameOver(window, ListTextures::still[2], 59, 55),
+	gameWon(window, ListTextures::still[3], 59, 55),
+	gamePaused(window, ListTextures::still[0], 59, 22),
+	game_score(window, 28, 33, score.first, ListTextures::num_text),
+	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
+{
+	FloatingButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
+	buttons.push_back(pause);
+	for (int i = 1; i < 4; i++)
+	{
+		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)i], 101, 59 + 31 * (i - 1));
+		buttons.push_back(tmp);
+	}
+	for (int i = 4; i < 6; i++)
+	{
+		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(8 - i)], 72 + (i - 4) * 57, 92);
+		buttons.push_back(tmp);
+	}
+	for (int i = 6; i < 9; i++)
+	{
+		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
+		buttons.push_back(tmp);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		Object tmp(window, ListTextures::fishCoin[(FishCoin)0], 100.f, signMap * BaseUnit * i);
+		FishCoin tmp_name = FishCoin::Normal;
+		generateNextNormalBoost(tmp);
+		fish_boost.push_back(tmp);
+		fish_boost_name.push_back(tmp_name);
+	}
+	Object tmp(window, ListTextures::fishCoin[(FishCoin)3], 100.f, signMap * BaseUnit * 3);
+	FishCoin tmp_name = generateNextSpecialBoost(tmp);
+	fish_boost.push_back(tmp);
+	fish_boost_name.push_back(tmp_name);
+
+	Scene* menu_tmp = new Menu(window);
+	mainMenu.push_back(menu_tmp);
+}
 
 bool System::gameRestart() {
 	return state == GameState::Restart;
