@@ -89,6 +89,7 @@ void Game::processEvents()
 	if (gameSystem.gameContinue()) {
 		mWorld.processEvent(gameSystem, mPlayer);
 		mWorld.handleEvent(mWindow, mView);
+		mPlayer.handleEvent(event, gameSystem);
 	}
 }
 
