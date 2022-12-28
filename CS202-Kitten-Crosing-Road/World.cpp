@@ -17,11 +17,11 @@ World::World(RenderWindow& window) :
 		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
+			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, background[j]);
+			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else {
@@ -82,11 +82,11 @@ bool World::worldRestart() {
 		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
+			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, background[j]);
+			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else {
@@ -161,11 +161,11 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 			mapIndex.push_back(nextId);
 			//cerr << "Add here\n\n";
 			if (nextId == 1) {
-				Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
+				Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
 			else if (nextId == 2) {
-				Lane* temLane = new RailWay(window, dir, train[0], 0, nextPosition, BaseUnit * 3, background[nextId]);
+				Lane* temLane = new RailWay(window, dir, train[0], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
 			else {
@@ -184,4 +184,30 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 
 int	World::getPosition(int laneIndex) {
 	return 0;
+}
+
+int World::generateNextLaneIndex(int status) {
+	static int freq[3] = { 8, 8, 2 };
+	if (status == -1) {
+		nLane = 0;
+		freq[0] = 8;
+		freq[1] = 8;
+		freq[2] = 2;
+	}
+
+	nLane += 1;
+	if (nLane % 10 == 0) {
+		if (freq[0] > 2) {
+			freq[0]--;
+			freq[1]++;
+		}
+	}
+	if (nLane < 5) {
+		return 0;
+	}
+	vector<int> randLanes;
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < freq[i]; j++) randLanes.push_back(i);
+	int nums = Rand(0, randLanes.size() - 1);
+	return randLanes[nums];
 }

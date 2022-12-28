@@ -36,7 +36,7 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
+Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
 	this->dir = dir;
@@ -48,8 +48,15 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
-	addLight(window, listLightTexture, BaseUnit * 3, y_coor, unit);
-	addLight(window, listLightTexture, BaseUnit * 10, y_coor, unit);
+	if (level > 20) {
+		addLight(window, listLightTexture, BaseUnit * 5, y_coor, unit);
+	}
+	if (level > 40) {
+		addLight(window, listLightTexture, BaseUnit * 15, y_coor, unit);
+	}
+	if (level > 60) {
+		addLight(window, listLightTexture, BaseUnit * 25, y_coor, unit);
+	}
 }
 
 Road::Road(const Road& road):
@@ -178,7 +185,7 @@ RailWay::RailWay(RenderWindow& window, int x_coor, int y_coor, int unit, vector<
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-RailWay::RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
+RailWay::RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
 	this->dir = dir;
@@ -186,13 +193,13 @@ RailWay::RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, in
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Vehicle(0.12, 0.2, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
+RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
 	this->dir = dir;
