@@ -30,11 +30,7 @@ public:
 	bool gameContinue();
 	bool gameWin();
 	bool gamePause();
-	bool setLose();
-	bool setRestart();
-	bool setContinue();
-	bool setWin();
-	bool setPause();
+	void setState(GameState new_state);
 	void draw(const Vector2f& mouse);
 	void handleEvent(const Event& event, const Vector2f& mouse);
 	friend class Player;

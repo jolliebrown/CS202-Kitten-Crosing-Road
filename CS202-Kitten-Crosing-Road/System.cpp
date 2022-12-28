@@ -162,31 +162,9 @@ bool System::gamePause() {
 	return state == GameState::Pause;
 }
 
-bool System::setRestart() {
-	//if (state != Continue && state != Lose) return false;
-	state = GameState::Restart;
-	return true;
-}
-
-bool System::setLose() {
-	//if (state != Continue && state != Lose) return false;
-	state = GameState::Lose;
-	return true;
-}
-bool System::setContinue() {
-	//if (state != GameState::Pause) return false;
-	state = GameState::Continue;
-	return true;
-}
-bool System::setWin() {
-	//if (state != Continue && state != Win) return false;
-	state = GameState::Win;
-	return true;
-}
-bool System::setPause() {
-	//if (state != GameState::Continue) return false;
-	state = GameState::Pause;
-	return true;
+void System::setState(GameState new_state)
+{
+	state = new_state;
 }
 
 void System::draw(const Vector2f& mouse)
