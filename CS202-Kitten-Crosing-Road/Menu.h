@@ -24,16 +24,13 @@ public:
 	void draw(const Vector2f& mouse) override;
 };
 
-class Instruction : public Scene {
+class Mode : public Scene {
 public:
-	Instruction(RenderWindow& mWindow);
-	~Instruction() override;
+	Mode(RenderWindow& mWindow);
+	~Mode() override;
 
 	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
-private:
-	int pageIndex;
-	int pageNum;
 };
 
 class Settings : public Scene {
@@ -47,13 +44,15 @@ private:
 
 };
 
-class Mode : public Scene {
+class Sound : public Scene {
 public:
-	Mode(RenderWindow& mWindow);
-	~Mode() override;
+	Sound(RenderWindow& mWindow);
+	~Sound() override;
 
 	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
+private:
+
 };
 
 class ButtonSettings : public Scene {
@@ -63,4 +62,16 @@ public:
 
 	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
+};
+
+class Instruction : public Scene {
+public:
+	Instruction(RenderWindow& mWindow);
+	~Instruction() override;
+
+	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	void draw(const Vector2f& mouse) override;
+private:
+	int pageIndex;
+	int pageNum;
 };
