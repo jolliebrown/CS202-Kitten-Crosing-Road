@@ -197,7 +197,8 @@ int Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vecto
 				}
 				else if (i == 1)
 				{
-
+					Scene* soundSettings = new SoundSettings(window);
+					scene.push_back(soundSettings);
 				}
 				else if (i == 2)
 				{
@@ -216,22 +217,22 @@ void Settings::draw(const Vector2f& mouse)
 	Scene::draw(mouse);
 }
 
-Sound::Sound(RenderWindow& mWindow) : Scene(mWindow)
+SoundSettings::SoundSettings(RenderWindow& mWindow) : Scene(mWindow)
 {
 
 }
 
-Sound::~Sound()
+SoundSettings::~SoundSettings()
 {
 
 }
 
-int Sound::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int SoundSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	return 0;
 }
 
-void Sound::draw(const Vector2f& mouse)
+void SoundSettings::draw(const Vector2f& mouse)
 {
 	Scene::draw(mouse);
 }
@@ -242,7 +243,7 @@ ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object buttonSettingsBoard(window, commonAsset[6], 42, 37);
+	Object buttonSettingsBoard(window, commonAsset[7], 42, 37);
 	grassBackground.setPos(window.getView());
 	buttonSettingsBoard.setPos(window.getView());
 	background.push_back(grassBackground);
@@ -297,7 +298,7 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object instructionBoard(window, commonAsset[7], 5, 30);
+	Object instructionBoard(window, commonAsset[8], 5, 30);
 	Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 33);
 	Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 130);
 	grassBackground.setPos(window.getView());

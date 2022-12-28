@@ -48,7 +48,7 @@ ListTextures::ListTextures()
 	menuListName[MenuList::Mode] = "Mode";
 	menuListName[MenuList::Classic] = "Classic";
 	menuListName[MenuList::Settings] = "Settings";
-	menuListName[MenuList::Sound] = "Sound";
+	menuListName[MenuList::SoundSettings] = "SoundSettings";
 	menuListName[MenuList::ButtonSettings] = "ButtonSettings";
 	menuListName[MenuList::Instruction] = "Instruction";
 	int menuListNum = 7;

@@ -44,7 +44,7 @@ enum class MenuList
 	Mode,
 	Classic,
 	Settings,
-	Sound,
+	SoundSettings,
 	ButtonSettings,
 	Instruction
 };

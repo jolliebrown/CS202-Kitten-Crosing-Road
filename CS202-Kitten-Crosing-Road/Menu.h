@@ -41,19 +41,17 @@ public:
 
 	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
-private:
-
 };
 
-class Sound : public Scene {
+class SoundSettings : public Scene {
 public:
-	Sound(RenderWindow& mWindow);
-	~Sound() override;
+	SoundSettings(RenderWindow& mWindow);
+	~SoundSettings() override;
 
 	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 private:
-
+	vector<vector<Object>> soundBar;
 };
 
 class ButtonSettings : public Scene {
