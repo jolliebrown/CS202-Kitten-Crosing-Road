@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "Vehicle.h"
 #include "Light.h"
+#include "Obstacle.h"
 #include "Player.h"
 
 class Lane
@@ -20,14 +21,19 @@ public:
 	virtual void				handleEvent() = 0;
 	virtual bool				isCollided(Player& mPlayer) = 0;
 	virtual int					getPosition() = 0;
-private:
+	
+};
+
+class Grass : public Lane
+{
+
 };
 
 class Road: public Lane
 {
 public:
 	Road();
-	Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
+	Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture);
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
 	Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level);
 	Road(const Road& road);
@@ -35,6 +41,7 @@ public:
 	Road&						operator = (const Road& road);
 	vector<Object>&				generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos);
 	void						addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
+	void						addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	//bool						insideView();
 	void						draw();
 	void						handleEvent();
@@ -47,6 +54,7 @@ private:
 	RenderWindow*				window;
 	vector<Texture>				mTexture;
 	vector<Vehicle*>			listVehicle;
+	vector<Obstacle>			listObstacle;
 	vector<Light>				listLight;
 	vector<Object>				listTexture;
 	const int					range = 32;

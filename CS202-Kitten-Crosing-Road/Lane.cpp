@@ -12,7 +12,15 @@ Road::Road()
 	unit = 0;
 }
 
-Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
+void Road::addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
+{
+	int k = Rand(1, 100) % 2;
+	listObstacle.push_back(Obstacle(window, texture[k], x_coor, y_coor - 5, unit));
+}
+
+
+
+Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle , vector<Texture>& mTexture) :
 	window(&window)
 {
 	this->dir = dir;
@@ -20,6 +28,9 @@ Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Textur
 	this->unit = unit;
 	this->mTexture = mTexture;
 	generate(window, listTexture, mTexture, unit, y_coor);
+	addObstacle(window, listTextureObstacle, BaseUnit * (5 + Rand(1, 3)) , y_coor, unit);
+	addObstacle(window, listTextureObstacle, BaseUnit * (10 + Rand(1, 3)), y_coor, unit);
+	addObstacle(window, listTextureObstacle, BaseUnit * (15 + Rand(1, 3)), y_coor, unit);
 }
 
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture):
@@ -128,6 +139,7 @@ void Road::draw()
 		else car->draw(listLight[0].getState(), listLight[0].getPos());
 	}
 	for (auto& light : listLight) light.draw();
+	for (auto& obs : listObstacle) obs.draw();
 }
 
 void Road::handleEvent() {

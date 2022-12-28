@@ -66,6 +66,9 @@
     <ClCompile Include="SystemFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SystemFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -241,9 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="GameData.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="gameParameter.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

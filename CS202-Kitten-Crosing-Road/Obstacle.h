@@ -9,8 +9,8 @@ using namespace std;
 class Obstacle : public Object
 {
 public:
-	Obstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
-	Obstacle(int state, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
+	Obstacle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
+	Obstacle(int state, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
 	//Obstacle(const Obstacle& Obstacle);
 
 	void				draw();
