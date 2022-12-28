@@ -59,3 +59,9 @@ float Light::getPos()
 {
 	return Object::asset.getPosition().x;
 }
+
+void Light::setState(int state)
+{
+	this->state = state;
+	Object::asset.setTexture(listLight[state]);
+}
