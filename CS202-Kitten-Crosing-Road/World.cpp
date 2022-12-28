@@ -31,6 +31,41 @@ World::World(RenderWindow& window) :
 	}
 }
 
+World::World(RenderWindow& window, bool check) :
+	window(window)
+{
+	mapIndex.clear();
+	ifstream fin("GameData.txt");
+	int map_size;
+	fin >> map_size;
+	for (int i = 0; i < map_size; i++)
+	{
+		int tmp;
+		fin >> tmp;
+		mapIndex.push_back(tmp);
+
+	}
+	fin.close();
+	for (int i = 0; i < mapIndex.size(); i++)
+	{
+		int j = mapIndex[i];
+		int pos = signMap * BaseUnit * i;
+		int dir = (rand() % 2 == 0) ? -1 : 1;
+		if (mapIndex[i] == 1) {
+			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
+			mLane.push_back(temLane);
+		}
+		else if (mapIndex[i] == 2) {
+			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, background[j]);
+			mLane.push_back(temLane);
+		}
+		else {
+			Lane* temLane = new Road(window, 0, pos, BaseUnit, background[j]);
+			mLane.push_back(temLane);
+		}
+	}
+}
+
 bool World::worldRestart() {
 	mapIndex.clear();
 	mLane.clear();

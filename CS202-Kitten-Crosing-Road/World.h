@@ -16,6 +16,7 @@ class World : public ListTextures
 {
 public:
 	explicit						World(RenderWindow& window);
+	explicit						World(RenderWindow& window, bool check);
 									~World();
 	void							writeFile(ofstream& fout);
 	void							draw();

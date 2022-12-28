@@ -24,7 +24,7 @@ class System : ListTextures
 {
 public:
 	System(View& view, RenderWindow& window);
-	System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin);
+	System(View& view, RenderWindow& window, bool check);
 	bool gameLose();
 	bool gameRestart();
 	bool gameContinue();
