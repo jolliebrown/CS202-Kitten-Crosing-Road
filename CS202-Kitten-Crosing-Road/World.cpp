@@ -16,15 +16,15 @@ World::World(RenderWindow& window) :
 		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Road* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
+			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j]);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Road* temLane = new Road(window, dir, train[0], 0, pos, BaseUnit * 3, 0.3, 1, background[j]);
+			Lane* temLane = new RailWay(window, dir, train[0], 0, pos, BaseUnit * 3, 0.3, 1, background[j]);
 			mLane.push_back(temLane);
 		}
 		else {
-			Road* temLane = new Road(window, 0, pos, BaseUnit, background[j]);
+			Lane* temLane = new Road(window, 0, pos, BaseUnit, background[j]);
 			mLane.push_back(temLane);
 		}
 	}
@@ -111,15 +111,15 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 			mapIndex.push_back(nextId);
 			//cerr << "Add here\n\n";
 			if (nextId == 1) {
-				Road* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
+				Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId]);
 				mLane.push_back(temLane);
 			}
 			else if (nextId == 2) {
-				Road* temLane = new Road(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.3, 1, background[nextId]);
+				Lane* temLane = new RailWay(window, dir, train[0], 0, nextPosition, BaseUnit * 3, 0.3, 1, background[nextId]);
 				mLane.push_back(temLane);
 			}
 			else {
-				Road* temLane = new Road(window, 0, nextPosition, BaseUnit, background[nextId]);
+				Lane* temLane = new Road(window, 0, nextPosition, BaseUnit, background[nextId]);
 				mLane.push_back(temLane);
 			}
 			/*vector<Object> tmp;
