@@ -63,6 +63,9 @@ int generateNextLaneIndex(int status) {
             freq[1]++;
         }
     }
+    if (nLane < 5) {
+        return 0;
+    }
     vector<int> randLanes;
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < freq[i]; j++) randLanes.push_back(i);
