@@ -5,8 +5,8 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 Game::Game() :
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
-	mWorld(mWindow), mPlayer(mWindow, mWorld.user[0], 120, -36, BaseUnit),
-	gameSystem(mView, mWindow)
+	mWorld(mWindow, true), mPlayer(mWindow, mWorld.user[0], 120, -36, BaseUnit),
+	gameSystem(mView, mWindow, true)
 {
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
@@ -22,6 +22,7 @@ bool Game::gameRestart() {
 Game::~Game()
 {
 	saveFile();
+	cerr << "Saved successfully";
 }
 void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
@@ -58,11 +59,14 @@ void Game::setCur(const Event& event)
 
 void Game::saveFile()
 {
-	ofstream fout("GameData.txt");
+	ofstream fout("gameParameter.txt");
 	// save info parameters
 	gameSystem.writeFile(fout);
 	// save map
-	mWorld.writeFile(fout);
+	ofstream fout2("gameData.txt");
+	mWorld.writeFile(fout2);
+	fout.close();
+	fout2.close();
 }
 
 void Game::run()

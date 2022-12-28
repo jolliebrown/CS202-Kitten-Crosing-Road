@@ -243,5 +243,8 @@
     <Text Include="GameData.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="gameParameter.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
