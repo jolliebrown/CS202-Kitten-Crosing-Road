@@ -239,10 +239,21 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			{
 				state = GameState::Continue;
 			}
+			else if (buttons[3].isHere(mouse))
+			{
+				state = GameState::Menu;
+			}
 		}
 		else if (state == GameState::Menu)
 		{
-			mainMenu.back()->handleEvent(event, mainMenu, mouse);
+			if (mainMenu.back()->handleEvent(event, mainMenu, mouse) == 2)
+			{
+				state = GameState::Continue;
+			}
+			if (mainMenu.back()->handleEvent(event, mainMenu, mouse) == 1)
+			{
+				// classic mode
+			}
 		}
 		else if (state == GameState::Lose)
 		{
@@ -251,6 +262,10 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 				state = GameState::Restart;
 				resetParameter(game_mode);
 				game_score.update(score.first, ListTextures::num_text);
+			}
+			else if (buttons[5].isHere(mouse))
+			{
+				state = GameState::Menu;
 			}
 		}
 	}

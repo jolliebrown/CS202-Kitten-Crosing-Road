@@ -49,7 +49,7 @@ Menu::~Menu()
 
 }
 
-void Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -80,6 +80,7 @@ void Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f
 			break;
 		}
 	}
+	return 0;
 }
 
 void Menu::draw(const Vector2f& mouse)
@@ -90,7 +91,6 @@ void Menu::draw(const Vector2f& mouse)
 Mode::Mode(RenderWindow& mWindow) : Scene(mWindow)
 {
 	sceneName = MenuList::Mode;
-
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
 	Object modeBoard(window, commonAsset[3], 77, 51);
@@ -114,7 +114,7 @@ Mode::~Mode()
 
 }
 
-void Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -126,10 +126,21 @@ void Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f
 				{
 					scene.pop_back();
 				}
+				else if (i == 1)
+				{
+					cerr << "Classic Mode\n";
+					return 1;
+				}
+				else if (i == 2)
+				{
+					cerr << "Endless Mode\n";
+					return 2;
+				}
 			}
 			break;
 		}
 	}
+	return 0;
 }
 
 void Mode::draw(const Vector2f& mouse)
@@ -164,7 +175,7 @@ Settings::~Settings()
 
 }
 
-void Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -189,6 +200,7 @@ void Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vect
 			break;
 		}
 	}
+	return 0;
 }
 
 void Settings::draw(const Vector2f& mouse)
@@ -206,9 +218,9 @@ Sound::~Sound()
 
 }
 
-void Sound::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int Sound::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-
+	return 0;
 }
 
 void Sound::draw(const Vector2f& mouse)
@@ -243,7 +255,7 @@ ButtonSettings::~ButtonSettings()
 
 }
 
-void ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -259,6 +271,7 @@ void ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, cons
 			break;
 		}
 	}
+	return 0;
 }
 
 void ButtonSettings::draw(const Vector2f& mouse)
@@ -303,7 +316,7 @@ Instruction::~Instruction()
 
 }
 
-void Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+int Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
 	for (int i = 0; i < buttons.size(); ++i)
 	{
@@ -343,6 +356,7 @@ void Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const V
 			break;
 		}
 	}
+	return 0;
 }
 
 void Instruction::draw(const Vector2f& mouse)

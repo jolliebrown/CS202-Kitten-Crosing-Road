@@ -6,7 +6,7 @@ public:
 	Scene(RenderWindow& mWindow);
 	virtual ~Scene();
 
-	virtual void			handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) = 0;
+	virtual int			handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) = 0;
 	virtual void			draw(const Vector2f& mouse);
 protected:
 	RenderWindow&			window;
@@ -20,7 +20,7 @@ public:
 	Menu(RenderWindow& mWindow);
 	~Menu() override;
 
-	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 };
 
@@ -29,7 +29,7 @@ public:
 	Mode(RenderWindow& mWindow);
 	~Mode() override;
 
-	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 };
 
@@ -38,7 +38,7 @@ public:
 	Settings(RenderWindow& mWindow);
 	~Settings() override;
 
-	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 private:
 
@@ -49,7 +49,7 @@ public:
 	Sound(RenderWindow& mWindow);
 	~Sound() override;
 
-	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 private:
 
@@ -60,7 +60,7 @@ public:
 	ButtonSettings(RenderWindow& mWindow);
 	~ButtonSettings() override;
 
-	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 };
 
@@ -69,7 +69,7 @@ public:
 	Instruction(RenderWindow& mWindow);
 	~Instruction() override;
 
-	void handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 private:
 	int pageIndex;
