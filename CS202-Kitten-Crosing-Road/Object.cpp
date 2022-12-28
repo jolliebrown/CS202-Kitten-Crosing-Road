@@ -91,15 +91,6 @@ ListTextures::ListTextures()
 		commonAsset.push_back(menu_tmp);
 	}
 	onePicLoad(commonAsset, "Media/System/Home_here.png");
-
-	onePicLoad(instructionAsset, "Media/Instruction/instruction_1.png");
-	onePicLoad(instructionAsset, "Media/Instruction/Page1.png");
-	onePicLoad(instructionAsset, "Media/Instruction/instruction_2.png");
-	onePicLoad(instructionAsset, "Media/Instruction/Page2.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_yes.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_yes.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_no.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_no.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 

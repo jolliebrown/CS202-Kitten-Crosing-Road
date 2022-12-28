@@ -72,7 +72,6 @@ protected:
 	// pictures for individual scene
 	map <MenuList, string>  menuListName;
 	map <MenuList, vector<pair<Texture, Texture>>> menuTexture;
-	vector<Texture>			instructionAsset;
 public:
 	vector<Texture>			car;
 	vector<Texture>			user;
