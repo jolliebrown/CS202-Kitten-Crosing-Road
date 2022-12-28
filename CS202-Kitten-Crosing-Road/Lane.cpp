@@ -41,7 +41,7 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Car(window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
@@ -55,7 +55,7 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Car(window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
@@ -80,7 +80,7 @@ Road::Road(const Road& road):
 	mTexture = road.mTexture;
 
 	for (auto v : road.listVehicle) {
-		Vehicle* Tem = new Vehicle(*v);
+		Vehicle* Tem = v;
 		listVehicle.push_back(Tem);
 	}
 	listTexture = road.listTexture;
@@ -100,7 +100,7 @@ Road& Road::operator = (const Road& road)
 	mTexture = road.mTexture;
 	listVehicle.clear();
 	for (auto v : road.listVehicle) {
-		Vehicle* Tem = new Vehicle(*v);
+		Vehicle* Tem = v;
 		listVehicle.push_back(Tem);
 	}
 	listTexture = road.listTexture;
@@ -205,7 +205,7 @@ RailWay::RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, in
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Vehicle(0.12, 0.2, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Train(0.2, 0.3, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
@@ -219,10 +219,13 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Vehicle(0.12, 0.2, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Train(0.2, 0.3, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
+	addLight(window, listLightTexture, BaseUnit * 5, y_coor, unit);
+	addLight(window, listLightTexture, BaseUnit * 15, y_coor, unit);
+	addLight(window, listLightTexture, BaseUnit * 25, y_coor, unit);
 }
 
 RailWay::RailWay(const RailWay& railway) :
@@ -235,7 +238,7 @@ RailWay::RailWay(const RailWay& railway) :
 	mTexture = railway.mTexture;
 
 	for (auto v : railway.listVehicle) {
-		Vehicle* Tem = new Vehicle(*v);
+		Vehicle* Tem = v;
 		listVehicle.push_back(Tem);
 	}
 	listTexture = railway.listTexture;
@@ -268,42 +271,26 @@ void RailWay::draw()
 	{
 		listTexture[i].draw();
 	}
-	for (auto& car : listVehicle) {
-		if (listLight.size() == 0) car->draw();
-		else car->draw(listLight[0].getState(), listLight[0].getPos());
+	for (auto& train : listVehicle) {
+		train->draw();
 	}
 	for (auto& light : listLight) light.draw();
 }
 
 void RailWay::handleEvent() {
 	//return;
-	for (auto& car : listVehicle) {
-		/*if (listLight.size() == 0) car->move(0, 0);
-		else {
-			car->move(listLight[0].getState(), listLight[0].getPos());
-		}*/
-		int low = 0, high = (int)listLight.size() - 1, pos = -1;
-		while (low <= high) {
-			int mid = (low + high) / 2;
-			if (car->isPass(listLight[mid].getState(), listLight[mid].getPos())) {
-				if (car->getDir() == 1) low = mid + 1;
-				else high = mid - 1;
-			}
-			else {
-				pos = mid;
-				if (car->getDir() == 1) high = mid - 1;
-				else low = mid + 1;
-			}
+	for (auto& train : listVehicle) {
+		bool isMove = train->move(0, 0);
+		for (auto& light : listLight) {
+			if (isMove) light.setState(2);
+			else light.setState(0);
 		}
-		if (pos == -1) car->move(0, 0);
-		else car->move(listLight[pos].getState(), listLight[pos].getPos());
 	}
-	for (auto& light : listLight) light.move();
 }
 
 bool RailWay::isCollided(Player& mPlayer)
 {
-	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
+	for (auto& train : listVehicle) if (mPlayer.isCollided(*train)) return true;
 	return false;
 }
 

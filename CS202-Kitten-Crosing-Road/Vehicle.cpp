@@ -6,9 +6,15 @@ int Rand(int l, int r)
 	return l + (rand() * t + rand() * t + rand()) % (r - l + 1);
 }
 
-// Constructor
-Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) : 
+Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) :
 	Object(window, texture, x_coor, y_coor, unit)
+{
+
+}
+
+// Constructor
+Car::Car(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
 {
 	dir = _dir; limVelo = dir * 0.2; initVelo = dir * 0.1; velo = dir * initVelo; acce = dir * 0.01;
 
@@ -24,8 +30,8 @@ Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor,
 	Object::asset.setPosition(startPoint, coord.y);
 }
 
-Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) : 
-	Object(window, texture, x_coor, y_coor, unit)
+Car::Car(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
 {
 	dir = _dir; this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
 
@@ -41,8 +47,8 @@ Vehicle::Vehicle(float initVelo, float limVelo, RenderWindow& window, Texture& t
 	Object::asset.setPosition(startPoint, coord.y);
 }
 
-Vehicle::Vehicle(const Vehicle& vehicle):
-	Object(vehicle), coord(vehicle.coord), startPoint(vehicle.startPoint), endPoint(vehicle.endPoint),
+Car::Car(const Car& vehicle):
+	Vehicle(vehicle), coord(vehicle.coord), startPoint(vehicle.startPoint), endPoint(vehicle.endPoint),
 	velo(vehicle.velo), limVelo(vehicle.limVelo), initVelo(vehicle.initVelo), acce(vehicle.acce),
 	startMoveTime(vehicle.startMoveTime), clock(vehicle.clock), dir(vehicle.dir)
 {
@@ -51,21 +57,21 @@ Vehicle::Vehicle(const Vehicle& vehicle):
 	Object::asset.setPosition(startPoint, coord.y);
 }
 
-void Vehicle::draw(int state, float x_coord)
+void Car::draw(int state, float x_coord)
 {
 	Object::draw();
 	/*move(state, x_coord);*/
 }
 
-void Vehicle::accelerate()
+void Car::accelerate()
 {
 	velo += acce;
 	if ((velo > limVelo) == (dir == 1)) velo = limVelo;
 }
 
-void Vehicle::move(int state, float x_coord)
+bool Car::move(int state, float x_coord)
 {
-	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return;
+	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return false;
 	Object::asset.move(Vector2f(velo, 0));
 	checkLight(state, x_coord);
 	if ((Object::asset.getPosition().x > endPoint) == (dir == 1)) {
@@ -74,9 +80,10 @@ void Vehicle::move(int state, float x_coord)
 		startMoveTime = milliseconds(Rand(1000, 8000));
 		velo = initVelo;
 	}
+	return true;
 }
 
-void Vehicle::checkLight(int state, float x_coord)
+void Car::checkLight(int state, float x_coord)
 {
 	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
 	if (dir == -1) x_coord += 15;
@@ -87,14 +94,102 @@ void Vehicle::checkLight(int state, float x_coord)
 	velo = min(abs(velo), abs(x_coord - x_car)) * dir;
 }
 
-bool Vehicle::isPass(int state, float x_coord)
+bool Car::isPass(int state, float x_coord)
 {
 	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
 	if (dir == -1) x_coord += 15;
 	return (((x_car > x_coord) == (dir == 1)) && x_car != x_coord);
 }
 
-int Vehicle::getDir()
+int Car::getDir()
+{
+	return dir;
+}
+
+/// Train ///
+Train::Train(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
+{
+	dir = _dir; limVelo = dir * 0.2; initVelo = dir * 0.1; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	if (dir == -1) Object::asset.rotate(180);
+
+	clock.restart();
+	startMoveTime = milliseconds(Rand(1000, 8000));
+	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+Train::Train(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
+{
+	dir = _dir; this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	if (dir == -1) Object::asset.rotate(180);
+
+	clock.restart();
+	startMoveTime = milliseconds(Rand(1000, 8000));
+	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+Train::Train(const Train& vehicle) :
+	Vehicle(vehicle), coord(vehicle.coord), startPoint(vehicle.startPoint), endPoint(vehicle.endPoint),
+	velo(vehicle.velo), limVelo(vehicle.limVelo), initVelo(vehicle.initVelo), acce(vehicle.acce),
+	startMoveTime(vehicle.startMoveTime), clock(vehicle.clock), dir(vehicle.dir)
+{
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	if (dir == -1) Object::asset.rotate(180);
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+void Train::draw(int state, float x_coord)
+{
+	Object::draw();
+	/*move(state, x_coord);*/
+}
+
+void Train::accelerate()
+{
+	velo += acce;
+	if ((velo > limVelo) == (dir == 1)) velo = limVelo;
+}
+
+bool Train::move(int state, float x_coord)
+{
+	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return false;
+	Object::asset.move(Vector2f(velo, 0));
+	checkLight(state, x_coord);
+	if ((Object::asset.getPosition().x > endPoint) == (dir == 1)) {
+		Object::asset.setPosition(startPoint, coord.y);
+		clock.restart();
+		startMoveTime = milliseconds(Rand(1000, 8000));
+		velo = initVelo;
+	}
+	return true;
+}
+
+void Train::checkLight(int state, float x_coord)
+{
+	
+}
+
+bool Train::isPass(int state, float x_coord)
+{
+	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
+	if (dir == -1) x_coord += 15;
+	return (((x_car > x_coord) == (dir == 1)) && x_car != x_coord);
+}
+
+int Train::getDir()
 {
 	return dir;
 }

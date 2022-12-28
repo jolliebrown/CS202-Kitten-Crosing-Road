@@ -17,6 +17,7 @@ public:
 	void				move();
 	float				getPos();
 	int					getState();
+	void				setState(int state);
 private:
 	int					state; // 0: green, 1: yellow, 2: red
 	Time				count[3];
