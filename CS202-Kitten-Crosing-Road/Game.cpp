@@ -10,13 +10,14 @@ Game::Game() :
 {
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
+	gameSystem.setState(GameState::Menu);
 }
 bool Game::gameRestart() {
 	mView.reset(sf::FloatRect(0, signMap * BaseUnit * 2, BaseUnit * 14, BaseUnit * 10));
 	mPlayer.setIdPlayer(0);
 	mPlayer.setPos(mView);
 	mWorld.worldRestart();
-	gameSystem.setContinue();
+	gameSystem.setState(GameState::Continue);
 	return true;
 }
 Game::~Game()
@@ -36,11 +37,11 @@ void Game::viewScroll(View& mView, Player& mPlayer){
 	mView.setCenter(viewPosition);
 	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 29.f) {
 		mPlayer.setIdPlayer(-1);
-		gameSystem.setLose();
+		gameSystem.setState(GameState::Lose);
 	}
 	if (mPlayer.getPosition().second > viewPosition.y + BaseUnit * 4.f - 4.f) {
 		mPlayer.setIdPlayer(-1);
-		gameSystem.setLose();
+		gameSystem.setState(GameState::Lose);
 	}
 }
 
