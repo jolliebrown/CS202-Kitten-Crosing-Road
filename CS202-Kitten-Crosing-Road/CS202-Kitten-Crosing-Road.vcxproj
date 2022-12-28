@@ -238,6 +238,9 @@
     <Image Include="Media\user_t.png" />
     <Image Include="Media\user_v.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="GameData.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

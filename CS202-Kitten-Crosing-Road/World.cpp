@@ -67,9 +67,18 @@ World::~World()
 	for (auto& lane : mLane) delete lane;
 }
 
+void World::writeFile(ofstream& fout)
+{
+	fout << mapIndex.size() << endl;
+	for (int i = 0; i < mapIndex.size(); i++)
+	{
+		fout << mapIndex[i] << " ";
+	}
+	fout << endl;
+}
+
 void World::draw()
 {
-	//drawListElements(mapBackground);
 	for (int i = mLane.size() - 1; i >= 0; --i) mLane[i]->draw();
 }
 
@@ -91,37 +100,12 @@ vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, i
 	for (int i = 0; i < range; i++)
 	{
 		int random = rand()% countTextures;
+		mapIndex.push_back(random);
 		Object tmp(window, texture[random], i * unit, pos, unit);
 		res.push_back(tmp);
 	}
 	// TODO: insert return statement here
 	return res;
-}
-
-void World::drawElement(vector<Object>& target)
-{
-	for (unsigned int i = 0; i < target.size(); i++)
-	{
-		target[i].draw();
-	}
-}
-
-void World::drawListElements(vector<vector<Object>>& target)
-{
-	for (unsigned int i = 0; i < target.size(); i++)
-	{
-		drawElement(target[i]);
-	}
-}
-
-void World::drawListElements(queue<vector<Object>> target)
-{
-	return;
-	while (!target.empty())
-	{
-		drawElement(target.front());
-		target.pop();
-	}
 }
 
 bool World::handleEvent(RenderWindow& window, View& mView) {

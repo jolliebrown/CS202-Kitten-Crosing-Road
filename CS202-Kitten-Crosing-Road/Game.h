@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <fstream>
 
 
 #include "World.h"
@@ -19,6 +20,7 @@ class Game
 {
 public:
 							Game();
+							~Game();
 	void					run();
 	bool					gameContinue();
 	bool					gameRestart();
@@ -29,6 +31,7 @@ private:
 	void					updateStatistics(Time elapsedTime);
 	void					viewScroll(View &mView, Player& mPlayer);
 	void					setCur(const Event& event);
+	void					saveFile();
 private:
 	System					gameSystem;
 	static const Time		TimePerFrame;
