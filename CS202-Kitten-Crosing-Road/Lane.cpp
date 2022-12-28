@@ -43,8 +43,8 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
-	addLight(window, listLightTexture, BaseUnit * 9, y_coor, unit);
-	//addLight(window, listLightTexture, BaseUnit * 8, y_coor, unit);
+	addLight(window, listLightTexture, BaseUnit * 3, y_coor, unit);
+	addLight(window, listLightTexture, BaseUnit * 10, y_coor, unit);
 }
 
 Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture):
@@ -133,10 +133,25 @@ void Road::draw()
 void Road::handleEvent() {
 	//return;
 	for (auto& car : listVehicle) {
-		if (listLight.size() == 0) car->move(0, 0);
+		/*if (listLight.size() == 0) car->move(0, 0);
 		else {
 			car->move(listLight[0].getState(), listLight[0].getPos());
+		}*/
+		int low = 0, high = (int)listLight.size() - 1, pos = -1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			if (car->isPass(listLight[mid].getState(), listLight[mid].getPos())) {
+				if (car->getDir() == 1) low = mid + 1;
+				else high = mid - 1;
+			}
+			else {
+				pos = mid;
+				if (car->getDir() == 1) high = mid - 1;
+				else low = mid + 1;
+			}
 		}
+		if (pos == -1) car->move(0, 0);
+		else car->move(listLight[pos].getState(), listLight[pos].getPos());
 	}
 	for (auto& light : listLight) light.move();
 }

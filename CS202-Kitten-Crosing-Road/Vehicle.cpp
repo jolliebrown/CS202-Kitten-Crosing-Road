@@ -80,9 +80,21 @@ void Vehicle::checkLight(int state, float x_coord)
 {
 	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
 	if (dir == -1) x_coord += 15;
-	if (state == 0 || ((x_car > x_coord) == (dir == 1)) && x_car != x_coord) {
+	if (state == 0 || (((x_car > x_coord) == (dir == 1)) && x_car != x_coord)) {
 		accelerate();
 		return;
 	} 
 	velo = min(abs(velo), abs(x_coord - x_car)) * dir;
+}
+
+bool Vehicle::isPass(int state, float x_coord)
+{
+	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
+	if (dir == -1) x_coord += 15;
+	return (((x_car > x_coord) == (dir == 1)) && x_car != x_coord);
+}
+
+int Vehicle::getDir()
+{
+	return dir;
 }

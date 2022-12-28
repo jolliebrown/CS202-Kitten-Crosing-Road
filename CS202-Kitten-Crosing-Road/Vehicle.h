@@ -19,6 +19,8 @@ public:
 	void				move(int state, float x_coord);
 	void				accelerate();
 	virtual void		checkLight(int state, float x_coord);
+	bool				isPass(int state, float x_coord);
+	int					getDir();
 private:
 	Vector2f			coord; // coordinate of vehicle
 	float				startPoint;
