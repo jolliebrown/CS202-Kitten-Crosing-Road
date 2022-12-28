@@ -131,12 +131,12 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 	while (mLane.size() && curID < mLane.size()) {
 		int curposition = mLane[curID]->getPosition();
 		if (curposition > botView) {
-			curID++;
+			curID = 0;
 			//cout << curID << " " << curposition << " " << botView << endl;
 			int nextPosition = mLane.back()->getPosition() + signMap * BaseUnit;
-			//mLane.erase(mLane.begin());
+			mLane.erase(mLane.begin());
 			//mapBackground.pop();
-			//mapIndex.erase(mapIndex.begin());
+			mapIndex.erase(mapIndex.begin());
 			int nextId = generateNextLaneIndex();
 			int dir = (rand() % 2 == 0) ? -1 : 1;
 			mapIndex.push_back(nextId);

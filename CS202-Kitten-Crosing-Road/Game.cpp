@@ -12,7 +12,7 @@ Game::Game() :
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 }
 bool Game::gameRestart() {
-	mView.reset(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10));
+	mView.reset(sf::FloatRect(0, signMap * BaseUnit * 2, BaseUnit * 14, BaseUnit * 10));
 	mPlayer.setIdPlayer(0);
 	mPlayer.setPos(mView);
 	mWorld.worldRestart();
