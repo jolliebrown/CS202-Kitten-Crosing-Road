@@ -11,6 +11,14 @@ Game::Game() :
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 }
+bool Game::gameRestart() {
+	mView.reset(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10));
+	mPlayer.setIdPlayer(0);
+	mPlayer.setPos(mView);
+	mWorld.worldRestart();
+	gameSystem.setContinue();
+	return true;
+}
 void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
 	viewPosition = mView.getCenter();
@@ -83,6 +91,7 @@ void Game::processEvents()
 			mPlayer.handleEvent(event, gameSystem);
 		}
 		gameSystem.handleEvent(event, mouse);
+
 		if (event.type == sf::Event::Closed)
 			mWindow.close();
 	}
@@ -90,6 +99,9 @@ void Game::processEvents()
 		mWorld.processEvent(gameSystem, mPlayer);
 		mWorld.handleEvent(mWindow, mView);
 		mPlayer.handleEvent(event, gameSystem);
+	}
+	if (gameSystem.gameRestart()) {
+		gameRestart();
 	}
 }
 

@@ -48,7 +48,14 @@ long long Rand(long long l, long long h)
 
 int generateNextLaneIndex(int status) {
     static int nLane = 0;
-    static int freq[3] = { 5, 5, 2};
+    static int freq[3] = { 8, 8, 2};
+    if (status == -1) {
+        nLane = 0;
+        freq[0] = 8;
+        freq[1] = 8;
+        freq[2] = 2;
+    }
+    
     nLane += 1;
     if (nLane % 10 == 0) {
         if (freq[0] > 2) {

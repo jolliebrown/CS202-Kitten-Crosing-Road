@@ -12,7 +12,8 @@ public:
 		Continue,
 		Pause,
 		Save,
-		Menu
+		Menu,
+		Restart
 	};
 	enum GameMode
 	{
@@ -23,10 +24,12 @@ public:
 	System(View& view, RenderWindow& window);
 	System(View& view, RenderWindow& window, pair<int, int> score, GameState state, GameMode game_mode, int level, int fish_coin);
 	bool gameLose();
+	bool gameRestart();
 	bool gameContinue();
 	bool gameWin();
 	bool gamePause();
 	bool setLose();
+	bool setRestart();
 	bool setContinue();
 	bool setWin();
 	bool setPause();

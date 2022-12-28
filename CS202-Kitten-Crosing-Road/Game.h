@@ -21,7 +21,7 @@ public:
 							Game();
 	void					run();
 	bool					gameContinue();
-
+	bool					gameRestart();
 private:
 	void					processEvents();
 	void					update(Time elapsedTime);
