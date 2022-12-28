@@ -1,4 +1,7 @@
 #include "Menu.h"
+#include "SFML/Audio.hpp"
+
+static Music music[2] = {};
 
 Scene::Scene(RenderWindow& mWindow) : window(mWindow)
 {
@@ -219,7 +222,47 @@ void Settings::draw(const Vector2f& mouse)
 
 SoundSettings::SoundSettings(RenderWindow& mWindow) : Scene(mWindow)
 {
+	sceneName = MenuList::SoundSettings;
 
+	// Background
+	Object grassBackground(window, commonAsset[1], 0, 0);
+	Object soundBoard(window, commonAsset[6], 42, 52);
+	Object bgmText(window, menuTexture[sceneName][2].first, 62, 65);
+	Object sfxText(window, menuTexture[sceneName][2].second, 62, 90);
+	grassBackground.setPos(window.getView());
+	soundBoard.setPos(window.getView());
+	bgmText.setPos(window.getView());
+	sfxText.setPos(window.getView());
+	background.push_back(grassBackground);
+	background.push_back(soundBoard);
+	background.push_back(bgmText);
+	background.push_back(sfxText);
+
+	// Sound Bar
+	soundBar.resize(2);
+	for (int i = 0; i < 2; ++i)
+	{
+		Object blankBar(window, menuTexture[sceneName][3].first, 135, (64 + 25 * i));
+		blankBar.setPos(window.getView());
+		soundBar[i].push_back(blankBar);
+		for (float f = 0; f < music[i].getVolume(); f += 25)
+		{
+			Object currentSound(window, menuTexture[sceneName][3].second, (135 + f / 5), (64 + 25 * i));
+			currentSound.setPos(window.getView());
+			soundBar[i].push_back(currentSound);
+		}
+	}
+
+	// Button
+	SystemButton backButton(window, commonAsset.back(), commonAsset.back(), 0, 0, false);
+	buttons.push_back(backButton);
+	for (int i = 0; i < 2; ++i)
+	{
+		SystemButton bgmButton(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, (122 + 37 * i), (68 - 2 * i), false);
+		SystemButton sfxButton(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, (122 + 37 * i), (93 - 2 * i), false);
+		buttons.push_back(bgmButton);
+		buttons.push_back(sfxButton);
+	}
 }
 
 SoundSettings::~SoundSettings()
@@ -235,6 +278,11 @@ int SoundSettings::handleEvent(const Event& event, vector<Scene*>& scene, const 
 void SoundSettings::draw(const Vector2f& mouse)
 {
 	Scene::draw(mouse);
+	for (int i = 0; i < soundBar.size(); ++i)
+	{
+		for (int j = 0; j < soundBar[i].size(); ++j)
+			soundBar[i][j].draw();
+	}
 }
 
 ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
