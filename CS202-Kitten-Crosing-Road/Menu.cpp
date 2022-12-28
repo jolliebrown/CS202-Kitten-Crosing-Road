@@ -23,6 +23,11 @@ void Scene::draw(const Vector2f& mouse)
 	}
 }
 
+void Scene::getName()
+{
+	cerr << (int)sceneName << endl;
+}
+
 
 Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 {
@@ -51,11 +56,11 @@ Menu::~Menu()
 
 int Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
-		if (buttons[i].isHere(mousePosition))
+		for (int i = 0; i < buttons.size(); ++i)
 		{
-			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			if (buttons[i].isHere(mousePosition))
 			{
 				if (i == 2)
 				{
@@ -75,9 +80,10 @@ int Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 				{
 					Scene* mode = new Mode(window);
 					scene.push_back(mode);
+					return -(i + 1);
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return 0;
@@ -129,11 +135,13 @@ int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 				else if (i == 1)
 				{
 					cerr << "Classic Mode\n";
+					//scene.pop_back();
 					return 1;
 				}
 				else if (i == 2)
 				{
 					cerr << "Endless Mode\n";
+					scene.pop_back();
 					return 2;
 				}
 			}

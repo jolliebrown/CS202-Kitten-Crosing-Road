@@ -48,6 +48,7 @@ private:
 	GameMode			game_mode;
 	int					level;
 	int					fish_coin;
+	bool newgame = false;
 	RenderWindow& window;
 	View& view;
 	InfoScore			fish_score, game_score;

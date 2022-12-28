@@ -246,13 +246,28 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 		}
 		else if (state == GameState::Menu)
 		{
-			if (mainMenu.back()->handleEvent(event, mainMenu, mouse) == 2)
+			int tmp_menu = mainMenu.back()->handleEvent(event, mainMenu, mouse);
+			if (tmp_menu == 2)
 			{
-				state = GameState::Continue;
+				if (newgame)
+				{
+					state = GameState::Restart;
+					resetParameter(GameMode::Endless);
+					game_score.update(score.first, ListTextures::num_text);
+					newgame = false;
+				}
+				else
+				{
+					state = GameState::Continue;
+				}
 			}
-			if (mainMenu.back()->handleEvent(event, mainMenu, mouse) == 1)
+			else if (tmp_menu == 1)
 			{
 				// classic mode
+			}
+			else if (tmp_menu == -2)
+			{
+				newgame = true;
 			}
 		}
 		else if (state == GameState::Lose)
