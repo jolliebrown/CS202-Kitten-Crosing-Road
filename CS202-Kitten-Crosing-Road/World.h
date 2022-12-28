@@ -22,17 +22,21 @@ public:
 	void							processEvent(System& gameSystem, Player& mPlayer);
 	bool							worldRestart();
 private: 
+	int								getPosition(int laneIndex);
+	int								generateNextLaneIndex(int status = 0);
 	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);
 	void							drawElement(vector<Object>& target);
 	void							drawListElements(vector<vector<Object>>& target);
 	void							drawListElements(queue<vector<Object>> target);
 
 private:
+
+	int								nLane = 0;
 	queue<vector<Object>>			mapBackground;
 	vector<Lane*>					mLane;
 	vector<int>						mapIndex; //
 	const int						range = 32;
 	RenderWindow& window;
-	int								getPosition(int laneIndex);
+	
 	int								curID = 0;
 };

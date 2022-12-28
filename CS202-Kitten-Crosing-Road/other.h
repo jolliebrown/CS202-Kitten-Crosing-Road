@@ -9,7 +9,6 @@
 using namespace std;
 
 long long Rand(long long l, long long h); // get a random long long number in range [L, H]
-int generateNextLaneIndex(int status = 0);
 vector <int> generateRangeLanes(int l, int r);
 //bool genArray(int n, long long low, long long high, string path); // generate n numbers in range [low, high] to path file
 //void runningTime(clock_t start); // time ?
