@@ -89,7 +89,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 			}
 		}
 		// no obstables
-		if (mAction[Action::MoveUp].y)
+		/*if (mAction[Action::MoveUp].y)
 		{
 			if (gameSystem.score.second >= 0)
 			{
@@ -105,6 +105,17 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 		if (mAction[Action::MoveDown].y)
 		{
 			gameSystem.score.second--;
+		}*/
+		if (mAction[Action::MoveUp].y)
+		{
+			int pos_y = getPosition().second;
+			if (abs(pos_y - gameSystem.score.second) > 15)
+			{
+				gameSystem.score.first++;
+				gameSystem.score.second = pos_y;
+				cout << "1\n";
+				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
+			}
 		}
 	}
 	movePlayer();
