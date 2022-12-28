@@ -272,6 +272,38 @@ SoundSettings::~SoundSettings()
 
 int SoundSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		if (buttons[i].isHere(mousePosition))
+		{
+			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			{
+				if (i == 0)
+				{
+					scene.pop_back();
+				}
+				else if (i < buttons.size() / 2 + 1)
+				{
+					if (music[i - 1].getVolume() > 0)
+					{
+						soundBar[i - 1].pop_back();
+						music[i - 1].setVolume(music[i - 1].getVolume() - 25);
+					}
+				}
+				else if (i > buttons.size() / 2)
+				{
+					if (music[i - 1 - buttons.size() / 2].getVolume() < 100)
+					{
+						Object currentSound(window, menuTexture[sceneName][3].second, (135 + music[i - 1 - buttons.size() / 2].getVolume() / 5), (64 + 25 * (i - 1 - buttons.size() / 2)));
+						currentSound.setPos(window.getView());
+						soundBar[i - 1 - buttons.size() / 2].push_back(currentSound);
+						music[i - 1 - buttons.size() / 2].setVolume(music[i - 1 - buttons.size() / 2].getVolume() + 25);
+					}
+				}
+			}
+			break;
+		}
+	}
 	return 0;
 }
 
