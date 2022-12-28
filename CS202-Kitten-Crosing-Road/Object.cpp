@@ -4,6 +4,8 @@ ListTextures::ListTextures()
 {
 	// load het asset vao day nha
 	load(car, "Media/Car.png", 0, 0, 72, 12, 24, 12);
+	load(obstacle[0], "Media/Obstacle_Bush.png", 0, 0, 32, 16, 16, 16);
+	load(obstacle[1], "Media/Obstacle_Rock.png", 0, 0, 32, 16, 16, 16);
 	//onePicLoad(car, "Media/Car.png", 0, 0, 20, 10);
 	onePicLoad(user, "Media/Binh.png");
 
@@ -91,15 +93,6 @@ ListTextures::ListTextures()
 		commonAsset.push_back(menu_tmp);
 	}
 	onePicLoad(commonAsset, "Media/System/Home_here.png");
-
-	onePicLoad(instructionAsset, "Media/Instruction/instruction_1.png");
-	onePicLoad(instructionAsset, "Media/Instruction/Page1.png");
-	onePicLoad(instructionAsset, "Media/Instruction/instruction_2.png");
-	onePicLoad(instructionAsset, "Media/Instruction/Page2.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_yes.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_yes.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveLeft_no.png");
-	onePicLoad(instructionAsset, "Media/Instruction/MoveRight_no.png");
 }
 
 Object::Object(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
