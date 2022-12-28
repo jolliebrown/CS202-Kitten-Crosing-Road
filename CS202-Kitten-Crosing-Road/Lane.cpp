@@ -52,18 +52,6 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	addLight(window, listLightTexture, BaseUnit * 10, y_coor, unit);
 }
 
-Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture):
-	window(&window)
-{
-	this->dir = dir;
-	this->y_coor = y_coor;
-	this->unit = unit;
-	this->mTexture = mTexture;
-	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, dir, unit);
-	listVehicle.push_back(Tem);
-	generate(window, listTexture, mTexture, unit, y_coor);
-}
-
 Road::Road(const Road& road):
 	window(road.window)
 {
@@ -212,23 +200,9 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Vehicle(window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Vehicle(0.12, 0.2, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
-	generate(window, listTexture, mTexture, unit, y_coor);
-	addLight(window, listLightTexture, BaseUnit * 3, y_coor, unit);
-	addLight(window, listLightTexture, BaseUnit * 10, y_coor, unit);
-}
-
-RailWay::RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture) :
-	window(&window)
-{
-	this->dir = dir;
-	this->y_coor = y_coor;
-	this->unit = unit;
-	this->mTexture = mTexture;
-	Vehicle* Tem = new Vehicle(initVelo, limVelo, window, texture, x_coor, y_coor, dir, unit);
-	listVehicle.push_back(Tem);
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 

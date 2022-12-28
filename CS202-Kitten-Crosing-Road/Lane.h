@@ -30,7 +30,6 @@ public:
 	Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
 	Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
-	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture);
 	Road(const Road& road);
 
 	Road&						operator = (const Road& road);
@@ -60,7 +59,6 @@ public:
 	RailWay(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
 	RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
 	RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
-	RailWay(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, float initVelo, float limVelo, vector<Texture>& mTexture);
 	RailWay(const RailWay& railway);
 
 	vector<Object>&				generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos);
