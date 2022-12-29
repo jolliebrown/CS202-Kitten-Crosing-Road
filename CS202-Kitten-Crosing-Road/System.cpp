@@ -249,6 +249,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			int tmp_menu = mainMenu.back()->handleEvent(event, mainMenu, mouse);
 			if (tmp_menu == 2)
 			{
+				gameSE.playEffect(SFX::Intro);
 				if (newgame)
 				{
 					state = GameState::Restart;
@@ -267,6 +268,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			}
 			else if (tmp_menu == -2)
 			{
+				gameSE.playEffect(SFX::Intro);
 				newgame = true;
 			}
 		}
@@ -274,6 +276,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 		{
 			if (buttons[4].isHere(mouse))
 			{
+				gameSE.playEffect(SFX::Intro);
 				state = GameState::Restart;
 				resetParameter(game_mode);
 				game_score.update(score.first, ListTextures::num_text);
@@ -283,6 +286,14 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 				state = GameState::Menu;
 			}
 		}
+	}
+	if (state != GameState::Menu && gameSE.bgm.getStatus() != SoundSource::Stopped)
+	{
+		gameSE.bgm.stop();
+	}
+	else if (state == GameState::Menu && gameSE.bgm.getStatus() == SoundSource::Stopped)
+	{
+		gameSE.bgm.play();
 	}
 }
 

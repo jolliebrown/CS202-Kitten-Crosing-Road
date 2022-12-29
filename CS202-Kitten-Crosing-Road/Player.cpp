@@ -72,7 +72,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
 	{
-		//	test();
+		gameSystem.gameSE.playEffect(SFX::Move);
 		Vector2i tmp;
 		// Check if pressed key appears in key binding, trigger command if so
 		map<Keyboard::Key, Action>::iterator found = mKeyBinding.find(event.key.code);
@@ -122,6 +122,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 	for (int i = 0; i < 4; i++) {
 		Object& boost = gameSystem.fish_boost[i];
 		if (this->isCollidedSpecial(boost)) {
+			gameSystem.gameSE.playEffect(SFX::Coin);
 			if (i != 3)
 			{
 				gameSystem.fish_coin += 1;

@@ -1,6 +1,7 @@
 #pragma once
 #include "SystemFunction.h"
 #include "Menu.h"
+#include "SoundEffect.h"
 
 enum GameMode
 {
@@ -52,6 +53,7 @@ private:
 	RenderWindow& window;
 	View& view;
 	InfoScore			fish_score, game_score;
+	SoundEffect			gameSE;
 private:
 	void				generateNextNormalBoost(Object& curBoost);
 	FishCoin			generateNextSpecialBoost(Object& curBoost);
