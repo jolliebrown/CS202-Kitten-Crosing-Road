@@ -81,8 +81,25 @@ int Menu::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 				}
 				else
 				{
-					Scene* mode = new Mode(window);
-					scene.push_back(mode);
+					ButtonList currentButton;
+					if (i == 0)
+					{
+						currentButton = ButtonList::Continue;
+						Scene* mode = new Mode(window, currentButton);
+						scene.push_back(mode);
+					}
+					else if (i == 1)
+					{
+						currentButton = ButtonList::Play;
+						Scene* mode = new Mode(window, currentButton);
+						scene.push_back(mode);
+					}
+					else if (i == 4)
+					{
+						currentButton = ButtonList::Leaderboard;
+						Scene* mode = new Mode(window, currentButton);
+						scene.push_back(mode);
+					}
 					return -(i + 1);
 				}
 				break;
@@ -97,9 +114,10 @@ void Menu::draw(const Vector2f& mouse)
 	Scene::draw(mouse);
 }
 
-Mode::Mode(RenderWindow& mWindow) : Scene(mWindow)
+Mode::Mode(RenderWindow& mWindow, ButtonList PreviousButton) : Scene(mWindow), previousButton(PreviousButton)
 {
 	sceneName = MenuList::Mode;
+
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
 	Object modeBoard(window, commonAsset[3], 77, 51);
