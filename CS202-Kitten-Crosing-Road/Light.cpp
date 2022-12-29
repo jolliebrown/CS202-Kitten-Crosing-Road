@@ -55,9 +55,10 @@ int Light::getState()
 	return state;
 }
 
-float Light::getPos()
+float Light::getPos(int dir)
 {
-	return Object::asset.getPosition().x;
+	if(dir == 1) return Object::asset.getPosition().x;
+	return Object::asset.getPosition().x + 15;
 }
 
 void Light::setState(int state)

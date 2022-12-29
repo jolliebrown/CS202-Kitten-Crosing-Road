@@ -15,7 +15,7 @@ public:
 
 	void				draw();
 	void				move();
-	float				getPos();
+	float				getPos(int dir);
 	int					getState();
 	void				setState(int state);
 private:

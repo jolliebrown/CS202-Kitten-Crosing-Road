@@ -54,8 +54,21 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Car(window, texture, x_coor, y_coor, dir, unit);
+	int numCars = 1;
+	if (level > 20) {
+		numCars++;
+	}
+	if (level > 40) {
+		numCars++;
+	}
+	if (level > 60) {
+		numCars++;
+	}
+	float velo = 0.1;
+	if (level > 30) velo = 0.15;
+	if (level > 60) velo = 0.2;
+	for (int i = 0; i < numCars; ++i) {
+		Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
@@ -136,7 +149,7 @@ void Road::draw()
 	}
 	for (auto& car : listVehicle) {
 		if (listLight.size() == 0) car->draw();
-		else car->draw(listLight[0].getState(), listLight[0].getPos());
+		else car->draw(listLight[0].getState(), listLight[0].getPos(dir));
 	}
 	for (auto& light : listLight) light.draw();
 	for (auto& obs : listObstacle) obs.draw();
@@ -144,15 +157,29 @@ void Road::draw()
 
 void Road::handleEvent() {
 	//return;
-	for (auto& car : listVehicle) {
+	for (int i = 0; i < listVehicle.size(); ++i) {
 		/*if (listLight.size() == 0) car->move(0, 0);
 		else {
 			car->move(listLight[0].getState(), listLight[0].getPos());
 		}*/
+		Vehicle* car = listVehicle[i];
+		float preCarPos = -1;
+		for (int j = 0; j < listVehicle.size(); ++j) {
+			if (j == i) continue;
+			Vehicle* preCar = listVehicle[j];
+			if (((preCar->getPosHigh() > car->getPosHigh()) == (dir == 1))) {
+				if (preCarPos == -1 || ((preCarPos > preCar->getPosLow()) == (dir == 1))) {
+					preCarPos = preCar->getPosLow();
+				}
+			}
+		}
+		if (preCarPos != -1 && ((preCarPos < car->getPosHigh()) == (dir == 1))) {
+			preCarPos = car->getPosHigh();
+		}
 		int low = 0, high = (int)listLight.size() - 1, pos = -1;
 		while (low <= high) {
 			int mid = (low + high) / 2;
-			if (car->isPass(listLight[mid].getState(), listLight[mid].getPos())) {
+			if (car->isPass(listLight[mid].getState(), listLight[mid].getPos(dir))) {
 				if (car->getDir() == 1) low = mid + 1;
 				else high = mid - 1;
 			}
@@ -162,8 +189,16 @@ void Road::handleEvent() {
 				else low = mid + 1;
 			}
 		}
-		if (pos == -1) car->move(0, 0);
-		else car->move(listLight[pos].getState(), listLight[pos].getPos());
+		if (pos == -1) {
+			if (preCarPos == -1) car->move(0, 0);
+			else car->move(2, preCarPos);
+		}
+		else {
+			if(preCarPos == -1 || ((listLight[pos].getPos(dir) < preCarPos) == (dir == 1)) || abs(listLight[pos].getPos(dir) - preCarPos) <= 0.001 ) car->move(listLight[pos].getState(), listLight[pos].getPos(dir));
+			else {
+				car->move(2, preCarPos);
+			}
+		}
 	}
 	for (auto& light : listLight) light.move();
 }

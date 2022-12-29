@@ -6,7 +6,9 @@ World::World(RenderWindow& window) :
 {
 	mapIndex.clear();
 	curID = 0;
-	for (int i = 0; i < 16; i++) mapIndex.push_back(generateNextLaneIndex());
+	for (int i = 0; i < 16; i++) {
+		mapIndex.push_back(generateNextLaneIndex());
+	}
 	for (int i = 0; i < mapIndex.size(); i++)
 	{
 		int j = mapIndex[i];

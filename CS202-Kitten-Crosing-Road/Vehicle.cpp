@@ -85,8 +85,7 @@ bool Car::move(int state, float x_coord)
 
 void Car::checkLight(int state, float x_coord)
 {
-	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
-	if (dir == -1) x_coord += 15;
+	float x_car = getPosHigh();
 	if (state == 0 || (((x_car > x_coord) == (dir == 1)) && x_car != x_coord)) {
 		accelerate();
 		return;
@@ -97,13 +96,22 @@ void Car::checkLight(int state, float x_coord)
 bool Car::isPass(int state, float x_coord)
 {
 	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
-	if (dir == -1) x_coord += 15;
 	return (((x_car > x_coord) == (dir == 1)) && x_car != x_coord);
 }
 
 int Car::getDir()
 {
 	return dir;
+}
+
+float Car::getPosLow()
+{
+	return Object::asset.getPosition().x + (-dir) * Object::asset.getGlobalBounds().width / 2.0;
+}
+
+float Car::getPosHigh()
+{
+	return Object::asset.getPosition().x + dir * Object::asset.getGlobalBounds().width / 2.0;
 }
 
 /// Train ///
@@ -185,11 +193,20 @@ void Train::checkLight(int state, float x_coord)
 bool Train::isPass(int state, float x_coord)
 {
 	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
-	if (dir == -1) x_coord += 15;
 	return (((x_car > x_coord) == (dir == 1)) && x_car != x_coord);
 }
 
 int Train::getDir()
 {
 	return dir;
+}
+
+float Train::getPosLow()
+{
+	return Object::asset.getPosition().x + (-dir) * Object::asset.getGlobalBounds().width / 2.0;
+}
+
+float Train::getPosHigh()
+{
+	return Object::asset.getPosition().x + dir * Object::asset.getGlobalBounds().width / 2.0;
 }

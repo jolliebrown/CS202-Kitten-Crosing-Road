@@ -18,6 +18,8 @@ public:
 	virtual void				checkLight(int state, float x_coord) = 0;
 	virtual bool				isPass(int state, float x_coord) = 0;
 	virtual int					getDir() = 0;
+	virtual float				getPosLow() = 0;
+	virtual float				getPosHigh() = 0;
 private:
 };
 
@@ -34,6 +36,8 @@ public:
 	void						checkLight(int state, float x_coord);
 	bool						isPass(int state, float x_coord);
 	int							getDir();
+	float						getPosLow();
+	float						getPosHigh();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -60,6 +64,8 @@ public:
 	void						checkLight(int state, float x_coord);
 	bool						isPass(int state, float x_coord);
 	int							getDir();
+	float						getPosLow();
+	float						getPosHigh();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
