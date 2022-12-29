@@ -1,6 +1,13 @@
 #pragma once
 #include "SystemFunction.h"
 
+enum class ButtonList
+{
+	Continue,
+	Play,
+	Leaderboard
+};
+
 class Scene : public ListTextures {
 public:
 	Scene(RenderWindow& mWindow);
@@ -27,11 +34,13 @@ public:
 
 class Mode : public Scene {
 public:
-	Mode(RenderWindow& mWindow);
+	Mode(RenderWindow& mWindow, ButtonList PreviousButton);
 	~Mode() override;
 
 	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
+private:
+	ButtonList previousButton;
 };
 
 class Settings : public Scene {
