@@ -125,11 +125,11 @@ Mode::~Mode()
 
 int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
-		if (buttons[i].isHere(mousePosition))
+		for (int i = 0; i < buttons.size(); ++i)
 		{
-			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			if (buttons[i].isHere(mousePosition))
 			{
 				if (i == 0)
 				{
@@ -147,8 +147,8 @@ int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 					scene.pop_back();
 					return 2;
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return 0;
@@ -188,11 +188,11 @@ Settings::~Settings()
 
 int Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
-		if (buttons[i].isHere(mousePosition))
+		for (int i = 0; i < buttons.size(); ++i)
 		{
-			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			if (buttons[i].isHere(mousePosition))
 			{
 				if (i == 0)
 				{
@@ -208,8 +208,8 @@ int Settings::handleEvent(const Event& event, vector<Scene*>& scene, const Vecto
 					Scene* buttonSettings = new ButtonSettings(window);
 					scene.push_back(buttonSettings);
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return 0;
@@ -272,36 +272,32 @@ SoundSettings::~SoundSettings()
 
 int SoundSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
-		if (buttons[i].isHere(mousePosition))
+		for (int i = 0; i < buttons.size(); ++i)
 		{
-			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			if (buttons[i].isHere(mousePosition))
 			{
 				if (i == 0)
 				{
 					scene.pop_back();
 				}
-				else if (i < buttons.size() / 2 + 1)
+				else if (i < buttons.size() / 2 + 1 && music[i - 1].getVolume() > 0)
 				{
-					if (music[i - 1].getVolume() > 0)
-					{
-						soundBar[i - 1].pop_back();
-						music[i - 1].setVolume(music[i - 1].getVolume() - 25);
-					}
+					// Press the decrease-sound button
+					soundBar[i - 1].pop_back();
+					music[i - 1].setVolume(music[i - 1].getVolume() - 25);
 				}
-				else if (i > buttons.size() / 2)
+				else if (i > buttons.size() / 2 && music[i - 1 - buttons.size() / 2].getVolume() < 100)
 				{
-					if (music[i - 1 - buttons.size() / 2].getVolume() < 100)
-					{
-						Object currentSound(window, menuTexture[sceneName][3].second, (135 + music[i - 1 - buttons.size() / 2].getVolume() / 5), (64 + 25 * (i - 1 - buttons.size() / 2)));
-						currentSound.setPos(window.getView());
-						soundBar[i - 1 - buttons.size() / 2].push_back(currentSound);
-						music[i - 1 - buttons.size() / 2].setVolume(music[i - 1 - buttons.size() / 2].getVolume() + 25);
-					}
+					// Press the increase-sound button
+					Object currentSound(window, menuTexture[sceneName][3].second, (135 + music[i - 1 - buttons.size() / 2].getVolume() / 5), (64 + 25 * (i - 1 - buttons.size() / 2)));
+					currentSound.setPos(window.getView());
+					soundBar[i - 1 - buttons.size() / 2].push_back(currentSound);
+					music[i - 1 - buttons.size() / 2].setVolume(music[i - 1 - buttons.size() / 2].getVolume() + 25);
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return 0;
@@ -346,18 +342,18 @@ ButtonSettings::~ButtonSettings()
 
 int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
-		if (buttons[i].isHere(mousePosition))
+		for (int i = 0; i < buttons.size(); ++i)
 		{
-			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			if (buttons[i].isHere(mousePosition))
 			{
 				if (i == 0)
 				{
 					scene.pop_back();
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return 0;
@@ -407,11 +403,11 @@ Instruction::~Instruction()
 
 int Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	for (int i = 0; i < buttons.size(); ++i)
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
-		if (buttons[i].isHere(mousePosition))
+		for (int i = 0; i < buttons.size(); ++i)
 		{
-			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			if (buttons[i].isHere(mousePosition))
 			{
 				if (i == 0)
 				{
@@ -441,8 +437,8 @@ int Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Ve
 					background.push_back(instruct);
 					background.push_back(page);
 				}
+				break;
 			}
-			break;
 		}
 	}
 	return 0;
