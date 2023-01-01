@@ -165,6 +165,10 @@ bool System::gamePause() {
 void System::setState(GameState new_state)
 {
 	state = new_state;
+	if (new_state == GameState::Lose)
+	{
+		gameSE.playEffect(SFX::Lose);
+	}
 }
 
 void System::draw(const Vector2f& mouse)
@@ -268,7 +272,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			}
 			else if (tmp_menu == -2)
 			{
-				gameSE.playEffect(SFX::Intro);
+				//gameSE.playEffect(SFX::Intro);
 				newgame = true;
 			}
 		}
