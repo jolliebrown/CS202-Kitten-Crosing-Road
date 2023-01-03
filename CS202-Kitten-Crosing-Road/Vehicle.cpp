@@ -9,7 +9,8 @@ int Rand(int l, int r)
 Vehicle::Vehicle(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) :
 	Object(window, texture, x_coor, y_coor, unit)
 {
-
+	buffer.loadFromFile("Media/SFX/Car.wav");
+	sound.setBuffer(buffer);
 }
 
 // Constructor
@@ -47,6 +48,23 @@ Car::Car(float initVelo, float limVelo, RenderWindow& window, Texture& texture, 
 	Object::asset.setPosition(startPoint, coord.y);
 }
 
+Car::Car(Time moveTime, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
+{
+	dir = _dir; this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	if (dir == -1) Object::asset.rotate(180);
+
+	clock.restart();
+	startMoveTime = moveTime;
+	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
 Car::Car(const Car& vehicle):
 	Vehicle(vehicle), coord(vehicle.coord), startPoint(vehicle.startPoint), endPoint(vehicle.endPoint),
 	velo(vehicle.velo), limVelo(vehicle.limVelo), initVelo(vehicle.initVelo), acce(vehicle.acce),
@@ -77,7 +95,7 @@ bool Car::move(int state, float x_coord)
 	if ((Object::asset.getPosition().x > endPoint) == (dir == 1)) {
 		Object::asset.setPosition(startPoint, coord.y);
 		clock.restart();
-		startMoveTime = milliseconds(Rand(1000, 8000));
+		startMoveTime = seconds(0);
 		velo = initVelo;
 	}
 	return true;
@@ -88,6 +106,7 @@ void Car::checkLight(int state, float x_coord)
 	float x_car = getPosHigh();
 	if (state == 0 || (((x_car > x_coord) == (dir == 1)) && x_car != x_coord)) {
 		accelerate();
+		//if (insideView()) sound.play();
 		return;
 	} 
 	velo = min(abs(velo), abs(x_coord - x_car)) * dir;
@@ -112,6 +131,11 @@ float Car::getPosLow()
 float Car::getPosHigh()
 {
 	return Object::asset.getPosition().x + dir * Object::asset.getGlobalBounds().width / 2.0;
+}
+
+void Car::restartClock()
+{
+	clock.restart();
 }
 
 /// Train ///
@@ -209,4 +233,9 @@ float Train::getPosLow()
 float Train::getPosHigh()
 {
 	return Object::asset.getPosition().x + dir * Object::asset.getGlobalBounds().width / 2.0;
+}
+
+void Train::restartClock()
+{
+	clock.restart();
 }

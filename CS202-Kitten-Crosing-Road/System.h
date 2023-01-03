@@ -1,7 +1,6 @@
 #pragma once
 #include "SystemFunction.h"
 #include "Menu.h"
-#include "SoundEffect.h"
 
 enum GameMode
 {

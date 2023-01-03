@@ -6,6 +6,8 @@
 #include <map>
 #include <iostream>
 
+#include "SoundEffect.h"
+
 const int BaseUnit = 16;
 const int TimeMove = 361;
 const int signMap = -1;
@@ -48,7 +50,6 @@ enum class MenuList
 	ButtonSettings,
 	Instruction
 };
-
 string					button_name(const MiniButton& src);
 // store all textures that need to be loaded
 class ListTextures

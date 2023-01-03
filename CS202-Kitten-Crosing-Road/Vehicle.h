@@ -20,7 +20,11 @@ public:
 	virtual int					getDir() = 0;
 	virtual float				getPosLow() = 0;
 	virtual float				getPosHigh() = 0;
+	virtual void				restartClock() = 0;
 private:
+protected:
+	SoundBuffer					buffer;
+	Sound						sound;
 };
 
 class Car : public Vehicle
@@ -28,6 +32,7 @@ class Car : public Vehicle
 public:
 	Car(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Car(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+	Car(Time moveTime, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Car(const Car& car);
 
 	void						draw(int state = 0, float x_coord = 0);
@@ -38,6 +43,7 @@ public:
 	int							getDir();
 	float						getPosLow();
 	float						getPosHigh();
+	void						restartClock();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -66,6 +72,7 @@ public:
 	int							getDir();
 	float						getPosLow();
 	float						getPosHigh();
+	void						restartClock();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;

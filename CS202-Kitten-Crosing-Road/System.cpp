@@ -291,13 +291,21 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			}
 		}
 	}
-	if (state != GameState::Menu && gameSE.bgm.getStatus() != SoundSource::Stopped)
+	if (state != GameState::Menu)
 	{
 		gameSE.bgm.stop();
 	}
 	else if (state == GameState::Menu && gameSE.bgm.getStatus() == SoundSource::Stopped)
 	{
 		gameSE.bgm.play();
+	}
+	if (state == GameState::Continue && gameSE.road_bgm.getStatus() != SoundSource::Playing)
+	{
+		gameSE.road_bgm.play();
+	}
+	else if (state != GameState::Continue)
+	{
+		gameSE.road_bgm.pause();
 	}
 }
 
