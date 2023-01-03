@@ -29,7 +29,7 @@ void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
 	viewPosition = mView.getCenter();
 	viewPosition.x = max(BaseUnit * 8.f - 4.f, min(BaseUnit * 22.f, mPlayer.getPosition().first));
-	//viewPosition.y -= 0.01f;
+	viewPosition.y -= 0.01f;
 	if (viewPosition.y > mPlayer.getPosition().second)
 		viewPosition.y = mPlayer.getPosition().second;
 	//viewPosition.y = max(viewPosition.y, 0.f);

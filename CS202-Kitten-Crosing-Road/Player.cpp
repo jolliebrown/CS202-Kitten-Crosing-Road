@@ -41,6 +41,11 @@ void Player::draw()
 		{
 			if (isMoving != curMove && curMove)
 			{
+				// new solution
+				moveStep.x = totalMove.x / (9 - curMove);
+				moveStep.y = totalMove.y / (9 - curMove);
+				totalMove.x -= moveStep.x;
+				totalMove.y -= moveStep.y;
 			changePosition(moveStep.x, moveStep.y);
 			isMoving = curMove;
 			}
@@ -56,6 +61,7 @@ void Player::draw()
 			new_y = new_y * BaseUnit + y;
 			this->asset.setPosition(new_x, new_y);*/
 			isMoving = 0;
+			cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
 		}
 	}
 	draw_status = IntRect(curMove * BaseUnit, (int) faceLeft * BaseUnit, BaseUnit, BaseUnit);
@@ -178,17 +184,16 @@ bool Player::movePlayer()
 	
 	if (!mAction.empty())
 	{
-		moveStep = Vector2i(0, 0);
 		for (auto found : mAction)
 		{
-			moveStep.x += found.second.x * 1.0;
-			moveStep.y += found.second.y * 1.0;
+			totalMove.x += found.second.x * 1.0;
+			totalMove.y += found.second.y * 1.0;
 		}
-		if (moveStep.x < 0)
+		if (totalMove.x < 0)
 		{
 			faceLeft = true;
 		}
-		else if (moveStep.x > 0)
+		else if (totalMove.x > 0)
 		{
 			faceLeft = false;
 		}
@@ -196,7 +201,9 @@ bool Player::movePlayer()
 		moveStatus = 360;
 		moveStep.x /= 8;
 		moveStep.y /= 8;*/
-		if (!moveStep.y)
+
+		// alternative solution
+		/*if (!moveStep.y)
 		{
 			isMoving = -1;
 			moveStatus = 360;
@@ -210,7 +217,12 @@ bool Player::movePlayer()
 			isMoving = -1;
 			moveStatus = 360;
 			moveStep.x /= 8;
-		}
+		}*/
+
+		// new solution
+		if (!isMoving)
+			isMoving = -1;
+		moveStatus = 360;
 		mAction.clear();
 		return true;
 	}
@@ -260,16 +272,16 @@ bool Player::isRealtimeAction(Action action, Vector2i& result)
 	switch (action)
 	{
 		case MoveLeft:
-			result = Vector2i(-BaseUnit, 0);
+			result = Vector2i(-BaseUnit /2, 0);
 			return true;
 		case MoveRight:
-			result = Vector2i(BaseUnit, 0);
+			result = Vector2i(BaseUnit / 2, 0);
 			return true;
 		case MoveDown:
-			result = Vector2i(0, BaseUnit);
+			result = Vector2i(0, BaseUnit /2);
 			return true;
 		case MoveUp:
-			result = Vector2i(0, -BaseUnit);
+			result = Vector2i(0, -BaseUnit /2);
 			return true;
 		default:
 			return false;

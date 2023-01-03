@@ -42,6 +42,7 @@ private:
 	bool								faceLeft = false;
 	bool								isDead = false;
 	Vector2i							moveStep;
+	Vector2i							totalMove;
 	int x, y;
 };
 
