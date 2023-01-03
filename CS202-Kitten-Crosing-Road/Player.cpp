@@ -47,6 +47,14 @@ void Player::draw()
 		}
 		else
 		{
+			/*cout << "jump\n";
+			int new_x = (getPosition().first - x);
+			new_x /= BaseUnit;
+			new_x = new_x * BaseUnit + x;
+			int new_y = (getPosition().second - y);
+			new_y /= BaseUnit;
+			new_y = new_y * BaseUnit + y;
+			this->asset.setPosition(new_x, new_y);*/
 			isMoving = 0;
 		}
 	}
@@ -56,7 +64,7 @@ void Player::draw()
 }
 
 Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
-	Object(window, texture, x_coor, y_coor)
+	Object(window, texture, x_coor, y_coor), x(x_coor), y(y_coor)
 {
 	draw_status = IntRect(0, 0, BaseUnit, BaseUnit);
 	Object::asset.setTextureRect(draw_status);
@@ -184,15 +192,68 @@ bool Player::movePlayer()
 		{
 			faceLeft = false;
 		}
-		isMoving = -1;
+		/*isMoving = -1;
 		moveStatus = 360;
 		moveStep.x /= 8;
-		moveStep.y /= 8;
+		moveStep.y /= 8;*/
+		if (!moveStep.y)
+		{
+			isMoving = -1;
+			moveStatus = 360;
+			moveStep.x /= 8;
+			moveStep.y /= 8;
+		}
+		else
+		{
+			changePosition(0, moveStep.y / 2);
+			moveStep.y = 0;
+			isMoving = -1;
+			moveStatus = 360;
+			moveStep.x /= 8;
+		}
 		mAction.clear();
 		return true;
 	}
 	return false;
 }
+
+//bool Player::movePlayer()
+//{
+//	map<Action, Vector2i>::iterator left = mAction.find(Action::MoveLeft);
+//	map<Action, Vector2i>::iterator right = mAction.find(Action::MoveRight);
+//	if (!mAction.empty())
+//	{
+//		if (left != mAction.end() || right != mAction.end())
+//		{
+//			moveStep = Vector2i(0, 0);
+//			if (left != mAction.end())
+//			{
+//				moveStep.x += left->second.x * 1.0;
+//				moveStep.y += left->second.y * 1.0;
+//			}
+//			if (right != mAction.end())
+//			{
+//				moveStep.x += right->second.x * 1.0;
+//				moveStep.y += right->second.y * 1.0;
+//			}
+//			if (moveStep.x < 0)
+//			{
+//				faceLeft = true;
+//			}
+//			else if (moveStep.x > 0)
+//			{
+//				faceLeft = false;
+//			}
+//			isMoving = -1;
+//			moveStatus = 360;
+//			moveStep.x /= 8;
+//			moveStep.y /= 8;
+//			mAction.clear();
+//			return true;
+//		}
+//	}
+//	return false;
+//}
 
 bool Player::isRealtimeAction(Action action, Vector2i& result)
 {

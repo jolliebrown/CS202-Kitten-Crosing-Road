@@ -42,6 +42,7 @@ private:
 	bool								faceLeft = false;
 	bool								isDead = false;
 	Vector2i							moveStep;
+	int x, y;
 };
 
 // draw_status = IntRect(x, 0, 16, 16)
