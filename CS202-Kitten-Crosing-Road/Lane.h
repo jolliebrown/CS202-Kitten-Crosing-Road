@@ -87,3 +87,34 @@ private:
 	vector<Object>				listTexture;
 	const int					range = 32;
 };
+
+class Water : public Lane
+{
+public:
+	Water();
+	Water(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture);
+	Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
+	Water(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level);
+	Water(const Water& water);
+
+	Water& operator = (const Water& water);
+	vector<Object>& generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos);
+	void						addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
+	void						addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
+	//bool						insideView();
+	void						draw(bool onlyLane = false);
+	void						handleEvent();
+	bool						isCollided(Player& mPlayer);
+	int							getPosition();
+private:
+	int							dir; // 0: left to right, 1: right to left
+	int							y_coor;
+	int							unit;
+	RenderWindow* window;
+	vector<Texture>				mTexture;
+	vector<Vehicle*>			listVehicle;
+
+	vector<Light>				listLight;
+	vector<Object>				listTexture;
+	const int					range = 32;
+};

@@ -349,3 +349,225 @@ bool RailWay::isCollided(Player& mPlayer)
 int RailWay::getPosition() {
 	return y_coor;
 }
+
+/// *********************** Water ******************** ///
+Water::Water()
+{
+	dir = 0;
+	y_coor = 0;
+	unit = 0;
+}
+
+void Water::addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
+{
+	int k = Rand(1, 100) % 2;
+	listObstacle.push_back(Obstacle(window, texture[k], x_coor, y_coor - 5, unit));
+}
+
+
+
+Water::Water(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture) :
+	window(&window)
+{
+	this->dir = dir;
+	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
+	generate(window, listTexture, mTexture, unit, y_coor);
+	addObstacle(window, listTextureObstacle, BaseUnit * (5 + Rand(1, 3)), y_coor, unit);
+	addObstacle(window, listTextureObstacle, BaseUnit * (10 + Rand(1, 3)), y_coor, unit);
+	addObstacle(window, listTextureObstacle, BaseUnit * (15 + Rand(1, 3)), y_coor, unit);
+}
+
+Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
+	window(&window)
+{
+	this->dir = dir;
+	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
+	for (int i = 0; i < 1; ++i) {
+		Vehicle* Tem = new Car(window, texture, x_coor, y_coor, dir, unit);
+		listVehicle.push_back(Tem);
+	}
+	generate(window, listTexture, mTexture, unit, y_coor);
+}
+
+Water::Water(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
+	window(&window)
+{
+	this->dir = dir;
+	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
+	int numCars = 1;
+	if (level > 20) {
+		numCars++;
+	}
+	if (level > 40) {
+		numCars++;
+	}
+	if (level > 60) {
+		numCars++;
+	}
+	float velo = 0.03 + float(level / 5) * 0.01;
+	int random_num = Rand(0, 1500);
+	int distance_car = max(int(100 / velo), 2000);
+	for (int i = 0; i <= numCars; ++i) {
+		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem;
+		if (i > 0) Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
+		else Tem = new Animal(milliseconds(random_num + distance_car * i), velo, velo, window, listAnimalTexture, x_coor, y_coor, dir, unit);
+		listVehicle.push_back(Tem);
+		for (int j = 0; j < i; j++)
+		{
+			listVehicle[i]->restartClock();
+		}
+	}
+	generate(window, listTexture, mTexture, unit, y_coor);
+	if (level > 20) {
+		addLight(window, listLightTexture, BaseUnit * 5, y_coor, unit);
+	}
+	if (level > 40) {
+		addLight(window, listLightTexture, BaseUnit * 15, y_coor, unit);
+	}
+	if (level > 60) {
+		addLight(window, listLightTexture, BaseUnit * 25, y_coor, unit);
+	}
+}
+
+Water::Water(const Water& road) :
+	window(road.window)
+{
+	//cerr << "Deep copy...\n";
+	dir = road.dir;
+	y_coor = road.y_coor;
+	unit = road.unit;
+	mTexture = road.mTexture;
+
+	for (auto v : road.listVehicle) {
+		Vehicle* Tem = v;
+		listVehicle.push_back(Tem);
+	}
+	listTexture = road.listTexture;
+	//generate(*window, listTexture, mTexture, unit, y_coor);
+	listLight = road.listLight;
+}
+
+Water& Water::operator = (const Water& road)
+{
+	//cerr << "Assignment...\n";
+	if (this == &road) return *this;
+	delete window;
+	window = road.window;
+	dir = road.dir;
+	y_coor = road.y_coor;
+	unit = road.unit;
+	mTexture = road.mTexture;
+	listVehicle.clear();
+	for (auto v : road.listVehicle) {
+		Vehicle* Tem = v;
+		listVehicle.push_back(Tem);
+	}
+	listTexture = road.listTexture;
+	//generate(*window, listTexture, mTexture, unit, y_coor);
+	listLight = road.listLight;
+	return *this;
+}
+
+vector<Object>& Water::generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos)
+{
+	res.clear();
+	int countTextures = texture.size();
+	for (int i = 0; i < range; i++)
+	{
+		int random = rand() % countTextures;
+		Object tmp(window, texture[random], i * unit, pos, unit);
+		res.push_back(tmp);
+	}
+	// TODO: insert return statement here
+	return res;
+}
+
+void Water::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
+{
+	listLight.push_back(Light(window, texture, x_coor, y_coor - 5, unit));
+}
+
+
+
+void Water::draw(bool onlyLane)
+{
+	if (onlyLane) {
+		for (unsigned int i = 0; i < listTexture.size(); i++)
+		{
+			listTexture[i].draw();
+		}
+	}
+	else {
+		for (auto& car : listVehicle) {
+			if (listLight.size() == 0) car->draw();
+			else car->draw(listLight[0].getState(), listLight[0].getPos(dir));
+		}
+		for (auto& light : listLight) light.draw();
+		for (auto& obs : listObstacle) obs.draw();
+	}
+}
+
+void Water::handleEvent() {
+	//return;
+	for (int i = 0; i < listVehicle.size(); ++i) {
+		/*if (listLight.size() == 0) car->move(0, 0);
+		else {
+			car->move(listLight[0].getState(), listLight[0].getPos());
+		}*/
+		Vehicle* car = listVehicle[i];
+		float preCarPos = -1;
+		for (int j = 0; j < listVehicle.size(); ++j) {
+			if (j == i) continue;
+			Vehicle* preCar = listVehicle[j];
+			if (((preCar->getPosHigh() > car->getPosHigh()) == (dir == 1))) {
+				if (preCarPos == -1 || ((preCarPos > preCar->getPosLow()) == (dir == 1))) {
+					preCarPos = preCar->getPosLow();
+				}
+			}
+		}
+		if (preCarPos != -1 && ((preCarPos < car->getPosHigh()) == (dir == 1))) {
+			preCarPos = car->getPosHigh();
+		}
+		int low = 0, high = (int)listLight.size() - 1, pos = -1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			if (car->isPass(listLight[mid].getState(), listLight[mid].getPos(dir))) {
+				if (car->getDir() == 1) low = mid + 1;
+				else high = mid - 1;
+			}
+			else {
+				pos = mid;
+				if (car->getDir() == 1) high = mid - 1;
+				else low = mid + 1;
+			}
+		}
+		if (pos == -1) {
+			if (preCarPos == -1) car->move(0, 0);
+			else car->move(2, preCarPos);
+		}
+		else {
+			if (preCarPos == -1 || ((listLight[pos].getPos(dir) < preCarPos) == (dir == 1)) || abs(listLight[pos].getPos(dir) - preCarPos) <= 0.001) car->move(listLight[pos].getState(), listLight[pos].getPos(dir));
+			else {
+				car->move(2, preCarPos);
+			}
+		}
+	}
+	for (auto& light : listLight) light.move();
+}
+
+bool Water::isCollided(Player& mPlayer)
+{
+	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
+	return false;
+}
+
+int Water::getPosition() {
+	return y_coor;
+}
