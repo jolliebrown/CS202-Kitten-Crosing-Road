@@ -85,6 +85,7 @@ private:
 	Time						startMoveTime;
 	Clock						clock;
 	int							dir;
+	int							curView;
 };
 
 class Train : public Vehicle

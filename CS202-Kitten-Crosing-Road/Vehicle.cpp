@@ -181,8 +181,9 @@ Animal::Animal(Time moveTime, float initVelo, float limVelo, RenderWindow& windo
 	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
 	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
 
+	if(dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
-	if (dir == -1) Object::asset.rotate(180);
+	//if (dir == -1) Object::asset.rotate(180);
 
 	clock.restart();
 	startMoveTime = moveTime;
