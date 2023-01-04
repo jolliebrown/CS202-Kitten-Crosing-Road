@@ -21,7 +21,7 @@ public:
 	explicit						World(RenderWindow& window, bool check);
 									~World();
 	void							writeFile(ofstream& fout);
-	void							draw();
+	void							draw(bool onlyLane = false);
 	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);
 	bool							worldRestart();

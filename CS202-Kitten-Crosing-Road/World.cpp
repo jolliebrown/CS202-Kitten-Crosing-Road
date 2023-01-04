@@ -114,9 +114,8 @@ void World::writeFile(ofstream& fout)
 	fout << endl;
 }
 
-void World::draw()
-{
-	for (int i = mLane.size() - 1; i >= 0; --i) mLane[i]->draw();
+void World::draw(bool onlyLane){
+	for (int i = mLane.size() - 1; i >= 0; --i) mLane[i]->draw(onlyLane);
 }
 
 void World::processEvent(System& gameSystem, Player& mPlayer)

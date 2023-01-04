@@ -33,6 +33,7 @@ public:
 	bool gameWin();
 	bool gamePause();
 	void setState(GameState new_state);
+	void drawFish();
 	void draw(const Vector2f& mouse);
 	void handleEvent(const Event& event, const Vector2f& mouse);
 	friend class Player;

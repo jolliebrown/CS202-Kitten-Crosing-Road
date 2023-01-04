@@ -17,7 +17,7 @@ public:
 	virtual vector<Object>&		generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos) = 0;
 	virtual void				addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit) = 0;
 	//virtual bool				insideView() = 0;
-	virtual void				draw() = 0;
+	virtual void				draw(bool onlyLane = false) = 0;
 	virtual void				handleEvent() = 0;
 	virtual bool				isCollided(Player& mPlayer) = 0;
 	virtual int					getPosition() = 0;
@@ -43,7 +43,7 @@ public:
 	void						addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	void						addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	//bool						insideView();
-	void						draw();
+	void						draw(bool onlyLane = false);
 	void						handleEvent();
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
@@ -72,7 +72,7 @@ public:
 	vector<Object>&				generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos);
 	void						addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	//bool						insideView();
-	void						draw();
+	void						draw(bool onlyLane = false);
 	void						handleEvent();
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();

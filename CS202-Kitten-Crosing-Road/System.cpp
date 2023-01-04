@@ -211,13 +211,17 @@ void System::setState(GameState new_state)
 	}
 }
 
-void System::draw(const Vector2f& mouse)
-{
-	//state = GameState::Menu;
+void System::drawFish() {
 	for (int i = 0; i < fish_boost.size(); i++)
 	{
 		fish_boost[i].draw();
 	}
+}
+
+void System::draw(const Vector2f& mouse)
+{
+	//state = GameState::Menu;
+	
 	scoreBoard.setPos(view);
 	scoreBoard.draw();
 	game_score.draw();

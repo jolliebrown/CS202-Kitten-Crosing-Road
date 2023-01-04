@@ -140,9 +140,11 @@ void Game::render()
 	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second);
 	mWindow.setView(mView);
 	// draw sth here
-	mWorld.draw();
+	mWorld.draw(true);
+	gameSystem.drawFish();
 	mPlayer.draw();
 	//cout << mouse.x << " " << mouse.y << endl;
+	mWorld.draw(false);
 	gameSystem.draw(mouse);
 	mWindow.display();
 }

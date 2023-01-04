@@ -123,15 +123,17 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 			if (mWorld.isColliedObstacle(*this, 0, -1)) {
 				mAction.clear();
 			}
-			if (gameSystem.score.second >= 0)
-			{
-				gameSystem.score.first++;
-				gameSystem.score.second--;
-				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
-			}
-			else
-			{
-				gameSystem.score.second++;
+			else {
+				if (gameSystem.score.second >= 0)
+				{
+					gameSystem.score.first++;
+					gameSystem.score.second--;
+					gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
+				}
+				else
+				{
+					gameSystem.score.second++;
+				}
 			}
 		}
 		if (mAction[Action::MoveDown].y)
