@@ -61,7 +61,7 @@ void Player::draw()
 			new_y = new_y * BaseUnit + y;
 			this->asset.setPosition(new_x, new_y);*/
 			isMoving = 0;
-			cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
+			//cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
 		}
 	}
 	draw_status = IntRect(curMove * BaseUnit, (int) faceLeft * BaseUnit, BaseUnit, BaseUnit);

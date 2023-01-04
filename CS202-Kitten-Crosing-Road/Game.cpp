@@ -66,8 +66,13 @@ void Game::saveFile()
 	// save map
 	ofstream fout2("gameData.txt");
 	mWorld.writeFile(fout2);
+	// save high score
+	ofstream fout3("highScore.txt");
+	gameSystem.writeHighScore(fout3);
+
 	fout.close();
 	fout2.close();
+	fout3.close();
 }
 
 void Game::run()
