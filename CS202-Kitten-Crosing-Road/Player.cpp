@@ -126,6 +126,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 			if (gameSystem.score.second >= 0)
 			{
 				gameSystem.score.first++;
+				gameSystem.score.second--;
 				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
 			}
 			else
