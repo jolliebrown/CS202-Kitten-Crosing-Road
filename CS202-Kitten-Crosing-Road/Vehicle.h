@@ -86,6 +86,7 @@ private:
 	Clock						clock;
 	int							dir;
 	int							curView;
+	vector<Texture>				listTexture;
 };
 
 class Train : public Vehicle

@@ -185,6 +185,8 @@ Animal::Animal(Time moveTime, float initVelo, float limVelo, RenderWindow& windo
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
 	//if (dir == -1) Object::asset.rotate(180);
 
+	curView = 0;
+	listTexture = texture;
 	clock.restart();
 	startMoveTime = moveTime;
 	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
@@ -217,6 +219,13 @@ bool Animal::move(int state, float x_coord)
 {
 	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return false;
 	Object::asset.move(Vector2f(velo, 0));
+	if (clock.getElapsedTime().asMilliseconds() % 100 == 0) {
+		curView = (curView + 1) % listTexture.size();
+		if(curView % 2 == 1) curView = (curView + 1) % listTexture.size();
+		Object::asset.setTexture(listTexture[curView]);
+		if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	}
+
 	checkLight(state, x_coord);
 	if ((Object::asset.getPosition().x > endPoint) == (dir == 1)) {
 		Object::asset.setPosition(startPoint, coord.y);
