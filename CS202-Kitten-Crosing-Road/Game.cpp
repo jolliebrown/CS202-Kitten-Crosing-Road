@@ -96,7 +96,7 @@ void Game::run()
 {
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
-	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second - 35);
+	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second - 65);
 	//viewPosition.x = mPlayer.getPosition().first;
 	//viewPosition.y = mPlayer.getPosition().second;
 	int dx = 0, dy = 0;
