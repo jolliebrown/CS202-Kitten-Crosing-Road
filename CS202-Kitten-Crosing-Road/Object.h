@@ -80,6 +80,7 @@ public:
 	vector<Texture>			user;
 	vector<Texture>			light;
 	vector<Texture>			tlight;
+	vector<Texture>			animal;
 	vector<Texture>			train;
 	Font					numFont;
 

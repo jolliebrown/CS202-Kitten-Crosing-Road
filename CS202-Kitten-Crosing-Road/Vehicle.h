@@ -57,6 +57,36 @@ private:
 	int							dir;
 };
 
+class Animal : public Vehicle
+{
+public:
+	Animal(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+	Animal(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+	Animal(Time moveTime, float initVelo, float limVelo, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int _dir, int unit);
+	Animal(const Animal& animal);
+
+	void						draw(int state = 0, float x_coord = 0);
+	bool						move(int state, float x_coord);
+	void						accelerate();
+	void						checkLight(int state, float x_coord);
+	bool						isPass(int state, float x_coord);
+	int							getDir();
+	float						getPosLow();
+	float						getPosHigh();
+	void						restartClock();
+private:
+	Vector2f					coord; // coordinate of vehicle
+	float						startPoint;
+	float						endPoint;
+	float						velo; // velocity of vehicle
+	float						limVelo; // limit velocity of vehicle
+	float						initVelo; // initial velocity of vehicle
+	float						acce; // acceleration of vehicle
+	Time						startMoveTime;
+	Clock						clock;
+	int							dir;
+};
+
 class Train : public Vehicle
 {
 public:

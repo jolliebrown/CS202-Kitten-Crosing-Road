@@ -19,7 +19,7 @@ World::World(RenderWindow& window) :
 		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
+			Lane* temLane = new Road(window, dir, rand() % 3, light, animal, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
@@ -54,7 +54,7 @@ World::World(RenderWindow& window, bool check) :
 		int pos = signMap * BaseUnit * i;
 		int dir = (rand() % 2 == 0) ? -1 : 1;
 		if (mapIndex[i] == 1) {
-			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
+			Lane* temLane = new Road(window, dir, rand() % 3, light, animal, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
@@ -84,7 +84,7 @@ bool World::worldRestart() {
 		mapBackground.push(tmp);*/
 
 		if (mapIndex[i] == 1) {
-			Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
+			Lane* temLane = new Road(window, dir, rand() % 3, light, animal, car[(rand() + 1) % 3], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
@@ -163,7 +163,7 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 			mapIndex.push_back(nextId);
 			//cerr << "Add here\n\n";
 			if (nextId == 1) {
-				Lane* temLane = new Road(window, dir, rand() % 3, light, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
+				Lane* temLane = new Road(window, dir, rand() % 3, light, animal, car[(rand() + 1) % 3], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
 			else if (nextId == 2) {

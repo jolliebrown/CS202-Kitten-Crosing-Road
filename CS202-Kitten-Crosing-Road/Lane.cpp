@@ -47,7 +47,7 @@ Road::Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_co
 	generate(window, listTexture, mTexture, unit, y_coor);
 }
 
-Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
+Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
 	this->dir = dir;
@@ -67,9 +67,11 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	float velo = 0.03 + float(level / 5) * 0.01;
 	int random_num = Rand(0, 1500);
 	int distance_car = max(int(100 / velo), 2000);
-	for (int i = 0; i < numCars; ++i) {
+	for (int i = 0; i <= numCars; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
-		Vehicle* Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem;
+		if (i > 0) Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
+		else Tem = new Animal(milliseconds(random_num + distance_car * i), velo, velo, window, listAnimalTexture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 		for (int j = 0; j < i; j++)
 		{
