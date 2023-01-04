@@ -31,6 +31,11 @@ void Scene::getName() const
 	cerr << (int)sceneName << endl;
 }
 
+int Scene::center(const Texture& t) const
+{
+	return (224 - t.getSize().x) / 2;
+}
+
 
 Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 {
@@ -38,7 +43,7 @@ Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object sprite(window, commonAsset[0], 0, 0);
-	Object menuboard(window, commonAsset[2], 59, 40);
+	Object menuboard(window, commonAsset[2], center(commonAsset[2]), 40);
 	sprite.setPos(window.getView());
 	menuboard.setPos(window.getView());
 	background.push_back(sprite);
@@ -120,7 +125,7 @@ Mode::Mode(RenderWindow& mWindow, ButtonList PreviousButton) : Scene(mWindow), p
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object modeBoard(window, commonAsset[3], 77, 51);
+	Object modeBoard(window, commonAsset[3], center(commonAsset[3]), 51);
 	grassBackground.setPos(window.getView());
 	modeBoard.setPos(window.getView());
 	background.push_back(grassBackground);
@@ -183,7 +188,7 @@ Settings::Settings(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object settingsBoard(window, commonAsset[5], 42, 52);
+	Object settingsBoard(window, commonAsset[5], center(commonAsset[5]), 52);
 	grassBackground.setPos(window.getView());
 	settingsBoard.setPos(window.getView());
 	background.push_back(grassBackground);
@@ -244,7 +249,7 @@ SoundSettings::SoundSettings(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object soundBoard(window, commonAsset[6], 42, 52);
+	Object soundBoard(window, commonAsset[6], center(commonAsset[6]), 52);
 	Object bgmText(window, menuTexture[sceneName][2].first, 62, 65);
 	Object sfxText(window, menuTexture[sceneName][2].second, 62, 90);
 	grassBackground.setPos(window.getView());
@@ -337,7 +342,7 @@ ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object buttonSettingsBoard(window, commonAsset[7], 42, 37);
+	Object buttonSettingsBoard(window, commonAsset[7], center(commonAsset[7]), 37);
 	grassBackground.setPos(window.getView());
 	buttonSettingsBoard.setPos(window.getView());
 	background.push_back(grassBackground);
@@ -392,9 +397,9 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
-	Object instructionBoard(window, commonAsset[8], 5, 30);
-	Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 34);
-	Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 126);
+	Object instructionBoard(window, commonAsset[8], center(commonAsset[8]), 30);
+	Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, center(menuTexture[sceneName][pageIndex + 1].first), 34);
+	Object page(window, menuTexture[sceneName][pageIndex + 1].second, center(menuTexture[sceneName][pageIndex + 1].second), 126);
 	grassBackground.setPos(window.getView());
 	instructionBoard.setPos(window.getView());
 	instruct.setPos(window.getView());
@@ -443,8 +448,8 @@ int Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Ve
 					}
 					background.pop_back();
 					background.pop_back();
-					Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 34);
-					Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 126);
+					Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, center(menuTexture[sceneName][pageIndex + 1].first), 34);
+					Object page(window, menuTexture[sceneName][pageIndex + 1].second, center(menuTexture[sceneName][pageIndex + 1].second), 126);
 					instruct.setPos(window.getView());
 					page.setPos(window.getView());
 					background.push_back(instruct);

@@ -16,6 +16,7 @@ public:
 	virtual int				handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) = 0;
 	virtual void			draw(const Vector2f& mouse);
 	void					getName() const;
+	int						center(const Texture& t) const;
 protected:
 	RenderWindow&			window;
 	vector<SystemButton>	buttons;
