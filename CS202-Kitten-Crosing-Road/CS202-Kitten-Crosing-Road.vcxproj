@@ -244,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="GameData.txt" />
+    <Text Include="highScore.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

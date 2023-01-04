@@ -61,7 +61,7 @@ void Player::draw()
 			new_y = new_y * BaseUnit + y;
 			this->asset.setPosition(new_x, new_y);*/
 			isMoving = 0;
-			cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
+			//cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
 		}
 	}
 	draw_status = IntRect(curMove * BaseUnit, (int) faceLeft * BaseUnit, BaseUnit, BaseUnit);
@@ -123,14 +123,17 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 			if (mWorld.isColliedObstacle(*this, 0, -1)) {
 				mAction.clear();
 			}
-			if (gameSystem.score.second >= 0)
-			{
-				gameSystem.score.first++;
-				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
-			}
-			else
-			{
-				gameSystem.score.second++;
+			else {
+				if (gameSystem.score.second >= 0)
+				{
+					gameSystem.score.first++;
+					gameSystem.score.second--;
+					gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
+				}
+				else
+				{
+					gameSystem.score.second++;
+				}
 			}
 		}
 		if (mAction[Action::MoveDown].y)

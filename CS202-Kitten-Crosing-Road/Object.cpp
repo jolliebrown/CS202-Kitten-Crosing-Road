@@ -31,6 +31,9 @@ ListTextures::ListTextures()
 	onePicLoad(tmp, "Media/Rail.png");
 	background.push_back(tmp);
 	tmp.clear();
+	onePicLoad(tmp, "Media/Water.png");
+	background.push_back(tmp);
+	tmp.clear();
 	
 	for (int i = 0; i < 6; i++)
 	{

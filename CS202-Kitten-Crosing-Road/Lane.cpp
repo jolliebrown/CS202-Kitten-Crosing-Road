@@ -148,18 +148,24 @@ void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, 
 	listLight.push_back(Light(window, texture, x_coor, y_coor - 5, unit));
 }
 
-void Road::draw()
+
+
+void Road::draw(bool onlyLane)
 {
-	for (unsigned int i = 0; i < listTexture.size(); i++)
-	{
-		listTexture[i].draw();
+	if (onlyLane) {
+		for (unsigned int i = 0; i < listTexture.size(); i++)
+		{
+			listTexture[i].draw();
+		}
 	}
-	for (auto& car : listVehicle) {
-		if (listLight.size() == 0) car->draw();
-		else car->draw(listLight[0].getState(), listLight[0].getPos(dir));
+	else {
+		for (auto& car : listVehicle) {
+			if (listLight.size() == 0) car->draw();
+			else car->draw(listLight[0].getState(), listLight[0].getPos(dir));
+		}
+		for (auto& light : listLight) light.draw();
+		for (auto& obs : listObstacle) obs.draw();
 	}
-	for (auto& light : listLight) light.draw();
-	for (auto& obs : listObstacle) obs.draw();
 }
 
 void Road::handleEvent() {
@@ -307,16 +313,20 @@ void RailWay::addLight(RenderWindow& window, vector<Texture>& texture, int x_coo
 	listLight.push_back(Light(window, texture, x_coor, y_coor - 5, unit));
 }
 
-void RailWay::draw()
+void RailWay::draw(bool onlyLane)
 {
-	for (unsigned int i = 0; i < listTexture.size(); i++)
-	{
-		listTexture[i].draw();
+	if (onlyLane) {
+		for (unsigned int i = 0; i < listTexture.size(); i++)
+		{
+			listTexture[i].draw();
+		}
 	}
-	for (auto& train : listVehicle) {
-		train->draw();
+	else {
+		for (auto& train : listVehicle) {
+			train->draw();
+		}
+		for (auto& light : listLight) light.draw();
 	}
-	for (auto& light : listLight) light.draw();
 }
 
 void RailWay::handleEvent() {

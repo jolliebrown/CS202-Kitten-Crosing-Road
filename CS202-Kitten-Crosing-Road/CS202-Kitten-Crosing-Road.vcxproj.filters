@@ -255,5 +255,8 @@
     <Text Include="GameData.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="highScore.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
