@@ -217,7 +217,7 @@ int World::generateNextLaneIndex(int status) {
 bool World::isColliedObstacle(Player& mPlayer, int deltaX, int deltaY) {
 	for (auto& lane : mLane) {
 		for (auto obs : lane->listObstacle) {
-			float curX = mPlayer.asset.getPosition().x + 5.f + deltaX * 4.f, curY = mPlayer.asset.getPosition().y + 16.f + deltaY * BaseUnit;
+			float curX = mPlayer.asset.getPosition().x + deltaX * BaseUnit, curY = mPlayer.asset.getPosition().y + 16.f + deltaY * BaseUnit;
 			if (obs.getBound().contains(curX, curY)) {
 				return true;
 			}
