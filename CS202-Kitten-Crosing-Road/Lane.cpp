@@ -386,23 +386,20 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-	int numCars = 1;
+	int numWoods = 3;
 	if (level > 20) {
-		numCars++;
+		numWoods++;
 	}
 	if (level > 40) {
-		numCars++;
+		numWoods++;
 	}
-	if (level > 60) {
-		numCars++;
-	}
-	float velo = 0.03 + float(level / 5) * 0.01;
+	float velo = 0.02 + float(level / 5) * 0.01;
 	int random_num = Rand(0, 1500);
 	int distance_car = max(int(100 / velo), 2000);
-	for (int i = 0; i <= numCars; ++i) {
+	for (int i = 0; i <= numWoods; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		Vehicle* Tem;
-		Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
+		Tem = new Wood(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 		for (int j = 0; j < i; j++)
 		{

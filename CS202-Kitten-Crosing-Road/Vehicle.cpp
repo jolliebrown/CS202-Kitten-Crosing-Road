@@ -376,3 +376,129 @@ void Train::restartClock()
 {
 	clock.restart();
 }
+
+// Constructor
+Wood::Wood(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
+{
+	dir = _dir; limVelo = dir * 0.2; initVelo = dir * 0.1; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+
+	if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+
+	clock.restart();
+	startMoveTime = milliseconds(Rand(1000, 8000));
+	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+Wood::Wood(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
+{
+	dir = _dir; this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+
+	clock.restart();
+	startMoveTime = milliseconds(Rand(1000, 8000));
+	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+Wood::Wood(Time moveTime, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
+	Vehicle(window, texture, x_coor, y_coor, unit)
+{
+	dir = _dir; this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+
+	clock.restart();
+	startMoveTime = moveTime;
+	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+Wood::Wood(const Wood& vehicle) :
+	Vehicle(vehicle), coord(vehicle.coord), startPoint(vehicle.startPoint), endPoint(vehicle.endPoint),
+	velo(vehicle.velo), limVelo(vehicle.limVelo), initVelo(vehicle.initVelo), acce(vehicle.acce),
+	startMoveTime(vehicle.startMoveTime), clock(vehicle.clock), dir(vehicle.dir)
+{
+	if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+void Wood::draw(int state, float x_coord)
+{
+	Object::draw();
+	/*move(state, x_coord);*/
+}
+
+void Wood::accelerate()
+{
+	velo += acce;
+	if ((velo > limVelo) == (dir == 1)) velo = limVelo;
+}
+
+bool Wood::move(int state, float x_coord)
+{
+	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return false;
+	Object::asset.move(Vector2f(velo, 0));
+	checkLight(state, x_coord);
+	if ((Object::asset.getPosition().x > endPoint) == (dir == 1)) {
+		Object::asset.setPosition(startPoint, coord.y);
+		clock.restart();
+		startMoveTime = seconds(0);
+		velo = initVelo;
+	}
+	return true;
+}
+
+void Wood::checkLight(int state, float x_coord)
+{
+	float x_car = getPosHigh();
+	if (state == 0 || (((x_car > x_coord) == (dir == 1)) && x_car != x_coord)) {
+		accelerate();
+		//if (insideView()) sound.play();
+		return;
+	}
+	velo = min(abs(velo), abs(x_coord - x_car)) * dir;
+}
+
+bool Wood::isPass(int state, float x_coord)
+{
+	float x_car = dir * Object::asset.getGlobalBounds().width / 2 + Object::asset.getPosition().x;
+	return (((x_car > x_coord) == (dir == 1)) && x_car != x_coord);
+}
+
+int Wood::getDir()
+{
+	return dir;
+}
+
+float Wood::getPosLow()
+{
+	return Object::asset.getPosition().x + (-dir) * Object::asset.getGlobalBounds().width / 2.0;
+}
+
+float Wood::getPosHigh()
+{
+	return Object::asset.getPosition().x + dir * Object::asset.getGlobalBounds().width / 2.0;
+}
+
+void Wood::restartClock()
+{
+	clock.restart();
+}
