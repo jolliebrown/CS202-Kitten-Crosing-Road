@@ -510,7 +510,20 @@ void Wood::reset() {
 }
 
 void Train::reset() {
+	float x_coor = Object::asset.getPosition().x;
+	float y_coor = Object::asset.getPosition().y;
+	this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
 
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+	if (dir == -1) Object::asset.rotate(180);
+
+	clock.restart();
+	startMoveTime = milliseconds(Rand(1000, 8000));
+	coord = Vector2f(x_coor, y_coor);
+	Object::asset.setPosition(startPoint, coord.y);
 }
 
 void Animal::reset() {
@@ -525,7 +538,7 @@ void Animal::reset() {
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
 
 	clock.restart();
-	//startMoveTime = moveTime;
+	startMoveTime = milliseconds(Rand(1000, 8000));
 	coord = Vector2f(x_coor, y_coor);
 	Object::asset.setPosition(startPoint, coord.y);
 }
@@ -542,7 +555,7 @@ void Car::reset() {
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
 
 	clock.restart();
-	//startMoveTime = moveTime;
+	startMoveTime = milliseconds(Rand(1000, 8000));
 	coord = Vector2f(x_coor, y_coor);
 	Object::asset.setPosition(startPoint, coord.y);
 }

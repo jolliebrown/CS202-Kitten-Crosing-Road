@@ -556,5 +556,7 @@ void Water::resetVehicle() {
 }
 
 void RailWay::resetVehicle() {
-
+	for (auto& train : listVehicle) {
+		train->reset();
+	}
 }
