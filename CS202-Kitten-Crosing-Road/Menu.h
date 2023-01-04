@@ -13,9 +13,9 @@ public:
 	Scene(RenderWindow& mWindow);
 	virtual ~Scene();
 
-	virtual int			handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) = 0;
+	virtual int				handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) = 0;
 	virtual void			draw(const Vector2f& mouse);
-	void					getName();
+	void					getName() const;
 protected:
 	RenderWindow&			window;
 	vector<SystemButton>	buttons;

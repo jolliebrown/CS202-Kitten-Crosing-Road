@@ -26,7 +26,7 @@ void Scene::draw(const Vector2f& mouse)
 	}
 }
 
-void Scene::getName()
+void Scene::getName() const
 {
 	cerr << (int)sceneName << endl;
 }
@@ -393,8 +393,8 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
 	Object instructionBoard(window, commonAsset[8], 5, 30);
-	Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 33);
-	Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 130);
+	Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 34);
+	Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 126);
 	grassBackground.setPos(window.getView());
 	instructionBoard.setPos(window.getView());
 	instruct.setPos(window.getView());
@@ -409,7 +409,7 @@ Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)
 	buttons.push_back(backButton);
 	for (int i = 0; i < 2; ++i)
 	{
-		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, (85 + 47 * i), 130, false);
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, (85 + 47 * i), 125, false);
 		buttons.push_back(button);
 	}
 }
@@ -431,25 +431,20 @@ int Instruction::handleEvent(const Event& event, vector<Scene*>& scene, const Ve
 				{
 					scene.pop_back();
 				}
-				else if (i == 1 && pageIndex > 1)
+				else
 				{
-					--pageIndex;
+					if (i == 1 && pageIndex > 1)
+					{
+						--pageIndex;
+					}
+					else if (i == 2 && pageIndex < pageNum)
+					{
+						++pageIndex;
+					}
 					background.pop_back();
 					background.pop_back();
-					Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 33);
-					Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 130);
-					instruct.setPos(window.getView());
-					page.setPos(window.getView());
-					background.push_back(instruct);
-					background.push_back(page);
-				}
-				else if (i == 2 && pageIndex < pageNum)
-				{
-					++pageIndex;
-					background.pop_back();
-					background.pop_back();
-					Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 33);
-					Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 130);
+					Object instruct(window, menuTexture[sceneName][pageIndex + 1].first, 13, 34);
+					Object page(window, menuTexture[sceneName][pageIndex + 1].second, 102, 126);
 					instruct.setPos(window.getView());
 					page.setPos(window.getView());
 					background.push_back(instruct);
