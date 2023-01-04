@@ -63,7 +63,16 @@ System::System(View& view, RenderWindow& window, bool check) :
 	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
 {
 	ifstream fin("GameParameter.txt");
+	ifstream fin1("highScore.txt");
 	fin >> score.first >> score.second;
+	int size;
+	fin1 >> size;
+	for (int i = 0; i < size; i++)
+	{
+		pair<int, string> hs_tmp;
+		fin1 >> hs_tmp.second >> hs_tmp.first;
+		highscore.push_back(hs_tmp);
+	}
 	int state_tmp, mode_tmp;
 	fin >> state_tmp >> mode_tmp;
 	state = static_cast<GameState>(state_tmp);
@@ -153,8 +162,10 @@ void System::writeFile(ofstream& fout)
 // 10
 void System::writeHighScore(ofstream& fout)
 {
-	fout << 10 << endl;
-	for (int i = 0; i < 10; i++)
+	int size = highscore.size();
+	size = size < 10 ? size : 10;
+	fout << size << endl;
+	for (int i = 0; i < size ; i++)
 	{
 		fout << highscore[i].second << endl;
 		fout << highscore[i].first << endl;
