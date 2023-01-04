@@ -145,9 +145,14 @@ bool topScore(const pair<int, string>& a, const pair<int, string>& b)
 
 void System::updateHS()
 {
-	pair<int, string> tmp = { score.second, player_name };
+	pair<int, string> tmp = { score.first, player_name };
 	highscore.push_back(tmp);
 	sort(highscore.begin(), highscore.end(), topScore);
+	for (int i = 0; i < highscore.size(); i++)
+	{
+		cerr << highscore[i].first << " ";
+	}
+	cerr << endl;
 }
 
 void System::writeFile(ofstream& fout)
