@@ -213,3 +213,19 @@ int World::generateNextLaneIndex(int status) {
 	int nums = Rand(0, randLanes.size() - 1);
 	return randLanes[nums];
 }
+
+bool World::isColliedObstacle(Player& mPlayer, int deltaX, int deltaY) {
+	for (auto& lane : mLane) {
+		for (auto obs : lane->listObstacle) {
+			float curX = mPlayer.asset.getPosition().x + deltaX * BaseUnit, curY = mPlayer.asset.getPosition().y + 16.f + deltaY * BaseUnit;
+			if (obs.getBound().contains(curX, curY)) {
+				return true;
+			}
+			//curY -= 8.f;
+			if (obs.getBound().contains(curX, curY)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}

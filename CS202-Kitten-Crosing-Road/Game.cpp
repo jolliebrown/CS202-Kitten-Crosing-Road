@@ -5,7 +5,7 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 Game::Game() :
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
-	mWorld(mWindow, true), mPlayer(mWindow, mWorld.user[0], 120, -36, BaseUnit),
+	mWorld(mWindow, true), mPlayer(mWindow, mWorld.user[0], 120/BaseUnit*BaseUnit, -40, BaseUnit),
 	gameSystem(mView, mWindow, true)
 {
 	cur_img.loadFromFile("Media/mouse_paw.png");
@@ -106,7 +106,7 @@ void Game::processEvents()
 	{
 		setCur(event);
 		if (gameSystem.gameContinue()) {
-			mPlayer.handleEvent(event, gameSystem);
+			mPlayer.handleEvent(event, gameSystem, mWorld);
 		}
 		gameSystem.handleEvent(event, mouse);
 
@@ -116,7 +116,7 @@ void Game::processEvents()
 	if (gameSystem.gameContinue()) {
 		mWorld.processEvent(gameSystem, mPlayer);
 		mWorld.handleEvent(mWindow, mView);
-		mPlayer.handleEvent(event, gameSystem);
+		mPlayer.handleEvent(event, gameSystem, mWorld);
 	}
 	if (gameSystem.gameRestart()) {
 		gameRestart();

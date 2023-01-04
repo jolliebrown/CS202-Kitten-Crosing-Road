@@ -21,7 +21,7 @@ public:
 	virtual void				handleEvent() = 0;
 	virtual bool				isCollided(Player& mPlayer) = 0;
 	virtual int					getPosition() = 0;
-	
+	vector<Obstacle>			listObstacle;
 };
 
 class Grass : public Lane
@@ -54,7 +54,7 @@ private:
 	RenderWindow*				window;
 	vector<Texture>				mTexture;
 	vector<Vehicle*>			listVehicle;
-	vector<Obstacle>			listObstacle;
+	
 	vector<Light>				listLight;
 	vector<Object>				listTexture;
 	const int					range = 32;
