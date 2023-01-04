@@ -26,8 +26,12 @@ World::World(RenderWindow& window) :
 			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
-		else {
+		else if (mapIndex[i] == 0) {
 			Lane* temLane = new Road(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2] ,background[j]);
+			mLane.push_back(temLane);
+		}
+		else {
+			Lane* temLane = new Water(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
 			mLane.push_back(temLane);
 		}
 	}
@@ -239,7 +243,7 @@ int World::generateNextLaneIndex(int status) {
 		return 0;
 	}
 	vector<int> randLanes;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 		for (int j = 0; j < freq[i]; j++) randLanes.push_back(i);
 	int nums = Rand(0, randLanes.size() - 1);
 	return randLanes[nums];
