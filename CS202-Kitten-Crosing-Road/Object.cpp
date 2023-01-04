@@ -8,6 +8,9 @@ ListTextures::ListTextures()
 	load(obstacle[1], "Media/Obstacle_Rock.png", 0, 0, 32, 16, 16, 16);
 	//onePicLoad(car, "Media/Car.png", 0, 0, 20, 10);
 	onePicLoad(user, "Media/Binh.png");
+	onePicLoad(user, "Media/Duc.png");
+	onePicLoad(user, "Media/Viet.png");
+	onePicLoad(user, "Media/Vinh.png");
 
 	onePicLoad(light, "Media/Tlight_g.png");
 	onePicLoad(light, "Media/Tlight_y.png");
@@ -341,6 +344,11 @@ void Object::setTexture(Texture& texture)
 {
 	mAsset = &texture;
 	asset.setTexture(*mAsset);
+}
+
+Vector2i Object::getPos()
+{
+	return Vector2i(asset.getPosition());
 }
 
 void Info::setPos(const View& view)

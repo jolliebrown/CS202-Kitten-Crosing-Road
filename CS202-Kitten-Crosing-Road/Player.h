@@ -18,10 +18,11 @@ public:
 		MoveRight,
 		MoveUp,
 		MoveDown,
+		ChangeStyle,
 		ActionCount
 	};
 	void				draw();
-						Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
+						Player(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	void				handleEvent(const sf::Event& event, System& gameSystem, World &mWorld);
 	void				handleRealtimeInput();
 	bool				movePlayer();
@@ -31,6 +32,7 @@ public:
 	void				changePosition(int x, int y);
 	void				assignKey(Action action, sf::Keyboard::Key key);
 	Keyboard::Key		getAssignedKey(Action action) const;
+	void				changeAppearance(int index);
 private:
 	static bool			isRealtimeAction(Action action, Vector2i& result);
 	void				test();
@@ -45,7 +47,9 @@ private:
 	bool								isDead = false;
 	Vector2i							moveStep;
 	Vector2i							totalMove;
-	int x, y;
+	int									x, y;
+	pair<int, bool>						style = {0, true};
+	vector<Texture>&					texture;
 };
 
 // draw_status = IntRect(x, 0, 16, 16)

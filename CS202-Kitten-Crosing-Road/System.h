@@ -1,8 +1,11 @@
 #pragma once
 #include <algorithm>
+#include <string>
 
 #include "SystemFunction.h"
 #include "Menu.h"
+
+const string FileName[] = { "gameData.txt", "highScore.txt", "fishboost.txt", "gameParameter.txt" };
 
 enum GameMode
 {
@@ -40,6 +43,7 @@ public:
 	void				resetParameter(GameMode new_mode, int game_level = 0);
 	void				writeFile(ofstream& fout);
 	void				writeHighScore(ofstream& fout);
+	void				writeFishboost(ofstream& fout);
 private:
 	vector<Scene*>      mainMenu;
 	vector<FloatingButton>buttons;

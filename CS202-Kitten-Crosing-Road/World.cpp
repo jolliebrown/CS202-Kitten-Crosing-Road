@@ -41,7 +41,7 @@ World::World(RenderWindow& window, bool check) :
 	window(window)
 {
 	mapIndex.clear();
-	ifstream fin("GameData.txt");
+	ifstream fin(FileName[0]);
 	int map_size;
 	fin >> map_size;
 	for (int i = 0; i < map_size; i++)

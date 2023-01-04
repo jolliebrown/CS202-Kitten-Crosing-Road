@@ -69,8 +69,9 @@ void Player::draw()
 	Object::draw();
 }
 
-Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit) : 
-	Object(window, texture, x_coor, y_coor), x(x_coor), y(y_coor)
+Player::Player(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit) :
+	Object(window, texture[0], x_coor, y_coor), x(x_coor), y(y_coor),
+	texture(texture)
 {
 	draw_status = IntRect(0, 0, BaseUnit, BaseUnit);
 	Object::asset.setTextureRect(draw_status);
@@ -86,6 +87,21 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
 	{
+		// change Style
+		if (event.key.code == Keyboard::Tab)
+		{
+			if (style.second)
+			{
+			style.first = (style.first + 1) % 4;
+			asset.setTexture(texture[style.first]);
+			style.second = false;
+			}
+			else
+			{
+				style.second = true;
+			}
+		}
+
 		gameSystem.gameSE.playEffect(SFX::Move);
 		Vector2i tmp;
 		// Check if pressed key appears in key binding, trigger command if so

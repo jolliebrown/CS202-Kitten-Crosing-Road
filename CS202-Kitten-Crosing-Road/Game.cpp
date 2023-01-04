@@ -5,7 +5,7 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 Game::Game() :
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
-	mWorld(mWindow, true), mPlayer(mWindow, mWorld.user[0], 120/BaseUnit*BaseUnit, -40, BaseUnit),
+	mWorld(mWindow, true), mPlayer(mWindow, mWorld.user, 120/BaseUnit*BaseUnit, -40, BaseUnit),
 	gameSystem(mView, mWindow, true)
 {
 	cur_img.loadFromFile("Media/mouse_paw.png");
@@ -60,17 +60,19 @@ void Game::setCur(const Event& event)
 
 void Game::saveFile()
 {
-	ofstream fout("gameParameter.txt");
+	ofstream fout(FileName[3]);
 	// save info parameters
 	gameSystem.writeFile(fout);
 	// save map
-	ofstream fout2("gameData.txt");
+	ofstream fout2(FileName[0]);
 	mWorld.writeFile(fout2);
 	// save high score
-	ofstream fout3("highScore.txt");
+	ofstream fout3(FileName[1]);
+	ofstream fout4(FileName[2]);
 	gameSystem.writeHighScore(fout3);
-
+	gameSystem.writeFishboost(fout4);
 	fout.close();
+	fout4.close();
 	fout2.close();
 	fout3.close();
 }

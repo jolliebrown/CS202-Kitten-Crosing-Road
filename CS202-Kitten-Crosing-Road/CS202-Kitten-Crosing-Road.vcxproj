@@ -243,6 +243,7 @@
     <Image Include="Media\user_v.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="fishboost.txt" />
     <Text Include="GameData.txt" />
     <Text Include="highScore.txt" />
   </ItemGroup>

@@ -62,8 +62,9 @@ System::System(View& view, RenderWindow& window, bool check) :
 	game_score(window, 28, 33, score.first, ListTextures::num_text),
 	fish_score(window, 28, 10, fish_coin, ListTextures::num_text)
 {
-	ifstream fin("GameParameter.txt");
-	ifstream fin1("highScore.txt");
+	ifstream fin(FileName[3]);
+	ifstream fin1(FileName[1]);
+	ifstream fin2(FileName[2]);
 	fin >> score.first >> score.second;
 	int size;
 	fin1 >> size;
@@ -102,6 +103,7 @@ System::System(View& view, RenderWindow& window, bool check) :
 	}
 	for (int i = 0; i < 3; i++)
 	{
+		//ffish
 		Object tmp(window, ListTextures::fishCoin[(FishCoin)0], 100.f, signMap * BaseUnit * i);
 		FishCoin tmp_name = FishCoin::Normal;
 		generateNextNormalBoost(tmp);
@@ -112,10 +114,31 @@ System::System(View& view, RenderWindow& window, bool check) :
 	FishCoin tmp_name = generateNextSpecialBoost(tmp);
 	fish_boost.push_back(tmp);
 	fish_boost_name.push_back(tmp_name);
+	/*int fish_num;
+	fin2 >> fish_num;
+	for (int i = 0; i < fish_num; i++)
+	{
+		int ver_int_name;
+		FishCoin tmp_name;
+		fin >> ver_int_name;
+		tmp_name = static_cast<FishCoin>(ver_int_name);
+		fish_boost_name.push_back(tmp_name);
+	}
+	for (int i = 0; i < fish_num; i++)
+	{
+		int tmp_x, tmp_y;
+		fin2 >> tmp_x >> tmp_y;
+		Object tmp(window, ListTextures::fishCoin[fish_boost_name[i]], tmp_x, tmp_y);
+		fish_boost.push_back(tmp);
+		cout << "Done";
+	}*/
 	fish_score.update(fish_coin, ListTextures::num_text);
 	game_score.update(score.first, ListTextures::num_text);
 	Scene* menu_tmp = new Menu(window);
 	mainMenu.push_back(menu_tmp);
+	fin.close();
+	fin2.close();
+	fin1.close();
 }
 
 
@@ -136,6 +159,21 @@ FishCoin System::generateNextSpecialBoost(Object& curBoost) {
 	curBoost.changeAppearance(ListTextures::fishCoin[(FishCoin)rd]);
 	//cout << "done\n";
 	return (FishCoin)rd;
+}
+
+void System::writeFishboost(ofstream& fout)
+{
+	fout << 4 << endl;
+	for (int i = 0; i < 4; i++)
+	{
+		fout << (int)fish_boost_name[i] << " ";
+	}
+	fout << endl;
+	for (int i = 0; i < 4; i++)
+	{
+		fout << fish_boost[i].getPos().x << " " << fish_boost[i].getPos().y;
+		fout << endl;
+	}
 }
 
 bool topScore(const pair<int, string>& a, const pair<int, string>& b)

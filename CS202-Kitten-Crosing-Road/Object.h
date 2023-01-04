@@ -115,6 +115,7 @@ public:
 	void					setPos(const View& view);
 	void					changePos(int _x, int _y);
 	void					setTexture(Texture& texture);
+	Vector2i				getPos();
 private:
 	RenderWindow&			window;
 	Texture*				mAsset;
