@@ -6,6 +6,12 @@ static Music music[2] = {};
 Scene::Scene(RenderWindow& mWindow) : window(mWindow)
 {
 	sceneName = MenuList::Menu;
+
+	// Initial moving buttons for player are arrow buttons
+	for (int i = 71; i < 75; ++i)
+	{
+		movingButtons.push_back((Keyboard::Key)i);
+	}
 }
 
 Scene::~Scene()
@@ -34,6 +40,11 @@ void Scene::getName() const
 int Scene::center(const Texture& t) const
 {
 	return (224 - t.getSize().x) / 2;
+}
+
+vector<Keyboard::Key> Scene::getKeyboard() const
+{
+	return movingButtons;
 }
 
 
@@ -339,6 +350,7 @@ void SoundSettings::draw(const Vector2f& mouse)
 ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
 {
 	sceneName = MenuList::ButtonSettings;
+	buttonPressed = -1;
 
 	// Background
 	Object grassBackground(window, commonAsset[1], 0, 0);
@@ -365,7 +377,7 @@ ButtonSettings::~ButtonSettings()
 
 int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
 {
-	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+	if (buttonPressed == -1 && event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
 	{
 		for (int i = 0; i < buttons.size(); ++i)
 		{
@@ -375,8 +387,43 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 				{
 					scene.pop_back();
 				}
+				else
+				{
+					buttonPressed = i - 1;
+					while (buttons.size() > 1)
+						buttons.pop_back();
+					for (int j = 0; j < menuTexture[sceneName].size(); ++j)
+					{
+						Object button(window, menuTexture[sceneName][j].first, center(menuTexture[sceneName][j].first), (50 + 25 * j));
+						background.push_back(button);
+					}
+					Object button(window, menuTexture[sceneName][i - 1].second, center(menuTexture[sceneName][i - 1].second), (50 + 25 * (i - 1)));
+					background.push_back(button);
+				}
 				break;
 			}
+		}
+	}
+	else if (buttonPressed != -1)
+	{
+		if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left && buttons[0].isHere(mousePosition))
+		{
+			scene.pop_back();
+		}
+		else if (event.type == Event::KeyReleased)
+		{
+			movingButtons[buttonPressed] = event.key.code;
+			buttonPressed = -1;
+			for (int i = 0; i < 5; ++i)
+			{
+				background.pop_back();
+			}
+			for (int i = 0; i < menuTexture[sceneName].size(); ++i)
+			{
+				SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
+				buttons.push_back(button);
+			}
+			return 1;
 		}
 	}
 	return 0;

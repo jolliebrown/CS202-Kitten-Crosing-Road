@@ -17,11 +17,13 @@ public:
 	virtual void			draw(const Vector2f& mouse);
 	void					getName() const;
 	int						center(const Texture& t) const;
+	vector<Keyboard::Key>	getKeyboard() const;
 protected:
 	RenderWindow&			window;
 	vector<SystemButton>	buttons;
 	vector<Object>			background;
 	MenuList				sceneName;
+	vector<Keyboard::Key>	movingButtons;
 };
 
 class Menu : public Scene {
@@ -71,6 +73,8 @@ public:
 
 	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
+private:
+	int buttonPressed;
 };
 
 class Instruction : public Scene {

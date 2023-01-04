@@ -313,7 +313,7 @@ string convertScore(int a)
 
 void System::handleEvent(const Event& event, const Vector2f& mouse)
 {
-	if (event.type == Event::MouseButtonReleased)
+	if (event.type == Event::MouseButtonReleased || event.type == Event::KeyReleased)
 	{
 		if (state == GameState::Continue && buttons[0].isHere(mouse))
 		{
