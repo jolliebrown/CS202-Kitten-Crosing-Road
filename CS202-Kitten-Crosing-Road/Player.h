@@ -4,10 +4,12 @@
 #include <map>
 #include "System.h"
 #include "Object.h"
-
+#include "World.h"
+class World;
 class Player : public Object
 {
 public:
+	friend class World;
 	int idPlayer = 0;
 	void				setIdPlayer(int id);
 	enum Action
@@ -20,7 +22,7 @@ public:
 	};
 	void				draw();
 						Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int unit);
-	void				handleEvent(const sf::Event& event, System& gameSystem);
+	void				handleEvent(const sf::Event& event, System& gameSystem, World &mWorld);
 	void				handleRealtimeInput();
 	bool				movePlayer();
 	pair <float, float> getPosition() {

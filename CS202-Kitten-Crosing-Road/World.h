@@ -11,10 +11,12 @@ using namespace std;
 
 #include "Object.h"
 #include "Lane.h"
-
+class Lane;
+class Player;
 class World : public ListTextures
 {
 public:
+	bool							isColliedObstacle(Player& mPlayer, int deltaX, int deltaY);
 	explicit						World(RenderWindow& window);
 	explicit						World(RenderWindow& window, bool check);
 									~World();

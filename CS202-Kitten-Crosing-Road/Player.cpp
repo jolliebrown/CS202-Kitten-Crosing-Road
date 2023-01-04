@@ -81,7 +81,7 @@ Player::Player(RenderWindow& window, Texture& texture, int x_coor, int y_coor, i
 	mKeyBinding[Keyboard::Down] = MoveDown;
 }
 
-void Player::handleEvent(const sf::Event& event, System& gameSystem)
+void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWorld)
 {
 	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
@@ -103,12 +103,29 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 			}
 		}
 		// no obstables
-		/*if (mAction[Action::MoveUp].y)
+		if (mAction[Action::MoveLeft].x) {
+			cout << "left\n";
+			if (mWorld.isColliedObstacle(*this, -1, 0)) {
+
+				mAction.clear();
+			}
+		}
+		if (mAction[Action::MoveRight].x) {
+			cout << "right\n";
+			if (mWorld.isColliedObstacle(*this, 1, 0)) {
+
+				mAction.clear();
+			}
+		}
+		if (mAction[Action::MoveUp].y)
 		{
+			cout << "up\n";
+			if (mWorld.isColliedObstacle(*this, 0, -1)) {
+				mAction.clear();
+			}
 			if (gameSystem.score.second >= 0)
 			{
 				gameSystem.score.first++;
-				cout << "1\n";
 				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
 			}
 			else
@@ -118,18 +135,10 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem)
 		}
 		if (mAction[Action::MoveDown].y)
 		{
-			gameSystem.score.second--;
-		}*/
-		if (mAction[Action::MoveUp].y)
-		{
-			int pos_y = getPosition().second;
-			if (abs(pos_y - gameSystem.score.second) > 15)
-			{
-				gameSystem.score.first++;
-				gameSystem.score.second = pos_y;
-				cout << "1\n";
-				gameSystem.game_score.update(gameSystem.score.first, gameSystem.num_text);
+			if (mWorld.isColliedObstacle(*this, 0, 1)) {
+				mAction.clear();
 			}
+			gameSystem.score.second--;
 		}
 	}
 	movePlayer();
