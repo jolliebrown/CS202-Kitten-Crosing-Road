@@ -31,7 +31,7 @@ World::World(RenderWindow& window) :
 			mLane.push_back(temLane);
 		}
 		else {
-			Lane* temLane = new Water(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
+			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 	}
@@ -65,8 +65,12 @@ World::World(RenderWindow& window, bool check) :
 			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
+		else if (mapIndex[i] == 0) {
+			Lane* temLane = new Road(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
+			mLane.push_back(temLane);
+		}
 		else {
-			Lane* temLane = new Road(window, 0, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
+			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 	}
@@ -95,8 +99,12 @@ bool World::worldRestart() {
 			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
+		else if (mapIndex[i] == 0) {
+			Lane* temLane = new Road(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
+			mLane.push_back(temLane);
+		}
 		else {
-			Lane* temLane = new Road(window, 0, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
+			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 	}
@@ -173,8 +181,12 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 				Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
-			else {
+			else if (nextId == 0) {
 				Lane* temLane = new Road(window, 0, nextPosition, BaseUnit, obstacle[Rand(1, 100) % 2], background[nextId]);
+				mLane.push_back(temLane);
+			}
+			else {
+				Lane* temLane = new Water(window, dir, wood[0], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
 			/*vector<Object> tmp;

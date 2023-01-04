@@ -93,8 +93,7 @@ class Water : public Lane
 public:
 	Water();
 	Water(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture);
-	Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
-	Water(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level);
+	Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level);
 	Water(const Water& water);
 
 	Water& operator = (const Water& water);

@@ -379,21 +379,7 @@ Water::Water(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Text
 	addObstacle(window, listTextureObstacle, BaseUnit * (15 + Rand(1, 3)), y_coor, unit);
 }
 
-Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture) :
-	window(&window)
-{
-	this->dir = dir;
-	this->y_coor = y_coor;
-	this->unit = unit;
-	this->mTexture = mTexture;
-	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Car(window, texture, x_coor, y_coor, dir, unit);
-		listVehicle.push_back(Tem);
-	}
-	generate(window, listTexture, mTexture, unit, y_coor);
-}
-
-Water::Water(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
+Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
 	this->dir = dir;
@@ -416,8 +402,7 @@ Water::Water(RenderWindow& window, int dir, int numLight, vector<Texture>& listL
 	for (int i = 0; i <= numCars; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		Vehicle* Tem;
-		if (i > 0) Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
-		else Tem = new Animal(milliseconds(random_num + distance_car * i), velo, velo, window, listAnimalTexture, x_coor, y_coor, dir, unit);
+		Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 		for (int j = 0; j < i; j++)
 		{
@@ -425,15 +410,6 @@ Water::Water(RenderWindow& window, int dir, int numLight, vector<Texture>& listL
 		}
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
-	if (level > 20) {
-		addLight(window, listLightTexture, BaseUnit * 5, y_coor, unit);
-	}
-	if (level > 40) {
-		addLight(window, listLightTexture, BaseUnit * 15, y_coor, unit);
-	}
-	if (level > 60) {
-		addLight(window, listLightTexture, BaseUnit * 25, y_coor, unit);
-	}
 }
 
 Water::Water(const Water& road) :
