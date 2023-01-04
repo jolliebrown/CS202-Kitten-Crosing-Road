@@ -35,7 +35,7 @@ public:
 	Road();
 	Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture);
 	Road(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture);
-	Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level);
+	Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, vector<Texture>& listCarTexture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level);
 	Road(const Road& road);
 
 	Road&						operator = (const Road& road);
