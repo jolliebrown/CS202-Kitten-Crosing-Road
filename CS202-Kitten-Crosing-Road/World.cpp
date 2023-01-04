@@ -23,7 +23,7 @@ World::World(RenderWindow& window) :
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Lane* temLane = new RailWay(window, dir, rand() % 3, light, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
+			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else {
@@ -58,7 +58,7 @@ World::World(RenderWindow& window, bool check) :
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Lane* temLane = new RailWay(window, dir, rand() % 3, light, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
+			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else {
@@ -88,7 +88,7 @@ bool World::worldRestart() {
 			mLane.push_back(temLane);
 		}
 		else if (mapIndex[i] == 2) {
-			Lane* temLane = new RailWay(window, dir, rand() % 3, light, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
+			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
 		else {
@@ -167,7 +167,7 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 				mLane.push_back(temLane);
 			}
 			else if (nextId == 2) {
-				Lane* temLane = new RailWay(window, dir, rand() % 3, light, train[0], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
+				Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
 			else {

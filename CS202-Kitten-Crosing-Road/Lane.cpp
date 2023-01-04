@@ -54,7 +54,7 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-	int numCars = 3;
+	int numCars = 1;
 	if (level > 20) {
 		numCars++;
 	}
@@ -65,8 +65,8 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 		numCars++;
 	}
 	float velo = 0.03 + float(level / 5) * 0.01;
-	int random_num = Rand(0, 3000);
-	int distance_car = max(int(100 / velo), 1000);
+	int random_num = Rand(0, 1500);
+	int distance_car = max(int(100 / velo), 2000);
 	for (int i = 0; i < numCars; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		Vehicle* Tem = new Car(milliseconds(random_num + distance_car * i), velo, velo, window, texture, x_coor, y_coor, dir, unit);

@@ -12,6 +12,10 @@ ListTextures::ListTextures()
 	onePicLoad(light, "Media/Tlight_g.png");
 	onePicLoad(light, "Media/Tlight_y.png");
 	onePicLoad(light, "Media/Tlight_r.png");
+	
+	onePicLoad(tlight, "Media/Light_g.png");
+	onePicLoad(tlight, "Media/Light_y.png");
+	onePicLoad(tlight, "Media/Light_r.png");
 
 	load(num_text, "Media/Num 1px_brown.png", 0, 0, 60, 7, 6, 7);
 
