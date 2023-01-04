@@ -183,17 +183,48 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 	return false;
 }
 
+//int	World::getPosition(int laneIndex) {
+//	return 0;
+//}
+//
+//int World::generateNextLaneIndex(int status) {
+//	static int freq[3] = { 8, 8, 2 };
+//	if (status == -1) {
+//		nLane = 0;
+//		freq[0] = 8;
+//		freq[1] = 8;
+//		freq[2] = 2;
+//	}
+//
+//	nLane += 1;
+//	if (nLane % 10 == 0) {
+//		if (freq[0] > 2) {
+//			freq[0]--;
+//			freq[1]++;
+//		}
+//	}
+//	if (nLane < 5) {
+//		return 0;
+//	}
+//	vector<int> randLanes;
+//	for (int i = 0; i < 3; i++)
+//		for (int j = 0; j < freq[i]; j++) randLanes.push_back(i);
+//	int nums = Rand(0, randLanes.size() - 1);
+//	return randLanes[nums];
+//}
+
 int	World::getPosition(int laneIndex) {
 	return 0;
 }
 
 int World::generateNextLaneIndex(int status) {
-	static int freq[3] = { 8, 8, 2 };
+	static int freq[4] = { 8, 8, 2, 5};
 	if (status == -1) {
 		nLane = 0;
 		freq[0] = 8;
 		freq[1] = 8;
 		freq[2] = 2;
+		freq[3] = 5;
 	}
 
 	nLane += 1;
@@ -201,6 +232,7 @@ int World::generateNextLaneIndex(int status) {
 		if (freq[0] > 2) {
 			freq[0]--;
 			freq[1]++;
+			freq[3]++;
 		}
 	}
 	if (nLane < 5) {
