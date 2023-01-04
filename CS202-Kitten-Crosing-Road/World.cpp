@@ -276,3 +276,9 @@ bool World::isColliedObstacle(Player& mPlayer, int deltaX, int deltaY) {
 	}
 	return false;
 }
+
+void World::resetVehicle() {
+	for (auto& lane : mLane) {
+		lane->resetVehicle();
+	}
+}

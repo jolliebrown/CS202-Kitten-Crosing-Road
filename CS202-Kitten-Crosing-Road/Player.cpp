@@ -178,11 +178,15 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 					gameSystem.fish_coin += 5;
 					cout << 5 << endl;
 				}
+				else if (tmp == FishCoin::Destroy) {
+
+				}
 				else
 				{
 					gameSystem.fish_coin += 1;
 				}
 				gameSystem.generateNextSpecialBoost(boost);
+				mWorld.resetVehicle();
 			}
 			gameSystem.fish_score.update(gameSystem.fish_coin, gameSystem.num_text);
 		}

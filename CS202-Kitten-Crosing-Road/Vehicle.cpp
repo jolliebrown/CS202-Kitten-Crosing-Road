@@ -32,6 +32,8 @@ Car::Car(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _di
 	Object::asset.setPosition(startPoint, coord.y);
 }
 
+
+
 Car::Car(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit) :
 	Vehicle(window, texture, x_coor, y_coor, unit)
 {
@@ -501,4 +503,46 @@ float Wood::getPosHigh()
 void Wood::restartClock()
 {
 	clock.restart();
+}
+
+void Wood::reset() {
+
+}
+
+void Train::reset() {
+
+}
+
+void Animal::reset() {
+	float x_coor = Object::asset.getPosition().x;
+	float y_coor = Object::asset.getPosition().y;
+	this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+
+	clock.restart();
+	//startMoveTime = moveTime;
+	coord = Vector2f(x_coor, y_coor);
+	Object::asset.setPosition(startPoint, coord.y);
+}
+
+void Car::reset() {
+	float x_coor = Object::asset.getPosition().x;
+	float y_coor = Object::asset.getPosition().y;
+	this->limVelo = dir * limVelo; this->initVelo = dir * initVelo; velo = dir * initVelo; acce = dir * 0.01;
+
+	startPoint = (dir == 1) ? -Object::asset.getGlobalBounds().width : BaseUnit * 29 + Object::asset.getGlobalBounds().width;
+	endPoint = (dir == 1) ? BaseUnit * 29 + Object::asset.getGlobalBounds().width : -Object::asset.getGlobalBounds().width;
+
+	if (dir == -1) Object::asset.setTextureRect(IntRect(Object::asset.getGlobalBounds().width, 0, -Object::asset.getGlobalBounds().width, Object::asset.getGlobalBounds().height));
+	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
+
+	clock.restart();
+	//startMoveTime = moveTime;
+	coord = Vector2f(x_coor, y_coor);
+	Object::asset.setPosition(startPoint, coord.y);
 }

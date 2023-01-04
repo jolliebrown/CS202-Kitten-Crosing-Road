@@ -168,6 +168,12 @@ void Road::draw(bool onlyLane)
 	}
 }
 
+void Road::resetVehicle() {
+	for (auto& car : listVehicle) {
+		car->reset();
+	}
+}
+
 void Road::handleEvent() {
 	//return;
 	for (int i = 0; i < listVehicle.size(); ++i) {
@@ -543,4 +549,12 @@ bool Water::isCollided(Player& mPlayer)
 
 int Water::getPosition() {
 	return y_coor;
+}
+
+void Water::resetVehicle() {
+
+}
+
+void RailWay::resetVehicle() {
+
 }

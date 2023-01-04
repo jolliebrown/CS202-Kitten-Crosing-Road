@@ -17,6 +17,7 @@ class World : public ListTextures
 {
 public:
 	bool							isColliedObstacle(Player& mPlayer, int deltaX, int deltaY);
+	void							resetVehicle();
 	explicit						World(RenderWindow& window);
 	explicit						World(RenderWindow& window, bool check);
 									~World();
@@ -26,6 +27,7 @@ public:
 	void							processEvent(System& gameSystem, Player& mPlayer);
 	bool							worldRestart();
 private: 
+	
 	int								getPosition(int laneIndex);
 	int								generateNextLaneIndex(int status = 0);
 	vector<Object>&					generate(vector<Object>& res, vector<Texture>& texture, int unit, int pos);

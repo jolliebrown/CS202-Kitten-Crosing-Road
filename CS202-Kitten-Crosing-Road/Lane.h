@@ -21,6 +21,7 @@ public:
 	virtual void				handleEvent() = 0;
 	virtual bool				isCollided(Player& mPlayer) = 0;
 	virtual int					getPosition() = 0;
+	virtual void				resetVehicle() = 0;
 	vector<Obstacle>			listObstacle;
 };
 
@@ -45,6 +46,7 @@ public:
 	//bool						insideView();
 	void						draw(bool onlyLane = false);
 	void						handleEvent();
+	void						resetVehicle();
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
 private:
@@ -76,6 +78,7 @@ public:
 	void						handleEvent();
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
+	void						resetVehicle();
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;
@@ -105,6 +108,7 @@ public:
 	void						handleEvent();
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
+	void						resetVehicle();
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;

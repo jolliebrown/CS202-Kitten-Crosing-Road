@@ -21,6 +21,7 @@ public:
 	virtual float				getPosLow() = 0;
 	virtual float				getPosHigh() = 0;
 	virtual void				restartClock() = 0;
+	virtual void				reset() = 0;
 private:
 protected:
 	SoundBuffer					buffer;
@@ -38,6 +39,7 @@ public:
 	void						draw(int state = 0, float x_coord = 0);
 	bool						move(int state, float x_coord);
 	void						accelerate();
+	void						reset();
 	void						checkLight(int state, float x_coord);
 	bool						isPass(int state, float x_coord);
 	int							getDir();
@@ -74,6 +76,7 @@ public:
 	float						getPosLow();
 	float						getPosHigh();
 	void						restartClock();
+	void						reset();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -105,6 +108,7 @@ public:
 	float						getPosLow();
 	float						getPosHigh();
 	void						restartClock();
+	void						reset();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -135,6 +139,7 @@ public:
 	float						getPosLow();
 	float						getPosHigh();
 	void						restartClock();
+	void						reset();
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
