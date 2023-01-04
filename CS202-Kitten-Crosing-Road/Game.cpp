@@ -25,6 +25,19 @@ Game::~Game()
 	saveFile();
 	cerr << "Saved successfully";
 }
+
+bool Game::gameLose() {
+	for (int i = 0; i < 6; i++) {
+		sleep(sf::milliseconds(100));
+		int sign = 1;
+		if (i % 2 == 0) sign = 1;
+		else sign = -1;
+		mView.rotate(10 * sign);
+		render();
+	}
+	return true;
+}
+
 void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.idPlayer == -1 || gameSystem.gameContinue() == false) return;
 	viewPosition = mView.getCenter();
@@ -38,10 +51,12 @@ void Game::viewScroll(View& mView, Player& mPlayer){
 	if (mPlayer.getPosition().first < 0 || mPlayer.getPosition().first > BaseUnit * 29.f) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.setState(GameState::Lose);
+		gameLose();
 	}
 	if (mPlayer.getPosition().second > viewPosition.y + BaseUnit * 4.f - 4.f) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.setState(GameState::Lose);
+		gameLose();
 	}
 }
 

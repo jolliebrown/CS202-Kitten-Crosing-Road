@@ -5,7 +5,6 @@
 #include <string>
 #include <fstream>
 
-
 #include "World.h"
 #include "Player.h"
 #include "Vehicle.h"
@@ -26,6 +25,7 @@ public:
 	void					run();
 	bool					gameContinue();
 	bool					gameRestart();
+	bool					gameLose();
 private:
 	void					processEvents();
 	void					update(Time elapsedTime);
@@ -34,6 +34,7 @@ private:
 	void					viewScroll(View &mView, Player& mPlayer);
 	void					setCur(const Event& event);
 	void					saveFile();
+
 private:
 	System					gameSystem;
 	static const Time		TimePerFrame;
