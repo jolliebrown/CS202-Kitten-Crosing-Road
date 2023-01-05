@@ -55,6 +55,4 @@ private:
 
 	Vector2f				viewPosition;
 	// 1 for road, 0 for land
-
-	vector<Scene*>			scene;
 };

@@ -37,9 +37,9 @@ void Scene::getName() const
 	cerr << (int)sceneName << endl;
 }
 
-int Scene::center(const Texture& t) const
+int Scene::center(const Texture& texture) const
 {
-	return (224 - t.getSize().x) / 2;
+	return (224 - texture.getSize().x) / 2;
 }
 
 vector<Keyboard::Key> Scene::getKeyboard() const
