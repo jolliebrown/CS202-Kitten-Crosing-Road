@@ -503,9 +503,9 @@ bool Water::isCollided(Player& mPlayer)
 			return false;
 		}
 	}
-	return false;
 	FloatRect water(0, y_coor + 2, BaseUnit * 30, BaseUnit - 4);
 	if (mPlayer.isCollidedWater(water)) return true;
+	return false;
 }
 
 int Water::getPosition() {
