@@ -81,7 +81,7 @@ Car::Car(Time moveTime, float velo, float initVelo, float limVelo, RenderWindow&
 
 	clock.restart();
 	startMoveTime = moveTime;
-	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor));
 }
 
 Car::Car(const Car& vehicle):
@@ -194,7 +194,7 @@ Animal::Animal(Time moveTime, float velo, float initVelo, float limVelo, RenderW
 	listTexture = texture;
 	clock.restart();
 	startMoveTime = moveTime;
-	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor));
 }
 
 Animal::Animal(const Animal& vehicle) :
@@ -309,7 +309,7 @@ Train::Train(Time moveTime, float velo, float initVelo, float limVelo, RenderWin
 
 	clock.restart();
 	startMoveTime = moveTime;
-	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor));
 }
 
 Train::Train(const Train& vehicle) :
@@ -410,7 +410,7 @@ Wood::Wood(Time moveTime, float velo, float initVelo, float limVelo, RenderWindo
 
 	clock.restart();
 	startMoveTime = moveTime;
-	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
+	coord = Vector2f(x_coor, (float)(y_coor));
 }
 
 Wood::Wood(const Wood& vehicle) :
