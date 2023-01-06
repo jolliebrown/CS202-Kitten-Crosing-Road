@@ -530,12 +530,14 @@ void Road::saveMap(ofstream& os)
 		os << 0 << '\n';
 		// postion y
 		os << y_coor << '\n';
+		os << dir << '\n';
 		os << listObstacle.size() << '\n';
 		for (auto& obs : listObstacle) obs.saveMap(os);
 	}
 	else {
 		os << 1 << '\n';
 		os << y_coor << '\n';
+		os << dir << '\n';
 		os << listVehicle.size() << '\n';
 		for (auto& vehicle : listVehicle) vehicle->saveMap(os);
 		for (auto& light : listLight) light.saveMap(os);
@@ -546,6 +548,7 @@ void RailWay::saveMap(ofstream& os)
 {
 	os << 2 << '\n';
 	os << y_coor << '\n';
+	os << dir << '\n';
 	os << listVehicle.size() << '\n';
 	for (auto& vehicle : listVehicle) vehicle->saveMap(os);
 	for (auto& light : listLight) light.saveMap(os);
@@ -555,6 +558,7 @@ void Water::saveMap(ofstream& os)
 {
 	os << 3 << '\n';
 	os << y_coor << '\n';
+	os << dir << '\n';
 	os << listVehicle.size() << '\n';
 	for (auto& vehicle : listVehicle) vehicle->saveMap(os);
 }

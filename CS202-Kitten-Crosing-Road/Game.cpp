@@ -22,7 +22,7 @@ bool Game::gameRestart() {
 }
 Game::~Game()
 {
-	saveFile();
+	saveMap("EndLessMap");
 	cerr << "Saved successfully";
 }
 
@@ -92,7 +92,8 @@ void Game::saveFile()
 	fout3.close();
 }
 
-void Game::saveMap(string folderName) {
+void Game::saveMap(string folderName) 
+{
 	mWorld.saveMap(folderName);
 }
 
