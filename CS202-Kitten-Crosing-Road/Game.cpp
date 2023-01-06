@@ -5,9 +5,10 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 Game::Game() :
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
 	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
-	mWorld(mWindow, true), mPlayer(mWindow, mWorld.user, 120/BaseUnit*BaseUnit, -40, BaseUnit),
+	mWorld(mWindow, 1, "EndLessMap"), mPlayer(mWindow, mWorld.user, 120 / BaseUnit * BaseUnit, -40, BaseUnit),
 	gameSystem(mView, mWindow, true)
 {
+	cerr << "Game default constructor\n";
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 	gameSystem.setState(GameState::Menu);
@@ -23,7 +24,7 @@ bool Game::gameRestart() {
 Game::~Game()
 {
 	saveMap("EndLessMap");
-	cerr << "Saved successfully";
+	cerr << "Saved successfully\n";
 }
 
 bool Game::gameLose() {

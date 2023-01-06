@@ -20,7 +20,7 @@ public:
 	void							resetVehicle();
 	explicit						World(RenderWindow& window);
 	explicit						World(RenderWindow& window, bool check);
-	explicit						World(RenderWindow& window, string folderName);
+	explicit						World(RenderWindow& window, bool check, string folderName);
 									~World();
 	void							writeFile(ofstream& fout);
 	void							draw(bool onlyLane = false);

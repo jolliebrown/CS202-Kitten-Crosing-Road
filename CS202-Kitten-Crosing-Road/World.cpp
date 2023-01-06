@@ -76,11 +76,12 @@ World::World(RenderWindow& window, bool check) :
 	}
 }
 
-World::World(RenderWindow& window, string folderName):
+World::World(RenderWindow& window, bool check, string folderName):
 	window(window)
 {
 	mapIndex.clear();
 	curID = 0;
+	cerr << "Load map: \n";
 	for (int i = 0; i < 16; i++) {
 		string fileName = folderName + "\\" + "saveMap" + to_string(i) + ".txt";
 		ifstream is(fileName);
@@ -88,6 +89,7 @@ World::World(RenderWindow& window, string folderName):
 		int pos;
 		int dir;
 		is >> mapID >> pos >> dir;
+		cerr << "Load lane " << i << ": " << mapID << '\n';
 		mapIndex.push_back(mapID);
 		int j = mapIndex[i];
 		if (mapIndex[i] == 1) {

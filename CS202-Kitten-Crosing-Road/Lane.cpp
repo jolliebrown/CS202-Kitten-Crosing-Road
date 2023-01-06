@@ -41,9 +41,13 @@ Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Textur
 	this->unit = unit;
 	this->mTexture = mTexture;
 	generate(window, listTexture, mTexture, unit, y_coor);
-	addObstacle(window, listTextureObstacle, BaseUnit * (5 + Rand(1, 3)), y_coor, unit);
-	addObstacle(window, listTextureObstacle, BaseUnit * (10 + Rand(1, 3)), y_coor, unit);
-	addObstacle(window, listTextureObstacle, BaseUnit * (15 + Rand(1, 3)), y_coor, unit);
+	int numObs;
+	is >> numObs;
+	for (int i = 0; i < numObs; ++i) {
+		float vx_coor, vy_coor;
+		is >> vx_coor >> vy_coor;
+		addObstacle(window, listTextureObstacle, vx_coor, vy_coor, unit);
+	}
 }
 
 Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, vector<Texture>& listCarTexture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
@@ -309,7 +313,7 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 	int numTrain;
 	is >> numTrain;
 
-	int vtype, vdir;
+	int vtype, vdir, vstate;
 	float vx_coor, vy_coor, vlimvelo, vinitvelo, vvelo, vacce, vtime;
 	for (int i = 0; i < numTrain; ++i) {
 		is >> vtype >> vx_coor >> vy_coor >> vdir >> vlimvelo >> vinitvelo >> vvelo >> vacce >> vtime;
@@ -317,9 +321,11 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
-	addLight(window, listLightTexture, BaseUnit * 5, y_coor, unit);
-	addLight(window, listLightTexture, BaseUnit * 15, y_coor, unit);
-	addLight(window, listLightTexture, BaseUnit * 25, y_coor, unit);
+	is >> numLight;
+	for (int i = 0; i < numLight; ++i) {
+		is >> vx_coor >> vy_coor >> vstate;
+		addLight(window, listLightTexture, vx_coor, vy_coor, unit);
+	}
 }
 RailWay::RailWay(const RailWay& railway) :
 	window(railway.window)
