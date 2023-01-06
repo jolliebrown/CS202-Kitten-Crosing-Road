@@ -90,6 +90,42 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	}
 }
 
+Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, vector<Texture>& listAnimalTexture, vector<Texture>& listCarTexture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level, ifstream &is) :
+	window(&window)
+{
+	this->dir = dir;
+	this->y_coor = y_coor;
+	this->unit = unit;
+	this->mTexture = mTexture;
+	int numCars;
+
+	int type;
+	float vx_coor, vy_coor, vvelo, vlimvelo, vinitvelo, vacce, vtime;
+	int vdir, vstate;
+
+	is >> numCars;
+	for (int i = 0; i <= numCars; ++i) {
+		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem;
+		is >> type;
+
+		is >> vx_coor >> vy_coor >> vdir >> vlimvelo >> vinitvelo >> vvelo >> vacce >> vtime;
+		if (type == 1) Tem = new Car(milliseconds(vtime), vinitvelo, vlimvelo, window, listCarTexture[Rand(1, 100) % 3], vx_coor, vy_coor, vdir, unit);
+		else Tem = new Animal(milliseconds(vtime), vinitvelo, vlimvelo, window, listAnimalTexture, vx_coor, vy_coor, vdir, unit);
+		listVehicle.push_back(Tem);
+		for (int j = 0; j < i; j++)
+		{
+			listVehicle[i]->restartClock();
+		}
+	}
+	generate(window, listTexture, mTexture, unit, y_coor);
+	is >> numLight;
+	for (int i = 0; i < numLight; ++i) {
+		is >> vx_coor >> vy_coor >> vstate;
+		addLight(window, listLightTexture, vx_coor, vy_coor, unit);
+	}
+}
+
 Road::Road(const Road& road):
 	window(road.window)
 {
@@ -146,6 +182,11 @@ vector<Object>& Road::generate(RenderWindow& window, vector<Object>& res, vector
 void Road::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
 	listLight.push_back(Light(window, texture, x_coor, y_coor - 5, unit));
+}
+
+void Road::addLight(RenderWindow& window, vector<Texture>& texture, int state, int x_coor, int y_coor, int unit)
+{
+	listLight.push_back(Light(state, window, texture, x_coor, y_coor - 5, unit));
 }
 
 
