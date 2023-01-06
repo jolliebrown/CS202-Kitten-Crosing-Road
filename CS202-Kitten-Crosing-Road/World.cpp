@@ -282,3 +282,7 @@ void World::resetVehicle() {
 		lane->resetVehicle();
 	}
 }
+
+void World::saveMap(ofstream& os) {
+
+}

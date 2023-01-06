@@ -262,7 +262,7 @@ bool Object::isCollided(Object& src) {
 }
 
 bool Object::isCollidedWater(FloatRect src) {
-	float curX1 = asset.getPosition().x + 3, curX2 = asset.getPosition().x + 13.f;
+	float curX1 = asset.getPosition().x + 1, curX2 = asset.getPosition().x + 15.f;
 	float curY1 = asset.getPosition().y + 13.f, curY2 = asset.getPosition().y + 16.f;
 
 	if (src.contains(curX1, curY1) && src.contains(curX2, curY2)) {

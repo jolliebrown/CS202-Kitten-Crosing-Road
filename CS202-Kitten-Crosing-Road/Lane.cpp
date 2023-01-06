@@ -521,3 +521,19 @@ void RailWay::resetVehicle() {
 		train->reset();
 	}
 }
+
+// Save map
+void Road::saveMap(ofstream& os)
+{
+
+}
+
+void RailWay::saveMap(ofstream& os)
+{
+
+}
+
+void Water::saveMap(ofstream& os)
+{
+
+}

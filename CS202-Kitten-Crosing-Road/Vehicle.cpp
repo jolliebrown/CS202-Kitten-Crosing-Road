@@ -579,3 +579,24 @@ float Wood::getVelo()
 {
 	return velo;
 }
+
+// Save game
+void Car::saveMap(ofstream& os)
+{
+
+}
+
+void Train::saveMap(ofstream& os)
+{
+
+}
+
+void Animal::saveMap(ofstream& os)
+{
+
+}
+
+void Wood::saveMap(ofstream& os)
+{
+
+}

@@ -34,7 +34,7 @@ private:
 	void					viewScroll(View &mView, Player& mPlayer);
 	void					setCur(const Event& event);
 	void					saveFile();
-	void					saveMap(ostream &os) ;
+	void					saveMap(ofstream &os) ;
 private:
 	System					gameSystem;
 	static const Time		TimePerFrame;

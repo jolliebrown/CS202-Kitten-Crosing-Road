@@ -92,7 +92,7 @@ void Game::saveFile()
 	fout3.close();
 }
 
-void Game::saveMap(ostream &os) {
+void Game::saveMap(ofstream &os) {
 
 }
 

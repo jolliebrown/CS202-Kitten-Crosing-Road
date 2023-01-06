@@ -23,7 +23,7 @@ public:
 	virtual float				getVelo() = 0;
 	virtual void				restartClock() = 0;
 	virtual void				reset() = 0;
-	virtual void				saveMap(ostream &os) = 0;
+	virtual void				saveMap(ofstream &os) = 0;
 private:
 protected:
 	SoundBuffer					buffer;
@@ -49,7 +49,7 @@ public:
 	float						getPosHigh();
 	float						getVelo();
 	void						restartClock();
-	void						saveMap(ostream &os) ;
+	void						saveMap(ofstream &os) ;
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -82,7 +82,7 @@ public:
 	float						getVelo();
 	void						restartClock();
 	void						reset();
-	void						saveMap(ostream &os) ;
+	void						saveMap(ofstream &os) ;
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -116,7 +116,7 @@ public:
 	float						getVelo();
 	void						restartClock();
 	void						reset();
-	void						saveMap(ostream &os) ;
+	void						saveMap(ofstream &os) ;
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
@@ -149,7 +149,7 @@ public:
 	float						getVelo();
 	void						restartClock();
 	void						reset();
-	void						saveMap(ostream &os) ;
+	void						saveMap(ofstream &os) ;
 private:
 	Vector2f					coord; // coordinate of vehicle
 	float						startPoint;
