@@ -17,6 +17,7 @@ public:
 	void				move();
 	float				getPos();
 	int					getState();
+	void				saveMap(ofstream& os);
 private:
 	int					state; // 0: exist, 1: destroyed
 	vector<Texture>		listObstacle;

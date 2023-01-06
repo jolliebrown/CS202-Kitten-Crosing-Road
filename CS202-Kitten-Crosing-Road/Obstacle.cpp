@@ -15,6 +15,11 @@ void Obstacle::draw()
 	Object::draw();
 }
 
+void Obstacle::saveMap(ofstream& os) {
+	int x_coor = Object::asset.getPosition().x;
+	int y_coor = Object::asset.getPosition().y;
+	os << x_coor << " " << y_coor << "\n";
+}
 
 
 int Obstacle::getState()

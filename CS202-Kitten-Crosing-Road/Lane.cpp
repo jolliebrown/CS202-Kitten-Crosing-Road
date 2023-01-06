@@ -525,7 +525,7 @@ void RailWay::resetVehicle() {
 // Save map
 void Road::saveMap(ofstream& os)
 {
-
+	
 }
 
 void RailWay::saveMap(ofstream& os)
