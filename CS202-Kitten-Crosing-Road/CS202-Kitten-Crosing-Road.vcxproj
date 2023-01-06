@@ -120,7 +120,7 @@
       <AdditionalDependencies>winmm.lib;ws2_32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;opengl32.lib;gdi32.lib;freetype.lib;sfml-system.lib;sfml-network.lib;sfml-audio.lib;sfml-window.lib;sfml-graphics.lib</AdditionalDependencies>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
