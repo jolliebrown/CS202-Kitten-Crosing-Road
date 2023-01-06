@@ -7,6 +7,7 @@
 #include "Object.h"
 #include "other.h"
 
+
 class InfoScore
 {
 private:

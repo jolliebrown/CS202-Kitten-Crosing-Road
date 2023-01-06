@@ -48,6 +48,7 @@ vector<Keyboard::Key> Scene::getKeyboard() const
 }
 
 
+
 Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 {
 	sceneName = MenuList::Menu;
@@ -420,17 +421,18 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 				}
 				else
 				{
-					buttonPressed = i - 1;
-					key_pressed[movingButtons[buttonPressed]] = 0;
-					while (buttons.size() > 1)
-						buttons.pop_back();
-					for (int j = 0; j < menuTexture[sceneName].size(); ++j)
-					{
-						Object button(window, menuTexture[sceneName][j].first, center(menuTexture[sceneName][j].first), (50 + 25 * j));
+					
+						buttonPressed = i - 1;
+						key_pressed[movingButtons[buttonPressed]] = 0;
+						while (buttons.size() > 1)
+							buttons.pop_back();
+						for (int j = 0; j < menuTexture[sceneName].size(); ++j)
+						{
+							Object button(window, menuTexture[sceneName][j].first, center(menuTexture[sceneName][j].first), (50 + 25 * j));
+							background.push_back(button);
+						}
+						Object button(window, menuTexture[sceneName][i - 1].second, center(menuTexture[sceneName][i - 1].second), (50 + 25 * (i - 1)));
 						background.push_back(button);
-					}
-					Object button(window, menuTexture[sceneName][i - 1].second, center(menuTexture[sceneName][i - 1].second), (50 + 25 * (i - 1)));
-					background.push_back(button);
 				}
 				break;
 			}
@@ -444,20 +446,49 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 		}
 		else if (event.type == Event::KeyReleased)
 		{
-			key_pressed[movingButtons[buttonPressed]] = 0;
-			movingButtons[buttonPressed] = event.key.code;
-			recent = movingButtons[buttonPressed];
-			buttonPressed = -1;
-			for (int i = 0; i < 5; ++i)
+			bool check = true;
+			for (int j = 0; j < 4; j++)
 			{
-				background.pop_back();
+				if (j == buttonPressed)
+					continue;
+				if (movingButtons[j] == event.key.code)
+				{
+					check = false;
+					break;
+				}
 			}
-			for (int i = 0; i < menuTexture[sceneName].size(); ++i)
+			if (check)
 			{
-				SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
-				buttons.push_back(button);
+				key_pressed[movingButtons[buttonPressed]] = 0;
+				movingButtons[buttonPressed] = event.key.code;
+				recent = movingButtons[buttonPressed];
+				buttonPressed = -1;
+				for (int i = 0; i < 5; ++i)
+				{
+					background.pop_back();
+				}
+				for (int i = 0; i < menuTexture[sceneName].size(); ++i)
+				{
+					SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
+					buttons.push_back(button);
+				}
+				return recent + 10;
 			}
-			return recent;
+			else
+			{
+				// duplicate
+				buttonPressed = -1;
+				for (int i = 0; i < 5; ++i)
+				{
+					background.pop_back();
+				}
+				for (int i = 0; i < menuTexture[sceneName].size(); ++i)
+				{
+					SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
+					buttons.push_back(button);
+				}
+				return 0;
+			}
 		}
 	}
 	return 0;

@@ -146,6 +146,14 @@ System::System(View& view, RenderWindow& window, bool check) :
 	fin.close();
 	fin2.close();
 	fin1.close();
+
+	for (int i = 0; i < 2; i++)
+	{
+		keyboard.push_back(Keyboard::Key::Left);
+		keyboard.push_back(Keyboard::Key::Right);
+		keyboard.push_back(Keyboard::Key::Up);
+		keyboard.push_back(Keyboard::Key::Down);
+	}
 }
 
 
@@ -364,6 +372,16 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 				//gameSE.playEffect(SFX::Intro);
 				newgame = true;
 			}
+			else if (tmp_menu > 9)
+			{
+				assign_key = true;
+				vector<Keyboard::Key> key_tmp = mainMenu.back()->getKeyboard();
+				for (int i = 0; i < 4; i++)
+				{
+					keyboard[i] = keyboard[i + 4];
+					keyboard[i + 4] = key_tmp[i];
+				}
+			}
 		}
 		else if (state == GameState::Lose)
 		{
@@ -397,6 +415,5 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 		gameSE.road_bgm.pause();
 	}
 }
-
 
 
