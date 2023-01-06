@@ -117,7 +117,6 @@ private:
 	vector<Texture>				mTexture;
 	vector<Vehicle*>			listVehicle;
 
-	vector<Light>				listLight;
 	vector<Object>				listTexture;
 	const int					range = 32;
 };

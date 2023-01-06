@@ -20,6 +20,7 @@ public:
 	virtual int					getDir() = 0;
 	virtual float				getPosLow() = 0;
 	virtual float				getPosHigh() = 0;
+	virtual float				getVelo() = 0;
 	virtual void				restartClock() = 0;
 	virtual void				reset() = 0;
 private:
@@ -45,6 +46,7 @@ public:
 	int							getDir();
 	float						getPosLow();
 	float						getPosHigh();
+	float						getVelo();
 	void						restartClock();
 private:
 	Vector2f					coord; // coordinate of vehicle
@@ -75,6 +77,7 @@ public:
 	int							getDir();
 	float						getPosLow();
 	float						getPosHigh();
+	float						getVelo();
 	void						restartClock();
 	void						reset();
 private:
@@ -107,6 +110,7 @@ public:
 	int							getDir();
 	float						getPosLow();
 	float						getPosHigh();
+	float						getVelo();
 	void						restartClock();
 	void						reset();
 private:
@@ -138,6 +142,7 @@ public:
 	int							getDir();
 	float						getPosLow();
 	float						getPosHigh();
+	float						getVelo();
 	void						restartClock();
 	void						reset();
 private:

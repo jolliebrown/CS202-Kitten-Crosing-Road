@@ -559,3 +559,23 @@ void Car::reset() {
 	coord = Vector2f(x_coor, y_coor);
 	Object::asset.setPosition(startPoint, coord.y);
 }
+
+float Car::getVelo()
+{
+	return velo;
+}
+
+float Train::getVelo()
+{
+	return velo;
+}
+
+float Animal::getVelo()
+{
+	return velo;
+}
+
+float Wood::getVelo()
+{
+	return velo;
+}

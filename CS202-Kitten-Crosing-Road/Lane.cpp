@@ -370,8 +370,6 @@ void Water::addObstacle(RenderWindow& window, vector<Texture>& texture, int x_co
 	listObstacle.push_back(Obstacle(window, texture[k], x_coor, y_coor - 5, unit));
 }
 
-
-
 Water::Water(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture) :
 	window(&window)
 {
@@ -392,14 +390,17 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-	int numWoods = 3;
+	int numWoods = 6;
 	if (level > 20) {
 		numWoods++;
 	}
 	if (level > 40) {
 		numWoods++;
 	}
-	float velo = 0.02 + float(level / 5) * 0.01;
+	if (level > 60) {
+		numWoods++;
+	}
+	float velo = 0.03 + (level / 20) * 0.005;
 	int random_num = Rand(0, 1500);
 	int distance_car = max(int(100 / velo), 2000);
 	for (int i = 0; i <= numWoods; ++i) {
@@ -430,7 +431,6 @@ Water::Water(const Water& road) :
 	}
 	listTexture = road.listTexture;
 	//generate(*window, listTexture, mTexture, unit, y_coor);
-	listLight = road.listLight;
 }
 
 Water& Water::operator = (const Water& road)
@@ -450,7 +450,6 @@ Water& Water::operator = (const Water& road)
 	}
 	listTexture = road.listTexture;
 	//generate(*window, listTexture, mTexture, unit, y_coor);
-	listLight = road.listLight;
 	return *this;
 }
 
@@ -470,10 +469,8 @@ vector<Object>& Water::generate(RenderWindow& window, vector<Object>& res, vecto
 
 void Water::addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
-	listLight.push_back(Light(window, texture, x_coor, y_coor - 5, unit));
+	
 }
-
-
 
 void Water::draw(bool onlyLane)
 {
@@ -484,67 +481,31 @@ void Water::draw(bool onlyLane)
 		}
 	}
 	else {
-		for (auto& car : listVehicle) {
-			if (listLight.size() == 0) car->draw();
-			else car->draw(listLight[0].getState(), listLight[0].getPos(dir));
+		for (auto& wood : listVehicle) {
+			wood->draw();
 		}
-		for (auto& light : listLight) light.draw();
 		for (auto& obs : listObstacle) obs.draw();
 	}
 }
 
 void Water::handleEvent() {
 	//return;
-	for (int i = 0; i < listVehicle.size(); ++i) {
-		/*if (listLight.size() == 0) car->move(0, 0);
-		else {
-			car->move(listLight[0].getState(), listLight[0].getPos());
-		}*/
-		Vehicle* car = listVehicle[i];
-		float preCarPos = -1;
-		for (int j = 0; j < listVehicle.size(); ++j) {
-			if (j == i) continue;
-			Vehicle* preCar = listVehicle[j];
-			if (((preCar->getPosHigh() > car->getPosHigh()) == (dir == 1))) {
-				if (preCarPos == -1 || ((preCarPos > preCar->getPosLow()) == (dir == 1))) {
-					preCarPos = preCar->getPosLow();
-				}
-			}
-		}
-		if (preCarPos != -1 && ((preCarPos < car->getPosHigh()) == (dir == 1))) {
-			preCarPos = car->getPosHigh();
-		}
-		int low = 0, high = (int)listLight.size() - 1, pos = -1;
-		while (low <= high) {
-			int mid = (low + high) / 2;
-			if (car->isPass(listLight[mid].getState(), listLight[mid].getPos(dir))) {
-				if (car->getDir() == 1) low = mid + 1;
-				else high = mid - 1;
-			}
-			else {
-				pos = mid;
-				if (car->getDir() == 1) high = mid - 1;
-				else low = mid + 1;
-			}
-		}
-		if (pos == -1) {
-			if (preCarPos == -1) car->move(0, 0);
-			else car->move(2, preCarPos);
-		}
-		else {
-			if (preCarPos == -1 || ((listLight[pos].getPos(dir) < preCarPos) == (dir == 1)) || abs(listLight[pos].getPos(dir) - preCarPos) <= 0.001) car->move(listLight[pos].getState(), listLight[pos].getPos(dir));
-			else {
-				car->move(2, preCarPos);
-			}
-		}
+	for (auto wood: listVehicle) {
+		wood->move(0, 0);
 	}
-	for (auto& light : listLight) light.move();
 }
 
 bool Water::isCollided(Player& mPlayer)
 {
-	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
+	for (auto& wood : listVehicle) {
+		if (mPlayer.isCollided(*wood)) {
+			mPlayer.setPosition(wood->getVelo(), 0);
+			return false;
+		}
+	}
 	return false;
+	FloatRect water(0, y_coor + 2, BaseUnit * 30, BaseUnit - 4);
+	if (mPlayer.isCollidedWater(water)) return true;
 }
 
 int Water::getPosition() {

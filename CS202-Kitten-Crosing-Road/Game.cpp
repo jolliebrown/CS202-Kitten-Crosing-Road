@@ -159,9 +159,9 @@ void Game::render()
 	// draw sth here
 	mWorld.draw(true);
 	gameSystem.drawFish();
-	mPlayer.draw();
 	//cout << mouse.x << " " << mouse.y << endl;
 	mWorld.draw(false);
+	mPlayer.draw();
 	gameSystem.draw(mouse);
 	mWindow.display();
 }

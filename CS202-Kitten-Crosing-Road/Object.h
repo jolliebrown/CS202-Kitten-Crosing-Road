@@ -105,6 +105,7 @@ public:
 	//~Object();
 	void					draw();
 	bool isCollided(Object& src);
+	bool isCollidedWater(FloatRect src);
 	bool isCollidedSpecial(Object& src);
 	//const bool isCollided(const Object& src) const;
 	//FloatRect				getBound();
