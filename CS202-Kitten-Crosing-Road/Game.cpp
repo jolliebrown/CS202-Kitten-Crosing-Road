@@ -92,8 +92,8 @@ void Game::saveFile()
 	fout3.close();
 }
 
-void Game::saveMap(ofstream &os) {
-
+void Game::saveMap(string folderName) {
+	mWorld.saveMap(folderName);
 }
 
 void Game::run()

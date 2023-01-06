@@ -283,6 +283,10 @@ void World::resetVehicle() {
 	}
 }
 
-void World::saveMap(ofstream& os) {
-
+void World::saveMap(string folderName) {
+	for (int i = 0; i < mLane.size(); ++i) {
+		string si = to_string(i);
+		ofstream os(folderName + "/saveMap" + si + ".txt");
+		mLane[i]->saveMap(os);
+	}
 }
