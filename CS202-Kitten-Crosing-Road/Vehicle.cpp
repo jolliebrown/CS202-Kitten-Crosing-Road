@@ -583,20 +583,56 @@ float Wood::getVelo()
 // Save game
 void Car::saveMap(ofstream& os)
 {
-
+	// type of car
+	os << 1 << '\n';
+	// position
+	os << Object::asset.getPosition().x << ' ' << Object::asset.getPosition().y << '\n';
+	// direction
+	os << dir << '\n';
+	// info of car
+	os << limVelo << ' ' << initVelo << velo << ' ' << acce << ' ' << startPoint << ' ' << endPoint << '\n';
+	// start move time
+	os << startMoveTime.asMilliseconds() - clock.getElapsedTime().asMilliseconds() << '\n';
 }
 
 void Train::saveMap(ofstream& os)
 {
-
+	// type of car
+	os << 2 << '\n';
+	// position
+	os << Object::asset.getPosition().x << ' ' << Object::asset.getPosition().y << '\n';
+	// direction
+	os << dir << '\n';
+	// info of car
+	os << limVelo << ' ' << initVelo << velo << ' ' << acce << ' ' << startPoint << ' ' << endPoint << '\n';
+	// start move time
+	os << startMoveTime.asMilliseconds() - clock.getElapsedTime().asMilliseconds() << '\n';
 }
 
 void Animal::saveMap(ofstream& os)
 {
-
+	// type of car
+	os << 3 << '\n';
+	// position
+	os << Object::asset.getPosition().x << ' ' << Object::asset.getPosition().y << '\n';
+	// direction
+	os << dir << '\n';
+	// info of car
+	os << limVelo << ' ' << initVelo << velo << ' ' << acce << ' ' << startPoint << ' ' << endPoint << '\n';
+	// start move time
+	os << startMoveTime.asMilliseconds() - clock.getElapsedTime().asMilliseconds() << '\n';
 }
 
 void Wood::saveMap(ofstream& os)
 {
-
+	// type of car
+	os << 4 << '\n';
+	// position
+	os << Object::asset.getPosition().x << ' ' << Object::asset.getPosition().y << '\n';
+	// direction
+	os << dir << '\n';
+	// info of car
+	os << limVelo << ' ' << initVelo << velo << ' ' << acce << ' ' << startPoint << ' ' << endPoint << '\n';
+	// start move time
+	os << startMoveTime.asMilliseconds() - clock.getElapsedTime().asMilliseconds() << '\n';
 }
