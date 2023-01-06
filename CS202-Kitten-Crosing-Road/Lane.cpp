@@ -540,6 +540,7 @@ void Road::saveMap(ofstream& os)
 		os << dir << '\n';
 		os << listVehicle.size() << '\n';
 		for (auto& vehicle : listVehicle) vehicle->saveMap(os);
+		os << listLight.size() << '\n';
 		for (auto& light : listLight) light.saveMap(os);
 	}
 }
@@ -551,6 +552,7 @@ void RailWay::saveMap(ofstream& os)
 	os << dir << '\n';
 	os << listVehicle.size() << '\n';
 	for (auto& vehicle : listVehicle) vehicle->saveMap(os);
+	os << listLight.size() << '\n';
 	for (auto& light : listLight) light.saveMap(os);
 }
 
