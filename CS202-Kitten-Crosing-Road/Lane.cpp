@@ -525,7 +525,13 @@ void RailWay::resetVehicle() {
 // Save map
 void Road::saveMap(ofstream& os)
 {
-
+	if (listVehicle.size() == 0) {
+		// grass
+		os << 0 << '\n';
+		// postion y
+		os << y_coor << '\n';
+		os << listObstacle.size() << '\n';
+	}
 }
 
 void RailWay::saveMap(ofstream& os)
