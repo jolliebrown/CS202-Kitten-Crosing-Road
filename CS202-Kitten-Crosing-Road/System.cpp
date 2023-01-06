@@ -101,6 +101,8 @@ System::System(View& view, RenderWindow& window, bool check) :
 		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
 		buttons.push_back(tmp);
 	}
+
+	// no load
 	for (int i = 0; i < 3; i++)
 	{
 		//ffish
@@ -114,6 +116,9 @@ System::System(View& view, RenderWindow& window, bool check) :
 	FishCoin tmp_name = generateNextSpecialBoost(tmp);
 	fish_boost.push_back(tmp);
 	fish_boost_name.push_back(tmp_name);
+
+	//load fish
+
 	/*int fish_num;
 	fin2 >> fish_num;
 	for (int i = 0; i < fish_num; i++)
@@ -126,8 +131,10 @@ System::System(View& view, RenderWindow& window, bool check) :
 	}
 	for (int i = 0; i < fish_num; i++)
 	{
-		int tmp_x, tmp_y;
+		float tmp_x, tmp_y;
 		fin2 >> tmp_x >> tmp_y;
+		tmp_x = view.getViewport().width / 2 - tmp_x;
+		tmp_y = - view.getViewport().height / 2 - tmp_y;
 		Object tmp(window, ListTextures::fishCoin[fish_boost_name[i]], tmp_x, tmp_y);
 		fish_boost.push_back(tmp);
 		cout << "Done";
@@ -171,7 +178,7 @@ void System::writeFishboost(ofstream& fout)
 	fout << endl;
 	for (int i = 0; i < 4; i++)
 	{
-		fout << fish_boost[i].getPos().x << " " << fish_boost[i].getPos().y;
+		fout << view.getCenter().x - fish_boost[i].getPos().x << " " << view.getCenter().y - fish_boost[i].getPos().y;
 		fout << endl;
 	}
 }
