@@ -36,6 +36,7 @@ public:
 	Car(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Car(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Car(Time moveTime, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+	Car(Time moveTime, float velo, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Car(const Car& car);
 
 	void						draw(int state = 0, float x_coord = 0);
@@ -66,9 +67,8 @@ private:
 class Animal : public Vehicle
 {
 public:
-	Animal(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
-	Animal(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Animal(Time moveTime, float initVelo, float limVelo, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int _dir, int unit);
+	Animal(Time moveTime, float velo, float initVelo, float limVelo, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int _dir, int unit);
 	Animal(const Animal& animal);
 
 	void						draw(int state = 0, float x_coord = 0);
@@ -101,8 +101,8 @@ private:
 class Train : public Vehicle
 {
 public:
-	Train(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Train(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+	Train(Time moveTime, float velo, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Train(const Train& train);
 
 	void						draw(int state = 0, float x_coord = 0);
@@ -133,9 +133,8 @@ private:
 class Wood : public Vehicle
 {
 public:
-	Wood(RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
-	Wood(float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Wood(Time moveTime, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
+	Wood(Time moveTime, float velo, float initVelo, float limVelo, RenderWindow& window, Texture& texture, int x_coor, int y_coor, int _dir, int unit);
 	Wood(const Wood& car);
 
 	void						draw(int state = 0, float x_coord = 0);
