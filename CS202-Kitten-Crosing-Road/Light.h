@@ -18,6 +18,7 @@ public:
 	float				getPos(int dir);
 	int					getState();
 	void				setState(int state);
+	void				saveMap(ofstream& os);
 private:
 	int					state; // 0: green, 1: yellow, 2: red
 	Time				count[3];

@@ -66,3 +66,9 @@ void Light::setState(int state)
 	this->state = state;
 	Object::asset.setTexture(listLight[state]);
 }
+
+void Light::saveMap(ofstream& os)
+{
+	os << Object::asset.getPosition().x << ' ' << Object::asset.getPosition().y << '\n';
+	os << state << '\n';
+}
