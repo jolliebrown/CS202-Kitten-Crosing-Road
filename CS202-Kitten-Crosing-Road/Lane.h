@@ -23,6 +23,7 @@ public:
 	virtual int					getPosition() = 0;
 	virtual void				resetVehicle() = 0;
 	vector<Obstacle>			listObstacle;
+	virtual	void				saveMap(ostream &os) = 0;
 };
 
 class Grass : public Lane
@@ -49,6 +50,7 @@ public:
 	void						resetVehicle();
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
+	void						saveMap(ostream &os) ;
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;
@@ -79,6 +81,7 @@ public:
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
 	void						resetVehicle();
+	void						saveMap(ostream &os) ;
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;
@@ -109,6 +112,7 @@ public:
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
 	void						resetVehicle();
+	void						saveMap(ostream &os) ;
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;

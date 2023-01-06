@@ -26,6 +26,7 @@ public:
 	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);
 	bool							worldRestart();
+	void							saveMap();
 private: 
 	
 	int								getPosition(int laneIndex);
