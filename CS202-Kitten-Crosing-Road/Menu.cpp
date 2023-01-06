@@ -412,6 +412,7 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 		}
 		else if (event.type == Event::KeyReleased)
 		{
+			int returnValue = buttonPressed;
 			movingButtons[buttonPressed] = event.key.code;
 			buttonPressed = -1;
 			for (int i = 0; i < 5; ++i)
@@ -423,7 +424,7 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 				SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
 				buttons.push_back(button);
 			}
-			return 1;
+			return returnValue;
 		}
 	}
 	return 0;
