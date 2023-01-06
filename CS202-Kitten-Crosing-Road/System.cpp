@@ -101,6 +101,8 @@ System::System(View& view, RenderWindow& window, bool check) :
 		FloatingButton tmp(view, window, ListTextures::systemButton[(MiniButton)(11 - i)], 61 + (i - 6) * 39, 92);
 		buttons.push_back(tmp);
 	}
+
+	// no load
 	for (int i = 0; i < 3; i++)
 	{
 		//ffish
@@ -114,6 +116,9 @@ System::System(View& view, RenderWindow& window, bool check) :
 	FishCoin tmp_name = generateNextSpecialBoost(tmp);
 	fish_boost.push_back(tmp);
 	fish_boost_name.push_back(tmp_name);
+
+	//load fish
+
 	/*int fish_num;
 	fin2 >> fish_num;
 	for (int i = 0; i < fish_num; i++)
@@ -126,8 +131,10 @@ System::System(View& view, RenderWindow& window, bool check) :
 	}
 	for (int i = 0; i < fish_num; i++)
 	{
-		int tmp_x, tmp_y;
+		float tmp_x, tmp_y;
 		fin2 >> tmp_x >> tmp_y;
+		tmp_x = view.getViewport().width / 2 - tmp_x;
+		tmp_y = - view.getViewport().height / 2 - tmp_y;
 		Object tmp(window, ListTextures::fishCoin[fish_boost_name[i]], tmp_x, tmp_y);
 		fish_boost.push_back(tmp);
 		cout << "Done";
@@ -139,6 +146,14 @@ System::System(View& view, RenderWindow& window, bool check) :
 	fin.close();
 	fin2.close();
 	fin1.close();
+
+	for (int i = 0; i < 2; i++)
+	{
+		keyboard.push_back(Keyboard::Key::Left);
+		keyboard.push_back(Keyboard::Key::Right);
+		keyboard.push_back(Keyboard::Key::Up);
+		keyboard.push_back(Keyboard::Key::Down);
+	}
 }
 
 
@@ -171,7 +186,7 @@ void System::writeFishboost(ofstream& fout)
 	fout << endl;
 	for (int i = 0; i < 4; i++)
 	{
-		fout << fish_boost[i].getPos().x << " " << fish_boost[i].getPos().y;
+		fout << view.getCenter().x - fish_boost[i].getPos().x << " " << view.getCenter().y - fish_boost[i].getPos().y;
 		fout << endl;
 	}
 }
@@ -357,6 +372,16 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 				//gameSE.playEffect(SFX::Intro);
 				newgame = true;
 			}
+			else if (tmp_menu > 9)
+			{
+				assign_key = true;
+				vector<Keyboard::Key> key_tmp = mainMenu.back()->getKeyboard();
+				for (int i = 0; i < 4; i++)
+				{
+					keyboard[i] = keyboard[i + 4];
+					keyboard[i + 4] = key_tmp[i];
+				}
+			}
 		}
 		else if (state == GameState::Lose)
 		{
@@ -390,6 +415,5 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 		gameSE.road_bgm.pause();
 	}
 }
-
 
 

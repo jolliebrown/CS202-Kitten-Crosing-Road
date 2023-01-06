@@ -84,6 +84,17 @@ Player::Player(RenderWindow& window, vector<Texture>& texture, int x_coor, int y
 
 void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWorld)
 {
+	if (gameSystem.assign_key)
+	{
+		gameSystem.assign_key = false;
+		for (int i = 0; i < 4; i++)
+		{
+			mKeyBinding.erase(gameSystem.keyboard[i]);
+			assignKey((Action)i, gameSystem.keyboard[i + 4]);
+			cout << "done";
+		}
+	}
+
 	//cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
 	{
@@ -341,14 +352,14 @@ void Player::setPosition(float x, float y)
 
 void Player::assignKey(Action action, Keyboard::Key key)
 {
-	// Remove all keys that already map to action
-	for (auto itr = mKeyBinding.begin(); itr != mKeyBinding.end(); ++itr)
-	{
-		if (itr->second == action)
-			mKeyBinding.erase(itr++);
-		else
-			++itr;
-	}
+	//// Remove all keys that already map to action
+	//for (auto itr = mKeyBinding.begin(); itr != mKeyBinding.end(); ++itr)
+	//{
+	//	if (itr->second == action)
+	//		mKeyBinding.erase(itr++);
+	//	else
+	//		++itr;
+	//}
 
 	// Insert new binding
 	mKeyBinding[key] = action;
@@ -362,6 +373,9 @@ Keyboard::Key Player::getAssignedKey(Action action) const
 			return pair.first;
 	}
 	return  Keyboard::Unknown;
+}
+void Player::changeAppearance(int index)
+{
 }
 void Player::setIdPlayer(int id) {
 	idPlayer = id;

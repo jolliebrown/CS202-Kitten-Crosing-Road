@@ -49,12 +49,14 @@ private:
 	vector<FloatingButton>buttons;
 	vector<Object>		fish_boost;
 	vector<FishCoin>	fish_boost_name;
+	vector<Keyboard::Key> keyboard;
 	Object      gamePaused, gameOver, gameWon;
 	Object				scoreBoard;
 	pair<int, int>		score;
 	GameState			state;
 	string				player_name = "default";
 	GameMode			game_mode;
+	bool				assign_key = false;
 	int					level;
 	int					fish_coin;
 	vector<pair<int, string>> highscore;

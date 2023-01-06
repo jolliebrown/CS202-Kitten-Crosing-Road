@@ -20,7 +20,7 @@ ListTextures::ListTextures()
 	onePicLoad(tlight, "Media/Light_y.png");
 	onePicLoad(tlight, "Media/Light_r.png");
 
-	onePicLoad(wood, "Media/Wood.png");
+	onePicLoad(wood, "Media/Wood_new.png");
 
 	load(animal, "Media/Animal.png", 6, 12, 114, 24, 12, 12);
 

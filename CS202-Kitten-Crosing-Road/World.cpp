@@ -79,7 +79,7 @@ World::World(RenderWindow& window, bool check) :
 World::World(RenderWindow& window, bool check, string folderName):
 	window(window)
 {
-	mapIndex.clear();
+	/*mapIndex.clear();
 	curID = 0;
 	cerr << "Load map: \n";
 	for (int i = 0; i < 16; i++) {
@@ -109,33 +109,33 @@ World::World(RenderWindow& window, bool check, string folderName):
 			mLane.push_back(temLane);
 		}
 		is.close();
-	}
-	//for (int i = 0; i < mapIndex.size(); i++)
-	//{
-	//	int j = mapIndex[i];
-	//	int pos = signMap * BaseUnit * i;
-	//	int dir = (rand() % 2 == 0) ? -1 : 1;
-	//	/*vector<Object> tmp;
-	//	generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, pos);
-	//	mapBackground.push(tmp);*/
+	}*/
+	for (int i = 0; i < mapIndex.size(); i++)
+	{
+		int j = mapIndex[i];
+		int pos = signMap * BaseUnit * i;
+		int dir = (rand() % 2 == 0) ? -1 : 1;
+		/*vector<Object> tmp;
+		generate(tmp, ListTextures::background[j], j == 0 ? BaseUnit : BaseUnit * 3, pos);
+		mapBackground.push(tmp);*/
 
-	//	if (mapIndex[i] == 1) {
-	//		Lane* temLane = new Road(window, dir, rand() % 3, light, animal, car, 0, pos, BaseUnit * 3, background[j], nLane);
-	//		mLane.push_back(temLane);
-	//	}
-	//	else if (mapIndex[i] == 2) {
-	//		Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
-	//		mLane.push_back(temLane);
-	//	}
-	//	else if (mapIndex[i] == 0) {
-	//		Lane* temLane = new Road(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
-	//		mLane.push_back(temLane);
-	//	}
-	//	else {
-	//		Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
-	//		mLane.push_back(temLane);
-	//	}
-	//}
+		if (mapIndex[i] == 1) {
+			Lane* temLane = new Road(window, dir, rand() % 3, light, animal, car, 0, pos, BaseUnit * 3, background[j], nLane);
+			mLane.push_back(temLane);
+		}
+		else if (mapIndex[i] == 2) {
+			Lane* temLane = new RailWay(window, dir, rand() % 3, tlight, train[0], 0, pos, BaseUnit * 3, background[j], nLane);
+			mLane.push_back(temLane);
+		}
+		else if (mapIndex[i] == 0) {
+			Lane* temLane = new Road(window, 100, pos, BaseUnit, obstacle[Rand(1, 100) % 2], background[j]);
+			mLane.push_back(temLane);
+		}
+		else {
+			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
+			mLane.push_back(temLane);
+		}
+	}
 }
 bool World::worldRestart() {
 	mapIndex.clear();
