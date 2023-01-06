@@ -63,7 +63,7 @@ Menu::Menu(RenderWindow& mWindow) : Scene(mWindow)
 	// Button
 	for (int i = 0; i < menuTexture[sceneName].size(); ++i)
 	{
-		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second,  224, (50 + 17 * i), true);
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 17 * i), true);
 		buttons.push_back(button);
 	}
 }
@@ -368,6 +368,37 @@ ButtonSettings::ButtonSettings(RenderWindow& mWindow) : Scene(mWindow)
 		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
 		buttons.push_back(button);
 	}
+
+	for (int i = 0; i < 36; i++)
+	{
+		Keyboard::Key tmp = (Keyboard::Key)i;
+		if (key_text[tmp].loadFromFile("Media/Scene/ButtonSettings/Keyboards/" + to_string(i) + ".png"))
+		{
+			key[tmp].setTexture(key_text[tmp]);
+			key_pressed[tmp] = 0;
+			key[tmp].setPosition(center(key_text[tmp]), (160 - key_text[tmp].getSize().y) / 2);
+		}
+	}
+	for (int i = 46; i < 59; i++)
+	{
+		Keyboard::Key tmp = (Keyboard::Key)i;
+		if (key_text[tmp].loadFromFile("Media/Scene/ButtonSettings/Keyboards/" + to_string(i) + ".png"))
+		{
+			key[tmp].setTexture(key_text[tmp]);
+			key_pressed[tmp] = 0;
+			key[tmp].setPosition(center(key_text[tmp]), (160 - key_text[tmp].getSize().y) / 2);
+		}
+	}
+	for (int i = 71; i < 75; ++i)
+	{
+		Keyboard::Key tmp = (Keyboard::Key)i;
+		if (key_text[tmp].loadFromFile("Media/Scene/ButtonSettings/Keyboards/" + to_string(i) + ".png"))
+		{
+			key[tmp].setTexture(key_text[tmp]);
+			key_pressed[tmp] = 0;
+			key[tmp].setPosition(center(key_text[tmp]), (160 - key_text[tmp].getSize().y) / 2);
+		}
+	}
 }
 
 ButtonSettings::~ButtonSettings()
@@ -390,6 +421,7 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 				else
 				{
 					buttonPressed = i - 1;
+					key_pressed[movingButtons[buttonPressed]] = 0;
 					while (buttons.size() > 1)
 						buttons.pop_back();
 					for (int j = 0; j < menuTexture[sceneName].size(); ++j)
@@ -412,8 +444,9 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 		}
 		else if (event.type == Event::KeyReleased)
 		{
-			int returnValue = buttonPressed;
+			key_pressed[movingButtons[buttonPressed]] = 0;
 			movingButtons[buttonPressed] = event.key.code;
+			recent = movingButtons[buttonPressed];
 			buttonPressed = -1;
 			for (int i = 0; i < 5; ++i)
 			{
@@ -424,7 +457,7 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 				SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (50 + 25 * i), true);
 				buttons.push_back(button);
 			}
-			return returnValue;
+			return recent;
 		}
 	}
 	return 0;
@@ -433,6 +466,16 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 void ButtonSettings::draw(const Vector2f& mouse)
 {
 	Scene::draw(mouse);
+	if (buttonPressed != -1 && key_pressed[movingButtons[buttonPressed]] < KeyDisplay)
+	{
+		window.draw(key[movingButtons[buttonPressed]]);
+		key_pressed[movingButtons[buttonPressed]]++;
+	}
+	else if (buttonPressed == -1 && recent != -1 && key_pressed[(Keyboard::Key)recent] < KeyDisplay)
+	{
+		window.draw(key[(Keyboard::Key)recent]);
+		key_pressed[(Keyboard::Key)recent]++;
+	}
 }
 
 Instruction::Instruction(RenderWindow& mWindow) : Scene(mWindow)

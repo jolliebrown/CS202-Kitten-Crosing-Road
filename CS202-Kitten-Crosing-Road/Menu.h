@@ -1,5 +1,11 @@
 #pragma once
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <map>
+
 #include "SystemFunction.h"
+
+const int KeyDisplay = 1000;
 
 enum class ButtonList
 {
@@ -16,11 +22,10 @@ public:
 	virtual int				handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) = 0;
 	virtual void			draw(const Vector2f& mouse);
 	void					getName() const;
+	int						center(const Texture& texture) const;
 	vector<Keyboard::Key>	getKeyboard() const;
 protected:
-	int						center(const Texture& texture) const;
-protected:
-	RenderWindow&			window;
+	RenderWindow& window;
 	vector<SystemButton>	buttons;
 	vector<Object>			background;
 	MenuList				sceneName;
@@ -75,7 +80,10 @@ public:
 	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
 	void draw(const Vector2f& mouse) override;
 private:
-	int buttonPressed;
+	map<Keyboard::Key, Texture> key_text;
+	map<Keyboard::Key, Sprite> key;
+	map<Keyboard::Key, int> key_pressed;
+	int buttonPressed, recent = -1;
 };
 
 class Instruction : public Scene {
