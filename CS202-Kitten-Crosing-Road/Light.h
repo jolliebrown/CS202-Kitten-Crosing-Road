@@ -24,4 +24,6 @@ private:
 	Time				count[3];
 	Clock				clock;
 	vector<Texture>		listLight;
+	SoundBuffer			railwaySignal;
+	Sound				_railwaySignal;
 };
