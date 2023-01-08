@@ -224,7 +224,7 @@ Classic::Classic(RenderWindow& mWindow) : Scene(mWindow)
 	}
 	for (int i = 2; i < 7; ++i)
 	{
-		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (40 + 20 * (i - 2)), true);
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (38 + 19 * (i - 2)), true);
 		buttons.push_back(button);
 	}
 }
@@ -245,6 +245,34 @@ int Classic::handleEvent(const Event& event, vector<Scene*>& scene, const Vector
 				if (i == 0)
 				{
 					scene.pop_back();
+				}
+				else
+				{
+					if (i == 1 && pageIndex > 1)
+					{
+						--pageIndex;
+					}
+					else if (i == 2 && pageIndex < pageNum)
+					{
+						++pageIndex;
+					}
+					background.pop_back();
+					while (buttons.size() > 3)
+					{
+						buttons.pop_back();
+					}
+
+					// New page index
+					Object page(window, menuTexture[sceneName][pageIndex + 11].first, center(menuTexture[sceneName][pageIndex + 11].first), 136);
+					page.setPos(window.getView());
+					background.push_back(page);
+
+					// Levels in the new page
+					for (int j = 5 * (pageIndex - 1) + 2; j < 5 * pageIndex + 2; ++j)
+					{
+						SystemButton button(window, menuTexture[sceneName][j].first, menuTexture[sceneName][j].second, 224, (38 + 19 * (j - (5 * (pageIndex - 1) + 2))), true);
+						buttons.push_back(button);
+					}
 				}
 				break;
 			}
