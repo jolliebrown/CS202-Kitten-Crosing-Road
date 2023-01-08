@@ -67,7 +67,7 @@ ListTextures::ListTextures()
 	menuListName[MenuList::ButtonSettings] = "ButtonSettings";
 	menuListName[MenuList::Instruction] = "Instruction";
 	int menuListNum = 7;
-	int maxMenuNum = 10;
+	int maxMenuNum = 14;
 
 	for (int i = 0; i < fishCoinNum; i++)
 	{

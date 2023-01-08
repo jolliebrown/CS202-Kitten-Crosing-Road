@@ -7,8 +7,6 @@
 
 const int KeyDisplay = 1000;
 
-
-
 enum class ButtonList
 {
 	Continue,
@@ -27,7 +25,7 @@ public:
 	int						center(const Texture& texture) const;
 	vector<Keyboard::Key>	getKeyboard() const;
 protected:
-	RenderWindow& window;
+	RenderWindow&			window;
 	vector<SystemButton>	buttons;
 	vector<Object>			background;
 	MenuList				sceneName;
@@ -52,6 +50,18 @@ public:
 	void draw(const Vector2f& mouse) override;
 private:
 	ButtonList previousButton;
+};
+
+class Classic : public Scene {
+public:
+	Classic(RenderWindow& mWindow);
+	~Classic() override;
+
+	int handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition) override;
+	void draw(const Vector2f& mouse) override;
+private:
+	int pageIndex;
+	int pageNum;
 };
 
 class Settings : public Scene {

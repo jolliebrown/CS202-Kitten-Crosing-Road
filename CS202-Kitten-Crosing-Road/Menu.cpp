@@ -173,7 +173,8 @@ int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 				else if (i == 1)
 				{
 					cerr << "Classic Mode\n";
-					//scene.pop_back();
+					Scene* classic = new Classic(window);
+					scene.push_back(classic);
 					return 1;
 				}
 				else if (i == 2)
@@ -190,6 +191,69 @@ int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 }
 
 void Mode::draw(const Vector2f& mouse)
+{
+	Scene::draw(mouse);
+}
+
+Classic::Classic(RenderWindow& mWindow) : Scene(mWindow)
+{
+	sceneName = MenuList::Classic;
+
+	// Initialize the number of level page
+	pageIndex = 1;
+	pageNum = 2;
+
+	// Background
+	Object grassBackground(window, commonAsset[1], 0, 0);
+	Object settingsBoard(window, commonAsset[4], center(commonAsset[4]), 30);
+	Object page(window, menuTexture[sceneName][pageIndex + 11].first, center(menuTexture[sceneName][pageIndex + 11].first), 136);
+	grassBackground.setPos(window.getView());
+	settingsBoard.setPos(window.getView());
+	page.setPos(window.getView());
+	background.push_back(grassBackground);
+	background.push_back(settingsBoard);
+	background.push_back(page);
+
+	// Button
+	SystemButton backButton(window, commonAsset.back(), commonAsset.back(), 0, 0, false);
+	buttons.push_back(backButton);
+	for (int i = 0; i < 2; ++i)
+	{
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, (85 + 47 * i), 135, false);
+		buttons.push_back(button);
+	}
+	for (int i = 2; i < 7; ++i)
+	{
+		SystemButton button(window, menuTexture[sceneName][i].first, menuTexture[sceneName][i].second, 224, (40 + 20 * (i - 2)), true);
+		buttons.push_back(button);
+	}
+}
+
+Classic::~Classic()
+{
+
+}
+
+int Classic::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f& mousePosition)
+{
+	if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+	{
+		for (int i = 0; i < buttons.size(); ++i)
+		{
+			if (buttons[i].isHere(mousePosition))
+			{
+				if (i == 0)
+				{
+					scene.pop_back();
+				}
+				break;
+			}
+		}
+	}
+	return 0;
+}
+
+void Classic::draw(const Vector2f& mouse)
 {
 	Scene::draw(mouse);
 }
