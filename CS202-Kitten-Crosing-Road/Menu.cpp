@@ -510,6 +510,7 @@ int ButtonSettings::handleEvent(const Event& event, vector<Scene*>& scene, const
 				if (i == 0)
 				{
 					scene.pop_back();
+					return -100;
 				}
 				else
 				{

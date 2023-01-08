@@ -273,14 +273,17 @@ void System::drawFish() {
 
 void System::draw(const Vector2f& mouse)
 {
+	if (state == GameState::Pause)
+	{
+		cout << "Paused\n";
+	}
 	//state = GameState::Menu;
-	
 	scoreBoard.setPos(view);
 	scoreBoard.draw();
 	game_score.draw();
 	fish_score.draw();
 	int l = 0, r = 0;
-	if (state == GameState::Menu)
+	if (state == GameState::Menu || state == GameState::Setting)
 	{
 		view.reset(FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10));
 		mainMenu.back()->draw(mouse);
@@ -340,9 +343,33 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			{
 				state = GameState::Continue;
 			}
+			else if (buttons[2].isHere(mouse))
+			{
+				state = GameState::Setting;
+				Scene* settingScene = new ButtonSettings(window);
+				mainMenu.push_back(settingScene);
+			}
 			else if (buttons[3].isHere(mouse))
 			{
 				state = GameState::Menu;
+			}
+		}
+		else if (state == GameState::Setting)
+		{
+			int tmp_menu = mainMenu.back()->handleEvent(event, mainMenu, mouse);
+			if (tmp_menu == -100)
+			{
+				state = GameState::Continue;
+			}
+			else if (tmp_menu > 9)
+			{
+				assign_key = true;
+				vector<Keyboard::Key> key_tmp = mainMenu.back()->getKeyboard();
+				for (int i = 0; i < 4; i++)
+				{
+					keyboard[i] = keyboard[i + 4];
+					keyboard[i + 4] = key_tmp[i];
+				}
 			}
 		}
 		else if (state == GameState::Menu)

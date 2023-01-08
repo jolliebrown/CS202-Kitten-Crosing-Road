@@ -21,8 +21,9 @@ enum class GameState
 	Continue,
 	Pause,
 	Save,
-	Menu, 
-	Restart
+	Menu,
+	Restart,
+	Setting,
 };
 
 class System : ListTextures
@@ -68,7 +69,6 @@ private:
 private:
 	void				generateNextNormalBoost(Object& curBoost);
 	FishCoin			generateNextSpecialBoost(Object& curBoost);
-
 	void				updateHS();
 };
 
