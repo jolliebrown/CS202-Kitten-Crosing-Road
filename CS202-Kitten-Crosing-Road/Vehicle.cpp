@@ -291,7 +291,7 @@ Train::Train(float initVelo, float limVelo, RenderWindow& window, Texture& textu
 	if (dir == -1) Object::asset.rotate(180);
 
 	clock.restart();
-	startMoveTime = milliseconds(Rand(1000, 8000));
+	startMoveTime = milliseconds(Rand(4000, 8000));
 	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
 	Object::asset.setPosition(startPoint, coord.y);
 }

@@ -293,7 +293,7 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Train(0.2, 0.3, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Train(0.3, 0.4, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
