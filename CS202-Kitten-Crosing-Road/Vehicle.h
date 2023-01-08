@@ -24,6 +24,7 @@ public:
 	virtual void				restartClock() = 0;
 	virtual void				reset() = 0;
 	virtual void				saveMap(ofstream &os) = 0;
+	void						playSound();
 private:
 protected:
 	SoundBuffer					buffer;

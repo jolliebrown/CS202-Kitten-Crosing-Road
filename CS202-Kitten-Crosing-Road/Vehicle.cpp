@@ -176,6 +176,8 @@ Animal::Animal(Time moveTime, float initVelo, float limVelo, RenderWindow& windo
 	startMoveTime = moveTime;
 	coord = Vector2f(x_coor, (float)(y_coor + 16 / 2));
 	Object::asset.setPosition(startPoint, coord.y);
+	buffer.loadFromFile("Media/SFX/animal.wav");
+	sound.setBuffer(buffer);
 }
 
 Animal::Animal(Time moveTime, float velo, float initVelo, float limVelo, RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int _dir, int unit) :
@@ -195,6 +197,8 @@ Animal::Animal(Time moveTime, float velo, float initVelo, float limVelo, RenderW
 	clock.restart();
 	startMoveTime = moveTime;
 	coord = Vector2f(x_coor, (float)(y_coor));
+	buffer.loadFromFile("Media/SFX/animal.wav");
+	sound.setBuffer(buffer);
 }
 
 Animal::Animal(const Animal& vehicle) :
@@ -205,6 +209,8 @@ Animal::Animal(const Animal& vehicle) :
 	Object::asset.setOrigin(Object::asset.getGlobalBounds().width / 2, Object::asset.getGlobalBounds().height / 2);
 	if (dir == -1) Object::asset.rotate(180);
 	Object::asset.setPosition(startPoint, coord.y);
+	buffer.loadFromFile("Media/SFX/animal.wav");
+	sound.setBuffer(buffer);
 }
 
 void Animal::draw(int state, float x_coord)
@@ -616,4 +622,12 @@ void Wood::saveMap(ofstream& os)
 	os << limVelo << ' ' << initVelo << ' ' << velo << ' ' << acce << '\n';
 	// start move time
 	os << startMoveTime.asMilliseconds() - clock.getElapsedTime().asMilliseconds() << '\n';
+}
+
+void Vehicle::playSound()
+{
+	if (sound.getBuffer() != NULL)
+	{
+		sound.play();
+	}
 }

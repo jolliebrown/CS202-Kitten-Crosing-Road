@@ -268,7 +268,13 @@ void Road::handleEvent() {
 
 bool Road::isCollided(Player& mPlayer)
 {
-	for (auto& car : listVehicle) if (mPlayer.isCollided(*car)) return true;
+	for (auto& car : listVehicle) {
+		if (mPlayer.isCollided(*car))
+		{
+			car->playSound();
+			return true;
+		}
+	}
 	return false;
 }
 
