@@ -46,11 +46,11 @@ public:
 	void				writeFishboost(ofstream& fout);
 private:
 	vector<Scene*>      mainMenu;
-	vector<FloatingButton>buttons;
+	vector<FloatingButton> buttons;
 	vector<Object>		fish_boost;
 	vector<FishCoin>	fish_boost_name;
 	vector<Keyboard::Key> keyboard;
-	Object      gamePaused, gameOver, gameWon;
+	Object				gamePaused, gameOver, gameWon;
 	Object				scoreBoard;
 	pair<int, int>		score;
 	GameState			state;
@@ -60,16 +60,16 @@ private:
 	int					level;
 	int					fish_coin;
 	vector<pair<int, string>> highscore;
-	bool newgame = false;
-	RenderWindow& window;
-	View& view;
+	bool				newgame = false;
+	RenderWindow&		window;
+	View&				view;
 	InfoScore			fish_score, game_score;
 	SoundEffect			gameSE;
 private:
 	void				generateNextNormalBoost(Object& curBoost);
 	FishCoin			generateNextSpecialBoost(Object& curBoost);
 
-	void updateHS();
+	void				updateHS();
 };
 
 bool topScore(const pair<int, string>& a, const pair<int, string>& b);

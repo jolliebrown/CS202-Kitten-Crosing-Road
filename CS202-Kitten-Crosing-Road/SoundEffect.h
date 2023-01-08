@@ -30,8 +30,8 @@ class SoundEffect
 {
 public: 
     SoundEffect();
-    void    playEffect(const SFX& type);
-    Music bgm, road_bgm;
+    void	playEffect(const SFX& type);
+    Music	bgm, road_bgm;
 private:
     map<SFX, SoundBuffer> buffer;
     map<SFX, Sound> sfx;

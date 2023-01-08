@@ -10,7 +10,7 @@ class Player : public Object
 {
 public:
 	friend class World;
-	int idPlayer = 0;
+	int					idPlayer = 0;
 	void				setIdPlayer(int id);
 	enum Action
 	{

@@ -299,7 +299,7 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Train(0.2, 0.3, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Train(0.3, 0.4, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
@@ -452,8 +452,8 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 		numWoods++;
 	}
 	float velo = 0.03 + (level / 20) * 0.005;
-	int random_num = Rand(0, 1500);
-	int distance_car = max(int(100 / velo), 2000);
+	int random_num = Rand(0, 500);
+	int distance_car = max(int(100 / velo), 500);
 	for (int i = 0; i <= numWoods; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		Vehicle* Tem;
