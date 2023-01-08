@@ -23,7 +23,7 @@ Game::Game() :
 bool Game::gameRestart() {
 	mView.reset(sf::FloatRect(0, signMap * BaseUnit * 2, BaseUnit * 14, BaseUnit * 10));
 	mPlayer.setIdPlayer(0);
-	mPlayer.setPos(mView);
+	mPlayer.setPosition((int)120 / BaseUnit * BaseUnit, -40);
 	mWorld.worldRestart();
 	gameSystem.setState(GameState::Continue);
 	return true;
