@@ -345,9 +345,14 @@ void Player::changePosition(int x, int y)
 	this->asset.setPosition(asset.getPosition().x + x, asset.getPosition().y + y);
 }
 
-void Player::setPosition(float x, float y)
+void Player::movePosition(float x, float y)
 {
 	this->asset.move(x, y);
+}
+
+void Player::setPosition(float x, float y)
+{
+	this->asset.setPosition(x, y);
 }
 
 void Player::assignKey(Action action, Keyboard::Key key)

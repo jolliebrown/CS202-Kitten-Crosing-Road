@@ -12,6 +12,12 @@ Game::Game() :
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 	gameSystem.setState(GameState::Menu);
+	
+	ifstream is("EndLessMap\\savePlayer.txt");
+	float playerX, playerY, viewX, viewY;
+	is >> playerX >> playerY >> viewX >> viewY;
+	mPlayer.setPosition(playerX, playerY);
+	mView.setCenter(viewX, viewY);
 }
 bool Game::gameRestart() {
 	mView.reset(sf::FloatRect(0, signMap * BaseUnit * 2, BaseUnit * 14, BaseUnit * 10));
@@ -96,6 +102,9 @@ void Game::saveFile()
 void Game::saveMap(string folderName) 
 {
 	mWorld.saveMap(folderName);
+	ofstream os(folderName + "\\savePlayer.txt");
+	os << mPlayer.getPosition().first << ' ' << mPlayer.getPosition().second << '\n';
+	os << mView.getCenter().x << ' ' << mView.getCenter().y << '\n';
 }
 
 void Game::run()

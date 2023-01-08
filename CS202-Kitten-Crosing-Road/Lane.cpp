@@ -569,7 +569,7 @@ bool Water::isCollided(Player& mPlayer)
 {
 	for (auto& wood : listVehicle) {
 		if (mPlayer.isCollided(*wood)) {
-			mPlayer.setPosition(wood->getVelo(), 0);
+			mPlayer.movePosition(wood->getVelo(), 0);
 			return false;
 		}
 	}
