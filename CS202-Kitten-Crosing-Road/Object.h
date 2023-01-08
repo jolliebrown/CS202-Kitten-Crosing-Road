@@ -105,10 +105,10 @@ public:
 	Object&					operator=(Object& scr);
 	//~Object();
 	void					draw();
-	bool isCollided(Object& src);
-	bool isCollidedWater(FloatRect src);
-	bool isCollidedSpecial(Object& src);
-	//const bool isCollided(const Object& src) const;
+	bool					isCollided(Object& src);
+	bool					isCollidedWater(FloatRect src);
+	bool					isCollidedSpecial(Object& src);
+	//const bool			isCollided(const Object& src) const;
 	//FloatRect				getBound();
 	FloatRect				getBound() const;
 	bool					insideView();
@@ -124,7 +124,7 @@ private:
 protected:
 	int						unit;
 	Sprite					asset;
-	int	x, y;
+	int						x, y;
 };
 
 class Info
@@ -133,7 +133,7 @@ private:
 	Font&					mFont;
 	RenderWindow&			window;
 	Text					mText;
-	int x, y;
+	int						x, y;
 public:
 	Info(Font& _font, RenderWindow& window, const Color& color, int size, int x_coor, int y_coor);
 	bool					isHere(const Vector2f& mouse);
