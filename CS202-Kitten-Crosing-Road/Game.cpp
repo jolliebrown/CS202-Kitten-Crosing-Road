@@ -14,10 +14,11 @@ Game::Game() :
 	gameSystem.setState(GameState::Menu);
 	
 	ifstream is("EndLessMap\\savePlayer.txt");
-	float playerX, playerY, viewX, viewY;
-	is >> playerX >> playerY >> viewX >> viewY;
+	float isDead, playerX, playerY, viewX, viewY;
+	is >> isDead >> playerX >> playerY >> viewX >> viewY;
 	mPlayer.setPosition(playerX, playerY);
 	mView.setCenter(viewX, viewY);
+	mWindow.setView(mView);
 }
 bool Game::gameRestart() {
 	mView.reset(sf::FloatRect(0, signMap * BaseUnit * 2, BaseUnit * 14, BaseUnit * 10));
@@ -103,6 +104,7 @@ void Game::saveMap(string folderName)
 {
 	mWorld.saveMap(folderName);
 	ofstream os(folderName + "\\savePlayer.txt");
+	os << mPlayer.idPlayer << '\n';
 	os << mPlayer.getPosition().first << ' ' << mPlayer.getPosition().second << '\n';
 	os << mView.getCenter().x << ' ' << mView.getCenter().y << '\n';
 }
@@ -111,7 +113,7 @@ void Game::run()
 {
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
-	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second - 65);
+	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second - 65);
 	//viewPosition.x = mPlayer.getPosition().first;
 	//viewPosition.y = mPlayer.getPosition().second;
 	int dx = 0, dy = 0;

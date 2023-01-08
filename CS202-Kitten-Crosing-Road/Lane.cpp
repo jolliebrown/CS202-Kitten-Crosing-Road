@@ -23,7 +23,7 @@ void Road::addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coo
 Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle , vector<Texture>& mTexture) :
 	window(&window)
 {
-	this->dir = dir;
+	this->dir = 1;
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
@@ -590,6 +590,21 @@ void RailWay::resetVehicle() {
 	for (auto& train : listVehicle) {
 		train->reset();
 	}
+}
+
+int Road::getDir()
+{
+	return dir;
+}
+
+int RailWay::getDir()
+{
+	return dir;
+}
+
+int Water::getDir()
+{
+	return dir;
 }
 
 // Save map

@@ -24,6 +24,7 @@ public:
 	virtual void				resetVehicle() = 0;
 	vector<Obstacle>			listObstacle;
 	virtual	void				saveMap(ofstream &os) = 0;
+	virtual int					getDir() = 0;
 };
 
 class Road: public Lane
@@ -48,6 +49,7 @@ public:
 	bool						isCollided(Player& mPlayer);
 	int							getPosition();
 	void						saveMap(ofstream &os) ;
+	int							getDir();
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;
@@ -78,6 +80,7 @@ public:
 	int							getPosition();
 	void						resetVehicle();
 	void						saveMap(ofstream &os) ;
+	int							getDir();
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;
@@ -111,6 +114,7 @@ public:
 	int							getPosition();
 	void						resetVehicle();
 	void						saveMap(ofstream &os) ;
+	int							getDir();
 private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;

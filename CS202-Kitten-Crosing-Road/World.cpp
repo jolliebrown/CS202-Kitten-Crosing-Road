@@ -31,6 +31,7 @@ World::World(RenderWindow& window) :
 			mLane.push_back(temLane);
 		}
 		else {
+			if (!mLane.empty()) dir = (0 - mLane.back()->getDir());
 			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
@@ -70,6 +71,7 @@ World::World(RenderWindow& window, bool check) :
 			mLane.push_back(temLane);
 		}
 		else {
+			if (!mLane.empty()) dir = (0 - mLane.back()->getDir());
 			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
@@ -105,6 +107,7 @@ World::World(RenderWindow& window, bool check, string folderName):
 			mLane.push_back(temLane);
 		}
 		else {
+			if (!mLane.empty()) dir = (0 - mLane.back()->getDir());
 			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane, is);
 			mLane.push_back(temLane);
 		}
@@ -165,6 +168,7 @@ bool World::worldRestart() {
 			mLane.push_back(temLane);
 		}
 		else {
+			if (!mLane.empty()) dir = (0 - mLane.back()->getDir());
 			Lane* temLane = new Water(window, dir, wood[0], 0, pos, BaseUnit * 3, background[j], nLane);
 			mLane.push_back(temLane);
 		}
@@ -247,6 +251,7 @@ bool World::handleEvent(RenderWindow& window, View& mView) {
 				mLane.push_back(temLane);
 			}
 			else {
+				if (!mLane.empty()) dir = (0 - mLane.back()->getDir());
 				Lane* temLane = new Water(window, dir, wood[0], 0, nextPosition, BaseUnit * 3, background[nextId], nLane);
 				mLane.push_back(temLane);
 			}
@@ -295,13 +300,13 @@ int	World::getPosition(int laneIndex) {
 }
 
 int World::generateNextLaneIndex(int status) {
-	static int freq[4] = { 8, 8, 2, 5};
+	static int freq[4] = { 8, 8, 2, 0};
 	if (status == -1) {
 		nLane = 0;
 		freq[0] = 8;
 		freq[1] = 8;
 		freq[2] = 2;
-		freq[3] = 5;
+		freq[3] = 0;
 	}
 
 	nLane += 1;
@@ -309,7 +314,7 @@ int World::generateNextLaneIndex(int status) {
 		if (freq[0] > 2) {
 			freq[0]--;
 			freq[1]++;
-			freq[3]++;
+			freq[3] += 2;
 		}
 	}
 	if (nLane < 5) {
