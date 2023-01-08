@@ -104,7 +104,7 @@ public:
 	Water(const Water& water);
 
 	Water& operator = (const Water& water);
-	vector<Object>& generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos);
+	vector<Object>&				generate(RenderWindow& window, vector<Object>& res, vector<Texture>& texture, int unit, int pos);
 	void						addLight(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	void						addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit);
 	//bool						insideView();
@@ -119,7 +119,7 @@ private:
 	int							dir; // 0: left to right, 1: right to left
 	int							y_coor;
 	int							unit;
-	RenderWindow* window;
+	RenderWindow*				window;
 	vector<Texture>				mTexture;
 	vector<Vehicle*>			listVehicle;
 

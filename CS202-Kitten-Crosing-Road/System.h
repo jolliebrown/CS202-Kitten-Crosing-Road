@@ -72,4 +72,4 @@ private:
 	void				updateHS();
 };
 
-bool topScore(const pair<int, string>& a, const pair<int, string>& b);
+bool					topScore(const pair<int, string>& a, const pair<int, string>& b);

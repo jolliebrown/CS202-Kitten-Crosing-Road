@@ -51,7 +51,7 @@ enum class MenuList
 	ButtonSettings,
 	Instruction
 };
-string					button_name(const MiniButton& src);
+string						button_name(const MiniButton& src);
 // store all textures that need to be loaded
 class ListTextures
 {
@@ -69,8 +69,6 @@ protected:
 	vector<vector<Texture>> background;
 
 	// menu
-
-	// pictures that many scenes will use
 	vector<Texture>			commonAsset;
 	// pictures for individual scene
 	map <MenuList, string>  menuListName;
@@ -87,9 +85,9 @@ public:
 	Font					numFont;
 
 	// button
-	map < MiniButton, pair<Texture, Texture>> systemButton;
-	map <FishCoin, string> fishCoinName;
-	map<FishCoin, Texture> fishCoin;
+	map <MiniButton, pair<Texture, Texture>> systemButton;
+	map <FishCoin, string>	fishCoinName;
+	map <FishCoin, Texture>	fishCoin;
 	vector<Texture>			still;
 	
 	vector<Texture>			num_text;
@@ -143,4 +141,4 @@ public:
 	void					drawWithView(const View& view, const int& s);
 };
 
-string convertScore(int a);
+string						convertScore(int a);

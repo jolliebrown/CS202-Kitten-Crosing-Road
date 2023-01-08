@@ -27,7 +27,7 @@ public:
 	bool							handleEvent(RenderWindow& window, View &mView);
 	void							processEvent(System& gameSystem, Player& mPlayer);
 	bool							worldRestart();
-	void							saveMap(string folderName) ;
+	void							saveMap(string folderName);
 private: 
 	
 	int								getPosition(int laneIndex);
@@ -40,7 +40,7 @@ private:
 	vector<Lane*>					mLane;
 	vector<int>						mapIndex; //
 	const int						range = 32;
-	RenderWindow& window;
+	RenderWindow&					window;
 	
 	int								curID = 0;
 };
