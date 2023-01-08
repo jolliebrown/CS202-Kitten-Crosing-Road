@@ -11,10 +11,10 @@
 class InfoScore
 {
 private:
-	Object a, b, c;
-	RenderWindow& window;
-	int x, y;
-	int value;
+	Object				a, b, c;
+	RenderWindow&		window;
+	int					x, y;
+	int					value;
 public:
 	InfoScore(RenderWindow& window, int x, int y, int value, vector<Texture>& texture);
 	void		draw();
@@ -28,7 +28,7 @@ class SystemButton
 protected:
 	Object				unpressed;
 	Object				pressed;
-	RenderWindow& window;
+	RenderWindow&		window;
 public:
 	SystemButton(RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor);
 	SystemButton(RenderWindow& window, pair<Texture, Texture>& src, int x_coor, int y_coor);
@@ -40,7 +40,7 @@ public:
 class FloatingButton : public SystemButton
 {
 private:
-	View& view;
+	View&				view;
 public:
 	FloatingButton(View& view, RenderWindow& window, Texture& unpressed, Texture& pressed, int x_coor, int y_coor);
 	FloatingButton(View& view, RenderWindow& window, pair<Texture, Texture>& pressed, int x_coor, int y_coor);
