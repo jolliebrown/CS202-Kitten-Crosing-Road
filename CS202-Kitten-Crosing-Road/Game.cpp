@@ -4,7 +4,7 @@ const Time Game::TimePerFrame = sf::seconds(1.f / 30.0f);
 
 Game::Game() :
 	mWindow(VideoMode(BaseUnit * 70, BaseUnit * 50), "SFML Application", Style::Close),
-	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, 0, BaseUnit * 14, BaseUnit * 10)),
+	mStatisticsNumFrames(0), mStatisticsUpdateTime(), mView(sf::FloatRect(0, signMap* BaseUnit * 2, BaseUnit * 14, BaseUnit * 10)),
 	mWorld(mWindow, 1, "EndLessMap"), mPlayer(mWindow, mWorld.user, 120 / BaseUnit * BaseUnit, -40, BaseUnit),
 	gameSystem(mView, mWindow, true)
 {
@@ -12,7 +12,7 @@ Game::Game() :
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 	gameSystem.setState(GameState::Menu);
-	
+	//mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second - 35);
 	ifstream is("EndLessMap\\savePlayer.txt");
 	float isDead, playerX, playerY, viewX, viewY;
 	is >> isDead >> playerX >> playerY >> viewX >> viewY;
@@ -26,6 +26,7 @@ bool Game::gameRestart() {
 	mPlayer.setPosition((int)120 / BaseUnit * BaseUnit, -40);
 	mWorld.worldRestart();
 	gameSystem.setState(GameState::Continue);
+	mView.setCenter(mPlayer.getPosition().first, mPlayer.getPosition().second - 35);
 	return true;
 }
 Game::~Game()
