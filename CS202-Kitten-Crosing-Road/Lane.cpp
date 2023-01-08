@@ -107,7 +107,7 @@ Road::Road(RenderWindow& window, int dir, int numLight, vector<Texture>& listLig
 	int vdir, vstate;
 
 	is >> numCars;
-	for (int i = 0; i <= numCars; ++i) {
+	for (int i = 0; i < numCars; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
 		Vehicle* Tem;
 		is >> vtype;
