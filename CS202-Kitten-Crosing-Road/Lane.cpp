@@ -445,14 +445,11 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-	int numWoods = 6;
+	int numWoods = 8;
 	if (level > 20) {
 		numWoods++;
 	}
 	if (level > 40) {
-		numWoods++;
-	}
-	if (level > 60) {
 		numWoods++;
 	}
 	float velo = 0.03 + (level / 20) * 0.005;
