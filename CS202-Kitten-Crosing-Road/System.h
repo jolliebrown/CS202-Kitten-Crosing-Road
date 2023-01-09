@@ -45,6 +45,7 @@ public:
 	void				writeFile(ofstream& fout);
 	void				writeHighScore(ofstream& fout);
 	void				writeFishboost(ofstream& fout);
+	void				stopbgm();
 private:
 	vector<Scene*>      mainMenu;
 	vector<FloatingButton> buttons;

@@ -201,6 +201,7 @@ void World::processEvent(System& gameSystem, Player& mPlayer)
 	//cerr << "************\n\n";
 	for (auto& lane : mLane) if (lane->isCollided(mPlayer)) {
 		mPlayer.setIdPlayer(-1);
+		gameSystem.stopbgm();
 		gameSystem.setState(GameState::Lose);
 		
 		break;

@@ -290,6 +290,8 @@ int Road::getPosition() {
 
 RailWay::RailWay()
 {
+	signal_txt.loadFromFile("Media/SFX/railway_signal.wav");
+	signal.setBuffer(signal_txt);
 	dir = 0;
 	y_coor = 0;
 	unit = 0;
@@ -298,12 +300,14 @@ RailWay::RailWay()
 RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
+	signal_txt.loadFromFile("Media/SFX/railway_signal.wav");
+	signal.setBuffer(signal_txt);
 	this->dir = dir;
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
 	for (int i = 0; i < 1; ++i) {
-		Vehicle* Tem = new Train(0.3, 0.4, window, texture, x_coor, y_coor, dir, unit);
+		Vehicle* Tem = new Train(0.8, 10.0, window, texture, x_coor, y_coor, dir, unit);
 		listVehicle.push_back(Tem);
 	}
 	generate(window, listTexture, mTexture, unit, y_coor);
@@ -315,6 +319,8 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& listLightTexture, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level, ifstream &is) :
 	window(&window)
 {
+	signal_txt.loadFromFile("Media/SFX/railway_signal.wav");
+	signal.setBuffer(signal_txt);
 	this->dir = dir;
 	this->y_coor = y_coor;
 	this->unit = unit;
@@ -340,6 +346,8 @@ RailWay::RailWay(RenderWindow& window, int dir, int numLight, vector<Texture>& l
 RailWay::RailWay(const RailWay& railway) :
 	window(railway.window)
 {
+	signal_txt.loadFromFile("Media/SFX/railway_signal.wav");
+	signal.setBuffer(signal_txt);
 	//cerr << "Deep copy...\n";
 	dir = railway.dir;
 	y_coor = railway.y_coor;
@@ -395,15 +403,30 @@ void RailWay::handleEvent() {
 	for (auto& train : listVehicle) {
 		bool isMove = train->move(0, 0);
 		for (auto& light : listLight) {
-			if (isMove) light.setState(2);
-			else light.setState(0);
+			if (isMove)
+			{
+				if (unplaySignal)
+				{
+					signal.play();
+					unplaySignal = false;
+				}
+				light.setState(2);
+			}
+			else
+			{
+				unplaySignal = true;
+				light.setState(0);
+			}
 		}
 	}
 }
 
 bool RailWay::isCollided(Player& mPlayer)
 {
-	for (auto& train : listVehicle) if (mPlayer.isCollided(*train)) return true;
+	for (auto& train : listVehicle) if (mPlayer.isCollided(*train)) {
+		stopSound();
+		return true;
+	}
 	return false;
 }
 
@@ -414,6 +437,8 @@ int RailWay::getPosition() {
 /// *********************** Water ******************** ///
 Water::Water()
 {
+	signal_txt.loadFromFile("Media/SFX/Water.wav");
+	signal.setBuffer(signal_txt);
 	dir = 0;
 	y_coor = 0;
 	unit = 0;
@@ -441,19 +466,33 @@ void Water::addObstacle(RenderWindow& window, vector<Texture>& texture, int x_co
 Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level) :
 	window(&window)
 {
+	signal_txt.loadFromFile("Media/SFX/Water.wav");
+	signal.setBuffer(signal_txt);
 	this->dir = dir;
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
+<<<<<<< Updated upstream
 	int numWoods = 8;
+=======
+	int numWoods = 10;
+>>>>>>> Stashed changes
 	if (level > 20) {
-		numWoods++;
+		numWoods--;
 	}
 	if (level > 40) {
-		numWoods++;
+		numWoods--;
 	}
+<<<<<<< Updated upstream
 	float velo = 0.03 + (level / 30) * 0.01;
 	int random_num = Rand(0, 500);
+=======
+	if (level > 60) {
+		numWoods--;
+	}
+	float velo = 0.03 + (level / 20) * 0.005;
+	int random_num = Rand(0, 300);
+>>>>>>> Stashed changes
 	int distance_car = max(int(100 / velo), 500);
 	for (int i = 0; i <= numWoods; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
@@ -471,6 +510,8 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_coor, int unit, vector<Texture>& mTexture, int level, ifstream& is) :
 	window(&window)
 {
+	signal_txt.loadFromFile("Media/SFX/Water.wav");
+	signal.setBuffer(signal_txt);
 	this->dir = dir;
 	this->y_coor = y_coor;
 	this->unit = unit;
@@ -496,6 +537,8 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 Water::Water(const Water& road) :
 	window(road.window)
 {
+	signal_txt.loadFromFile("Media/SFX/Water.wav");
+	signal.setBuffer(signal_txt);
 	//cerr << "Deep copy...\n";
 	dir = road.dir;
 	y_coor = road.y_coor;
@@ -581,7 +624,10 @@ bool Water::isCollided(Player& mPlayer)
 		}
 	}
 	FloatRect water(0, y_coor + 2, BaseUnit * 30, BaseUnit - 4);
-	if (mPlayer.isCollidedWater(water)) return true;
+	if (mPlayer.isCollidedWater(water)) {
+		signal.play();
+		return true;
+	}
 	return false;
 }
 
@@ -655,4 +701,10 @@ void Water::saveMap(ofstream& os)
 	os << dir << '\n';
 	os << listVehicle.size() << '\n';
 	for (auto& vehicle : listVehicle) vehicle->saveMap(os);
+}
+
+void Lane::stopSound()
+{
+	signal.stop();
+	unplaySignal = true;
 }

@@ -8,7 +8,6 @@ Game::Game() :
 	mWorld(mWindow, 1, "EndLessMap"), mPlayer(mWindow, mWorld.user, 120 / BaseUnit * BaseUnit, -40, BaseUnit),
 	gameSystem(mView, mWindow, true)
 {
-	cerr << "Game default constructor\n";
 	cur_img.loadFromFile("Media/mouse_paw.png");
 	cur_clicked.loadFromFile("Media/mouse_clicked.png");
 	gameSystem.setState(GameState::Menu);
@@ -32,7 +31,6 @@ bool Game::gameRestart() {
 Game::~Game()
 {
 	saveMap("EndLessMap");
-	cerr << "Saved successfully\n";
 }
 
 bool Game::gameLose() {

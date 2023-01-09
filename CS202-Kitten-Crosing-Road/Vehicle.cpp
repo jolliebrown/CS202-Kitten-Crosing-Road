@@ -343,12 +343,16 @@ void Train::accelerate()
 bool Train::move(int state, float x_coord)
 {
 	if (clock.getElapsedTime().asMilliseconds() < startMoveTime.asMilliseconds()) return false;
+	else if (clock.getElapsedTime().asMilliseconds() + 2000 < startMoveTime.asMilliseconds())
+	{
+		return true;
+	}
 	Object::asset.move(Vector2f(velo, 0));
 	checkLight(state, x_coord);
 	if ((Object::asset.getPosition().x > endPoint) == (dir == 1)) {
 		Object::asset.setPosition(startPoint, coord.y);
 		clock.restart();
-		startMoveTime = milliseconds(Rand(1000, 8000));
+		startMoveTime = milliseconds(Rand(2000, 8000));
 		velo = initVelo;
 	}
 	return true;

@@ -80,7 +80,6 @@ System::System(View& view, RenderWindow& window, bool check) :
 	game_mode = static_cast<GameMode>(mode_tmp);
 	fin >> level;
 	fin >> fish_coin;
-	cerr << "Input\n";
 	FloatingButton pause(view, window, ListTextures::systemButton[MiniButton::Pause], 195, 5);
 	buttons.push_back(pause);
 	// Pause
@@ -201,11 +200,6 @@ void System::updateHS()
 	pair<int, string> tmp = { score.first, player_name };
 	highscore.push_back(tmp);
 	sort(highscore.begin(), highscore.end(), topScore);
-	for (int i = 0; i < highscore.size(); i++)
-	{
-		cerr << highscore[i].first << " ";
-	}
-	cerr << endl;
 }
 
 void System::writeFile(ofstream& fout)
@@ -328,6 +322,12 @@ string convertScore(int a)
 	if (a < 100) return "0" + to_string(a);
 	return to_string(a);
 }
+
+void System::stopbgm()
+{
+	gameSE.road_bgm.stop();
+}
+
 
 void System::handleEvent(const Event& event, const Vector2f& mouse)
 {

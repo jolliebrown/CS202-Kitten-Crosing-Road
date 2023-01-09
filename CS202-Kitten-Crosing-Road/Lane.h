@@ -25,6 +25,11 @@ public:
 	vector<Obstacle>			listObstacle;
 	virtual	void				saveMap(ofstream &os) = 0;
 	virtual int					getDir() = 0;
+	virtual void				stopSound();
+protected:
+	SoundBuffer	signal_txt;
+	Sound	signal;
+	bool unplaySignal = true;
 };
 
 class Road: public Lane
@@ -91,6 +96,7 @@ private:
 	vector<Light>				listLight;
 	vector<Object>				listTexture;
 	const int					range = 32;
+	
 };
 
 class Water : public Lane

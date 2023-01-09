@@ -34,7 +34,7 @@ void Scene::draw(const Vector2f& mouse)
 
 void Scene::getName() const
 {
-	cerr << (int)sceneName << endl;
+	//cerr << (int)sceneName << endl;
 }
 
 int Scene::center(const Texture& texture) const
@@ -172,14 +172,12 @@ int Mode::handleEvent(const Event& event, vector<Scene*>& scene, const Vector2f&
 				}
 				else if (i == 1)
 				{
-					cerr << "Classic Mode\n";
 					Scene* classic = new Classic(window);
 					scene.push_back(classic);
 					return 1;
 				}
 				else if (i == 2)
 				{
-					cerr << "Endless Mode\n";
 					scene.pop_back();
 					return 2;
 				}
