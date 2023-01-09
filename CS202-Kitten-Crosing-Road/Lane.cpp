@@ -452,7 +452,7 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 	if (level > 40) {
 		numWoods++;
 	}
-	float velo = 0.03 + (level / 20) * 0.005;
+	float velo = 0.03 + (level / 30) * 0.01;
 	int random_num = Rand(0, 500);
 	int distance_car = max(int(100 / velo), 500);
 	for (int i = 0; i <= numWoods; ++i) {
