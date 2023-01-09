@@ -388,7 +388,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 				}
 				else
 				{
-					//view = preView;
+					view = preView;
 					state = GameState::Continue;
 				}
 			}
