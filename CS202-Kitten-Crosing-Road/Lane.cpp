@@ -472,27 +472,18 @@ Water::Water(RenderWindow& window, int dir, Texture& texture, int x_coor, int y_
 	this->y_coor = y_coor;
 	this->unit = unit;
 	this->mTexture = mTexture;
-<<<<<<< Updated upstream
-	int numWoods = 8;
-=======
 	int numWoods = 10;
->>>>>>> Stashed changes
 	if (level > 20) {
 		numWoods--;
 	}
 	if (level > 40) {
 		numWoods--;
 	}
-<<<<<<< Updated upstream
-	float velo = 0.03 + (level / 30) * 0.01;
-	int random_num = Rand(0, 500);
-=======
 	if (level > 60) {
 		numWoods--;
 	}
 	float velo = 0.03 + (level / 20) * 0.005;
 	int random_num = Rand(0, 300);
->>>>>>> Stashed changes
 	int distance_car = max(int(100 / velo), 500);
 	for (int i = 0; i <= numWoods; ++i) {
 		//Vehicle* Tem = new Car(velo, velo, window, texture, x_coor, y_coor, dir, unit);
