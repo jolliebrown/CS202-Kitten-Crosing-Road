@@ -48,9 +48,9 @@ Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Textur
 	int numObs;
 	is >> numObs;
 	for (int i = 0; i < numObs; ++i) {
-		float vx_coor, vy_coor;
+		int vx_coor, vy_coor;
 		is >> vx_coor >> vy_coor;
-		addObstacle(window, listTextureObstacle, vx_coor, vy_coor, unit);
+		addObstacle(window, listTextureObstacle, vx_coor / BaseUnit * BaseUnit, vy_coor / BaseUnit * BaseUnit, unit);
 	}
 }
 

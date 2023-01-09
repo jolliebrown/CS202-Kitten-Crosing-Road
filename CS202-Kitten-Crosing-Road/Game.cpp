@@ -36,7 +36,7 @@ Game::~Game()
 }
 
 bool Game::gameLose() {
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		sleep(sf::milliseconds(100));
 		int sign = 1;
 		if (i % 2 == 0) sign = 1;
@@ -125,7 +125,7 @@ void Game::run()
 		timeSinceLastUpdate += elapsedTime;
 		//while (timeSinceLastUpdate > TimePerFrame)
 		//{
-		//	//cout << count << endl;
+		//	//// cout << count << endl;
 		//	processEvents();
 		//	update(TimePerFrame);
 		//	timeSinceLastUpdate -= TimePerFrame;
@@ -140,7 +140,7 @@ void Game::run()
 
 void Game::processEvents()
 {
-	//cout << mPlayer.getPosition().first << " " << mPlayer.getPosition().second << endl;
+	//// cout << mPlayer.getPosition().first << " " << mPlayer.getPosition().second << endl;
 	sf::Event event;
 	while (mWindow.pollEvent(event))
 	{
@@ -177,7 +177,7 @@ void Game::render()
 	// draw sth here
 	mWorld.draw(true);
 	gameSystem.drawFish();
-	//cout << mouse.x << " " << mouse.y << endl;
+	//// cout << mouse.x << " " << mouse.y << endl;
 	mWorld.draw(false);
 	mPlayer.draw();
 	gameSystem.draw(mouse);

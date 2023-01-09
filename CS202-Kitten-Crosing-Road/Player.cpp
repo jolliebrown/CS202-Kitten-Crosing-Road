@@ -52,7 +52,7 @@ void Player::draw()
 		}
 		else
 		{
-			/*cout << "jump\n";
+			/*// cout << "jump\n";
 			int new_x = (getPosition().first - x);
 			new_x /= BaseUnit;
 			new_x = new_x * BaseUnit + x;
@@ -61,7 +61,7 @@ void Player::draw()
 			new_y = new_y * BaseUnit + y;
 			this->asset.setPosition(new_x, new_y);*/
 			isMoving = 0;
-			//cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
+			//// cout << int(getPosition().first) % BaseUnit  << " " << int(getPosition().second) % BaseUnit << endl;
 		}
 	}
 	draw_status = IntRect(curMove * BaseUnit, (int) faceLeft * BaseUnit, BaseUnit, BaseUnit);
@@ -91,11 +91,11 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 		{
 			mKeyBinding.erase(gameSystem.keyboard[i]);
 			assignKey((Action)i, gameSystem.keyboard[i + 4]);
-			cout << "done";
+		//	// cout << "done";
 		}
 	}
 
-	//cout << mAction.size() << endl;
+	//// cout << mAction.size() << endl;
 	if (event.type == sf::Event::KeyReleased)
 	{
 		// change Style
@@ -131,14 +131,14 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 		}
 		// no obstables
 		if (mAction[Action::MoveLeft].x) {
-			cout << "left\n";
+			// cout << "left\n";
 			if (mWorld.isColliedObstacle(*this, -1, 0)) {
 
 				mAction.clear();
 			}
 		}
 		if (mAction[Action::MoveRight].x) {
-			cout << "right\n";
+			// cout << "right\n";
 			if (mWorld.isColliedObstacle(*this, 1, 0)) {
 
 				mAction.clear();
@@ -146,7 +146,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 		}
 		if (mAction[Action::MoveUp].y)
 		{
-			cout << "up\n";
+			// cout << "up\n";
 			if (mWorld.isColliedObstacle(*this, 0, -1)) {
 				mAction.clear();
 			}
@@ -187,7 +187,7 @@ void Player::handleEvent(const sf::Event& event, System& gameSystem, World& mWor
 				if (tmp == FishCoin::Bonus)
 				{
 					gameSystem.fish_coin += 5;
-					cout << 5 << endl;
+					//// cout << 5 << endl;
 				}
 				else if (tmp == FishCoin::Destroy) {
 

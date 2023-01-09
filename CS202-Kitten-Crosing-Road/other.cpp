@@ -19,7 +19,7 @@ long long Rand(long long l, long long h)
 //bool genArray(int n, long long low, long long high, string path) {
 //    ofstream f(path);
 //    if (!f.is_open()) {
-//        cout << "Can't open file " << path << endl;
+//        // cout << "Can't open file " << path << endl;
 //        return false;
 //    }
 //    f << n << endl;
@@ -35,12 +35,12 @@ long long Rand(long long l, long long h)
 //
 //void runningTime(clock_t start) {
 //    double time = (double)(clock() - start) / CLOCKS_PER_SEC;
-//    cout << "Running time: " << time << "s\n";
+//    // cout << "Running time: " << time << "s\n";
 //}
 //
 //void runningTime(clock_t start, string mess) {
 //    double time = (double)(clock() - start) / CLOCKS_PER_SEC;
-//    cout << "Running time " << mess << ": " << time << "s\n";
+//    // cout << "Running time " << mess << ": " << time << "s\n";
 //}
 //
 
@@ -66,8 +66,8 @@ vector <int> generateRangeLanes(int l, int r){
          //   random_shuffle(randLanes.begin(), randLanes.end());
         int id = Rand(0, randLanes.size() - 1);
         ret.push_back(randLanes[id]);
-        for (int u : randLanes) cout << u << " ";
-        cout << endl;
+        //for (int u : randLanes) // cout << u << " ";
+        // cout << endl;
     }
     
     return ret;

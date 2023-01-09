@@ -137,7 +137,7 @@ System::System(View& view, RenderWindow& window, bool check) :
 		tmp_y = - view.getViewport().height / 2 - tmp_y;
 		Object tmp(window, ListTextures::fishCoin[fish_boost_name[i]], tmp_x, tmp_y);
 		fish_boost.push_back(tmp);
-		cout << "Done";
+		// cout << "Done";
 	}*/
 	fish_score.update(fish_coin, ListTextures::num_text);
 	game_score.update(score.first, ListTextures::num_text);
@@ -162,7 +162,7 @@ void System::generateNextNormalBoost(Object& curBoost) {
 	int curX = Rand(5, 10) * BaseUnit, curY = viewPosition.y - BaseUnit * 6.f - BaseUnit * Rand(0, 5);
 	curY = curY / 16 * 16;
 	curBoost.changePos((int)curX, (int)curY);
-	//cout << "done\n";
+	//// cout << "done\n";
 }
 
 FishCoin System::generateNextSpecialBoost(Object& curBoost) {
@@ -172,7 +172,7 @@ FishCoin System::generateNextSpecialBoost(Object& curBoost) {
 	curBoost.changePos((int)curX, (int)curY);
 	int rd = Rand(1, 3);
 	curBoost.changeAppearance(ListTextures::fishCoin[(FishCoin)rd]);
-	//cout << "done\n";
+	//// cout << "done\n";
 	return (FishCoin)rd;
 }
 
@@ -275,7 +275,7 @@ void System::draw(const Vector2f& mouse)
 {
 	if (state == GameState::Pause)
 	{
-		cout << "Paused\n";
+		// cout << "Paused\n";
 	}
 	//state = GameState::Menu;
 	scoreBoard.setPos(view);

@@ -202,6 +202,7 @@ void World::processEvent(System& gameSystem, Player& mPlayer)
 	for (auto& lane : mLane) if (lane->isCollided(mPlayer)) {
 		mPlayer.setIdPlayer(-1);
 		gameSystem.setState(GameState::Lose);
+		
 		break;
 	}
 }
@@ -224,12 +225,12 @@ vector<Object>& World::generate(vector<Object>& res, vector<Texture>& texture, i
 bool World::handleEvent(RenderWindow& window, View& mView) {
 	int topView = (int)window.getView().getCenter().y;
 	int botView = (int) window.getView().getCenter().y + (int) window.getView().getSize().y / 2;
-	//cout << mLane.size() << endl;
+	//// cout << mLane.size() << endl;
 	while (mLane.size() && curID < mLane.size()) {
 		int curposition = mLane[curID]->getPosition();
 		if (curposition > botView) {
 			curID = 0;
-			//cout << curID << " " << curposition << " " << botView << endl;
+			//// cout << curID << " " << curposition << " " << botView << endl;
 			int nextPosition = mLane.back()->getPosition() + signMap * BaseUnit;
 			mLane.erase(mLane.begin());
 			//mapBackground.pop();
