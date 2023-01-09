@@ -65,6 +65,7 @@ private:
 	bool				newgame = false;
 	RenderWindow&		window;
 	View&				view;
+	View				preView;
 	InfoScore			fish_score, game_score;
 	SoundEffect			gameSE;
 private:

@@ -351,6 +351,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 			}
 			else if (buttons[3].isHere(mouse))
 			{
+				preView = view;
 				state = GameState::Menu;
 			}
 		}
@@ -387,6 +388,7 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 				}
 				else
 				{
+					//view = preView;
 					state = GameState::Continue;
 				}
 			}
