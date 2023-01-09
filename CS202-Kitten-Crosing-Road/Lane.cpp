@@ -14,6 +14,7 @@ Road::Road()
 
 void Road::addObstacle(RenderWindow& window, vector<Texture>& texture, int x_coor, int y_coor, int unit)
 {
+	if (y_coor >= signMap * BaseUnit * 5) return;
 	int k = Rand(1, 100) % 2;
 	listObstacle.push_back(Obstacle(window, texture[k], x_coor, y_coor - 5, unit));
 }
@@ -28,9 +29,12 @@ Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Textur
 	this->unit = unit;
 	this->mTexture = mTexture;
 	generate(window, listTexture, mTexture, unit, y_coor);
+	addObstacle(window, listTextureObstacle, BaseUnit * (0 + Rand(1, 3)) , y_coor, unit);
 	addObstacle(window, listTextureObstacle, BaseUnit * (5 + Rand(1, 3)) , y_coor, unit);
 	addObstacle(window, listTextureObstacle, BaseUnit * (10 + Rand(1, 3)), y_coor, unit);
 	addObstacle(window, listTextureObstacle, BaseUnit * (15 + Rand(1, 3)), y_coor, unit);
+	addObstacle(window, listTextureObstacle, BaseUnit * (20 + Rand(1, 3)), y_coor, unit);
+	addObstacle(window, listTextureObstacle, BaseUnit * (25 + Rand(1, 3)), y_coor, unit);
 }
 
 Road::Road(RenderWindow& window, int x_coor, int y_coor, int unit, vector<Texture>& listTextureObstacle, vector<Texture>& mTexture, ifstream& is) :
