@@ -16,7 +16,7 @@ Game::Game() :
 	ifstream is("EndLessMap\\savePlayer.txt");
 	float isDead, playerX, playerY, viewX, viewY;
 	is >> isDead >> playerX >> playerY >> viewX >> viewY;
-	mPlayer.setPosition(playerX, playerY);
+	mPlayer.setPosition((int)playerX / BaseUnit * BaseUnit,(int) playerY / BaseUnit * BaseUnit - 4);
 	mView.setCenter(viewX, viewY);
 	mWindow.setView(mView);
 }
