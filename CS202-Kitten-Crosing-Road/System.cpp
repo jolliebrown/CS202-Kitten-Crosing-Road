@@ -333,11 +333,11 @@ void System::handleEvent(const Event& event, const Vector2f& mouse)
 {
 	if (event.type == Event::MouseButtonReleased || event.type == Event::KeyReleased)
 	{
-		if (state == GameState::Continue && buttons[0].isHere(mouse))
+		if (state == GameState::Continue && buttons[0].isHere(mouse) && event.type == Event::MouseButtonReleased)
 		{
 			state = GameState::Pause;
 		}
-		else if (state == GameState::Pause)
+		else if (state == GameState::Pause && event.type == Event::MouseButtonReleased)
 		{
 			if (buttons[1].isHere(mouse))
 			{
